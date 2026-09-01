@@ -1,0 +1,2086 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trang thông tin lớp 12A3 năm học 2026-2027</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary-900: #0f2b5c;
+      --primary-800: #163e83;
+      --primary-700: #1d53aa;
+      --primary-600: #2563eb;
+      --primary-500: #3b82f6;
+      --primary-400: #60a5fa;
+      --primary-100: #dbeafe;
+      --primary-50: #eff6ff;
+      --cyan-accent: #06b6d4;
+      --bg-dark: #081225;
+      --bg-card: rgba(15, 33, 67, 0.75);
+      --bg-card-hover: rgba(22, 48, 97, 0.85);
+      --border-color: rgba(96, 165, 250, 0.22);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --gold: #f59e0b;
+      --silver: #94a3b8;
+      --bronze: #d97706;
+      --danger: #ef4444;
+      --success: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at 15% 15%, #0d2757 0%, var(--bg-dark) 85%);
+      color: var(--text-main);
+      min-height: 100vh;
+      line-height: 1.6;
+      padding-bottom: 50px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    header {
+      background: rgba(11, 26, 54, 0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 14px 0;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #93c5fd, #38bdf8, #60a5fa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-600), var(--cyan-accent));
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    }
+    .btn-primary:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.05);
+      color: #e2e8f0;
+      border-color: var(--border-color);
+    }
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.15);
+      color: #fca5a5;
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+    .btn-danger:hover {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    .hero-banner {
+      margin: 24px 0 32px;
+      padding: 32px 24px;
+      background: linear-gradient(135deg, rgba(29, 83, 170, 0.45), rgba(6, 182, 212, 0.15));
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-banner h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .hero-banner p {
+      color: var(--primary-400);
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .user-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 0.85rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .section-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 28px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #bae6fd;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 36px 16px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .empty-state i {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+      display: block;
+      color: rgba(148, 163, 184, 0.4);
+    }
+
+    .notice-item {
+      background: rgba(255, 255, 255, 0.03);
+      border-left: 4px solid var(--primary-500);
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+
+    .notice-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .notice-content {
+      font-size: 0.96rem;
+      color: #f1f5f9;
+      white-space: pre-wrap;
+    }
+
+    .ranking-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .ranking-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+      transition: transform 0.2s ease;
+    }
+
+    .ranking-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .ranking-rank {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 800;
+      background: rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+    }
+
+    .ranking-card.top-1 {
+      border: 2px solid var(--gold);
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(15, 33, 67, 0.8));
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
+    }
+    .ranking-card.top-1 .ranking-rank {
+      background: var(--gold);
+      color: #000;
+    }
+
+    .ranking-card.top-2 {
+      border: 2px solid var(--silver);
+      background: linear-gradient(135deg, rgba(148, 163, 184, 0.15), rgba(15, 33, 67, 0.8));
+      box-shadow: 0 0 16px rgba(148, 163, 184, 0.2);
+    }
+    .ranking-card.top-2 .ranking-rank {
+      background: var(--silver);
+      color: #000;
+    }
+
+    .ranking-card.top-3 {
+      border: 2px solid var(--bronze);
+      background: linear-gradient(135deg, rgba(217, 119, 6, 0.15), rgba(15, 33, 67, 0.8));
+      box-shadow: 0 0 16px rgba(217, 119, 6, 0.2);
+    }
+    .ranking-card.top-3 .ranking-rank {
+      background: var(--bronze);
+      color: #fff;
+    }
+
+    .ranking-info {
+      flex: 1;
+    }
+
+    .ranking-name {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 4px;
+      color: #f8fafc;
+    }
+
+    .ranking-score {
+      font-size: 0.88rem;
+      color: var(--cyan-accent);
+      font-weight: 600;
+    }
+
+    .bcs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 14px;
+    }
+
+    .bcs-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .bcs-student-name {
+      font-weight: 700;
+      color: #bae6fd;
+      font-size: 1.05rem;
+    }
+
+    .bcs-roles-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge-role {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: rgba(6, 182, 212, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(6, 182, 212, 0.3);
+    }
+
+    .drive-banner {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.15));
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .drive-content h3 {
+      font-size: 1.15rem;
+      color: #a7f3d0;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .drive-content p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .slogan-banner {
+      text-align: center;
+      padding: 28px;
+      background: rgba(15, 33, 67, 0.6);
+      border: 1px dashed var(--border-color);
+      border-radius: 18px;
+      margin-top: 30px;
+    }
+
+    .slogan-banner h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 16px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-window {
+      background: #0d2146;
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      max-width: 650px;
+      width: 100%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      animation: modalFadeIn 0.25s ease;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #93c5fd;
+    }
+
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+    .modal-close:hover {
+      color: #fff;
+    }
+
+    .modal-body {
+      padding: 20px 24px;
+      overflow-y: auto;
+    }
+
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #cbd5e1;
+    }
+
+    .form-control {
+      width: 100%;
+      background: rgba(11, 26, 54, 0.8);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 10px 14px;
+      color: #fff;
+      font-size: 0.92rem;
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary-400);
+      box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+    }
+
+    .multi-select-box {
+      max-height: 180px;
+      overflow-y: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 8px;
+      background: rgba(11, 26, 54, 0.5);
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      cursor: pointer;
+    }
+
+    .checkbox-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .tab-nav {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+
+    .tab-btn.active {
+      background: var(--primary-600);
+      color: #fff;
+    }
+
+    .timeline-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .timeline-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .timeline-col {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .timeline-col h4 {
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .timeline-col.rewards h4 {
+      color: var(--success);
+    }
+
+    .timeline-col.violations h4 {
+      color: var(--danger);
+    }
+
+    .timeline-item {
+      padding: 10px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+    }
+
+    .timeline-date {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .student-manage-list {
+      max-height: 250px;
+      overflow-y: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+    }
+
+    .student-manage-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.88rem;
+    }
+
+    .student-manage-item:last-child {
+      border-bottom: none;
+    }
+
+    .task-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+
+    .task-title {
+      font-weight: 700;
+      color: #93c5fd;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+
+    .task-students {
+      font-size: 0.88rem;
+      color: #cbd5e1;
+    }
+
+    .day-selector {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .day-btn {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background: rgba(255, 255, 255, 0.04);
+      color: #cbd5e1;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .day-btn.active {
+      background: var(--cyan-accent);
+      color: #000;
+      border-color: var(--cyan-accent);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container header-inner">
+      <div class="brand-title">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span>LỚP 12A3 &bull; THPT LONG HỰU ĐÔNG</span>
+      </div>
+      <div class="header-actions">
+        <div id="userInfoContainer" style="display: none;">
+          <span class="user-pill">
+            <i class="fa-solid fa-user-check"></i>
+            <span id="userNameText">Người dùng</span>
+            <span style="opacity: 0.6;">|</span>
+            <strong id="userRoleText" style="color: var(--cyan-accent);">Chức vụ</strong>
+          </span>
+          <button class="btn btn-danger" onclick="logout()">
+            <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+          </button>
+        </div>
+        <button id="loginBtn" class="btn btn-primary" onclick="openModal('loginModal')">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i> Đăng nhập
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="hero-banner">
+      <h1>Trang thông tin lớp 12a3 năm học 2026-2027</h1>
+      <p>Hệ thống Quản lý Nề nếp – Bảng xếp hạng Rèn luyện &amp; Trực nhật Lao động</p>
+    </div>
+
+    <!-- Thông báo GVCN -->
+    <section class="section-box">
+      <div class="section-header">
+        <div class="section-title">
+          <i class="fa-solid fa-bullhorn"></i>
+          <span>Thông báo của Giáo viên Chủ nhiệm</span>
+        </div>
+        <div id="noticeGvcnAction" style="display: none;">
+          <button class="btn btn-primary" onclick="openModal('addNoticeModal')">
+            <i class="fa-solid fa-plus"></i> Đăng thông báo mới
+          </button>
+        </div>
+      </div>
+      <div id="noticeListContainer">
+        <div class="empty-state">
+          <i class="fa-regular fa-bell-slash"></i>
+          <p>Hiện chưa có thông báo mới nào từ giáo viên chủ nhiệm.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quản lý lớp (Chỉ GVCN) -->
+    <section id="gvcnManageSection" class="section-box" style="display: none;">
+      <div class="section-header">
+        <div class="section-title">
+          <i class="fa-solid fa-users-gear"></i>
+          <span>Quản trị Thẻ Học Sinh &amp; Ban Cán Sự</span>
+        </div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button class="btn btn-primary" onclick="openModal('importStudentsModal')">
+            <i class="fa-solid fa-file-import"></i> Nhập danh sách học sinh
+          </button>
+          <button class="btn btn-outline" onclick="openModal('assignBcsModal')">
+            <i class="fa-solid fa-id-badge"></i> Phân chức danh BCS
+          </button>
+          <button class="btn btn-outline" onclick="openModal('manageStudentsModal')">
+            <i class="fa-solid fa-list-check"></i> Quản lý / Xóa thẻ
+          </button>
+          <button class="btn btn-outline" onclick="openModal('customRulesModal')">
+            <i class="fa-solid fa-sliders"></i> Tùy chỉnh điểm quy chế
+          </button>
+          <button class="btn btn-outline" onclick="openModal('historyExportModal')">
+            <i class="fa-solid fa-clock-rotate-left"></i> Xem lịch sử 1 học sinh
+          </button>
+        </div>
+      </div>
+      <p style="font-size: 0.88rem; color: var(--text-muted);">
+        Điểm khởi tạo mặc định cho học sinh mới: <strong id="defaultScoreLabel" style="color: var(--cyan-accent);">100 điểm</strong>.
+      </p>
+    </section>
+
+    <!-- Quản lý Tài khoản (Admin & GVCN) -->
+    <section id="adminManageSection" class="section-box" style="display: none;">
+      <div class="section-header">
+        <div class="section-title">
+          <i class="fa-solid fa-user-shield"></i>
+          <span>Trang Quản Trị Cấp Tài Khoản</span>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('createAccountModal')">
+          <i class="fa-solid fa-user-plus"></i> Tạo tài khoản mới
+        </button>
+      </div>
+      <div id="accountsListTable">
+        <!-- Bảng danh sách tài khoản -->
+      </div>
+    </section>
+
+    <!-- Bảng xếp hạng rèn luyện -->
+    <section class="section-box">
+      <div class="section-header">
+        <div class="section-title">
+          <i class="fa-solid fa-trophy"></i>
+          <span>Bảng Xếp Hạng Rèn Luyện (Top 10)</span>
+        </div>
+        <span style="font-size: 0.85rem; color: var(--text-muted);">
+          Tự động cập nhật tức thời theo kết quả ghi nhận
+        </span>
+      </div>
+      <div id="rankingGrid" class="ranking-grid">
+        <div class="empty-state" style="grid-column: 1/-1;">
+          <i class="fa-solid fa-ranking-star"></i>
+          <p>Chưa có dữ liệu rèn luyện học sinh.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ban cán sự lớp -->
+    <section class="section-box">
+      <div class="section-header">
+        <div class="section-title">
+          <i class="fa-solid fa-people-roof"></i>
+          <span>Ban Cán Sự Lớp 12A3</span>
+        </div>
+      </div>
+      <div id="bcsContainer" class="bcs-grid">
+        <div class="empty-state" style="grid-column: 1/-1;">
+          <i class="fa-solid fa-user-group"></i>
+          <p>Chưa có thông tin ban cán sự lớp.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Thao tác ghi nhận vi phạm & khen thưởng -->
+    <section id="recordSection" class="section-box" style="display: none;">
+      <div class="section-header">
+        <div class="section-title">
+          <i class="fa-solid fa-pen-to-square"></i>
+          <span>Ghi Nhận Vi Phạm &amp; Khen Thưởng</span>
+        </div>
+      </div>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <button class="btn btn-primary" onclick="openRecordModal()">
+          <i class="fa-solid fa-circle-plus"></i> Ghi nhận điểm rèn luyện mới
+        </button>
+      </div>
+    </section>
+
+    <!-- Phân công lao động -->
+    <section class="section-box">
+      <div class="section-header">
+        <div class="section-title">
+          <i class="fa-solid fa-broom"></i>
+          <span>Phân Công Trực Nhật &amp; Lao Động</span>
+        </div>
+        <div id="laborActions" style="display: none; gap: 8px;">
+          <button class="btn btn-primary" onclick="openModal('createLaborTaskModal')">
+            <i class="fa-solid fa-plus"></i> Tạo thẻ công việc
+          </button>
+          <button class="btn btn-outline" onclick="openModal('assignLaborWeeklyModal')">
+            <i class="fa-solid fa-calendar-week"></i> Phân công theo tuần
+          </button>
+          <button class="btn btn-outline" onclick="openModal('assignLaborAdhocModal')">
+            <i class="fa-solid fa-bolt"></i> Phân công đột xuất
+          </button>
+        </div>
+      </div>
+
+      <div class="tab-nav">
+        <button class="tab-btn active" onclick="switchLaborTab('weekly')">Lịch trực tuần hiện tại</button>
+        <button class="tab-btn" onclick="switchLaborTab('adhoc')">Lao động đột xuất</button>
+      </div>
+
+      <div id="laborWeeklyView">
+        <div class="day-selector" id="daySelectorWrap">
+          <button class="day-btn active" onclick="selectDay('2')">Thứ Hai</button>
+          <button class="day-btn" onclick="selectDay('3')">Thứ Ba</button>
+          <button class="day-btn" onclick="selectDay('4')">Thứ Tư</button>
+          <button class="day-btn" onclick="selectDay('5')">Thứ Năm</button>
+          <button class="day-btn" onclick="selectDay('6')">Thứ Sáu</button>
+        </div>
+        <div id="weeklyTasksList">
+          <div class="empty-state">
+            <i class="fa-regular fa-calendar-xmark"></i>
+            <p>Chưa có phân công lịch trực nhật tuần.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="laborAdhocView" style="display: none;">
+        <div id="adhocTasksList">
+          <div class="empty-state">
+            <i class="fa-regular fa-clipboard"></i>
+            <p>Chưa có thông báo lao động đột xuất.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Thư mục lưu trữ chia sẻ -->
+    <div class="drive-banner">
+      <div class="drive-content">
+        <h3><i class="fa-brands fa-google-drive"></i> Thư mục lưu trữ tài liệu &amp; hoạt động lớp</h3>
+        <p>Kho học liệu, hình ảnh sinh hoạt, kế hoạch giảng dạy của lớp 12A3 năm học 2026-2027.</p>
+      </div>
+      <a href="https://drive.google.com/drive/folders/1kCjsNboTZdqMis7mgxKwvRERuyETOjdE" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="white-space: nowrap;">
+        <i class="fa-solid fa-folder-open"></i> Mở Thư Mục Google Drive
+      </a>
+    </div>
+
+    <!-- Slogan lớp -->
+    <div class="slogan-banner">
+      <h2>Lớp 12a3 Đoàn kết – Năng động – Sáng tạo</h2>
+    </div>
+  </main>
+
+  <!-- MODAL: ĐĂNG NHẬP -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-lock"></i> Đăng nhập hệ thống</div>
+        <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Tên tài khoản</label>
+          <input type="text" id="loginUsername" class="form-control" placeholder="Nhập tên đăng nhập..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mật khẩu</label>
+          <input type="password" id="loginPassword" class="form-control" placeholder="Nhập mật khẩu..." />
+        </div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">
+          Tài khoản quản trị khởi tạo hệ thống: <code>admin</code> / mật khẩu: <code>123</code>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('loginModal')">Hủy</button>
+        <button class="btn btn-primary" onclick="handleLogin()">Đăng nhập</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ĐĂNG THÔNG BÁO GVCN -->
+  <div class="modal-overlay" id="addNoticeModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-bullhorn"></i> Thêm thông báo mới (GVCN)</div>
+        <button class="modal-close" onclick="closeModal('addNoticeModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Nội dung thông báo</label>
+          <textarea id="noticeContentInput" class="form-control" rows="5" placeholder="Nhập nội dung thông báo cho học sinh và phụ huynh..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('addNoticeModal')">Hủy</button>
+        <button class="btn btn-primary" onclick="saveNotice()">Đăng thông báo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: NHẬP DANH SÁCH HỌC SINH -->
+  <div class="modal-overlay" id="importStudentsModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-file-import"></i> Nhập Thẻ Học Sinh</div>
+        <button class="modal-close" onclick="closeModal('importStudentsModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Điểm mặc định cho học sinh mới</label>
+          <input type="number" id="initScoreInput" class="form-control" value="100" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Dán danh sách theo định dạng &lt;STT&gt; &lt;Họ và tên&gt;</label>
+          <textarea id="plainTextStudents" class="form-control" rows="8" placeholder="1  Nguyễn Văn A&#10;2  Trần Thị B&#10;3  Lê Hoàng C..."></textarea>
+        </div>
+        <p style="font-size: 0.8rem; color: var(--text-muted);">
+          Mỗi học sinh nằm trên 1 dòng. Nếu đã có STT thì hệ thống sẽ cập nhật họ tên, nếu chưa có sẽ thêm mới.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('importStudentsModal')">Hủy</button>
+        <button class="btn btn-primary" onclick="saveImportStudents()">Lưu Danh Sách</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: PHÂN CHỨC DANH BAN CÁN SỰ -->
+  <div class="modal-overlay" id="assignBcsModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-id-badge"></i> Phân Chức Danh Ban Cán Sự Lớp</div>
+        <button class="modal-close" onclick="closeModal('assignBcsModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Chọn học sinh</label>
+          <select id="bcsStudentSelect" class="form-control"></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Chọn các chức danh đảm nhận (Một học sinh có thể giữ nhiều chức danh)</label>
+          <div class="multi-select-box" id="bcsRoleCheckboxes">
+            <!-- Checkbox roles -->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('assignBcsModal')">Đóng</button>
+        <button class="btn btn-primary" onclick="saveStudentBcsRoles()">Cập nhật chức vụ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: QUẢN LÝ THẺ HỌC SINH (XÓA TỪNG EM HOẶC CẢ LỚP) -->
+  <div class="modal-overlay" id="manageStudentsModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-list-check"></i> Quản lý Thẻ Học Sinh</div>
+        <button class="modal-close" onclick="closeModal('manageStudentsModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <span>Danh sách hiện tại</span>
+          <button class="btn btn-danger" onclick="confirmDeleteAllStudents()">
+            <i class="fa-solid fa-trash-can"></i> Xóa toàn bộ lớp
+          </button>
+        </div>
+        <div class="student-manage-list" id="studentManageListWrap">
+          <!-- Render danh sách học sinh và nút xóa -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('manageStudentsModal')">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: TẠO TÀI KHOẢN (ADMIN / GVCN) -->
+  <div class="modal-overlay" id="createAccountModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-user-plus"></i> Tạo tài khoản phân quyền</div>
+        <button class="modal-close" onclick="closeModal('createAccountModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Tên tài khoản (viết liền không dấu)</label>
+          <input type="text" id="newAccountUsername" class="form-control" placeholder="ví dụ: gvcn, loptruong, bithu..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Họ và tên người sử dụng</label>
+          <input type="text" id="newAccountFullname" class="form-control" placeholder="ví dụ: Thầy Công Tòa, Nguyễn Văn A..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mật khẩu</label>
+          <input type="password" id="newAccountPassword" class="form-control" placeholder="Nhập mật khẩu..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Vai trò / Chức vụ</label>
+          <select id="newAccountRole" class="form-control">
+            <option value="GVCN">Giáo viên chủ nhiệm (Toàn quyền)</option>
+            <option value="LOP_TRUONG">Lớp trưởng</option>
+            <option value="BI_THU">Bí thư</option>
+            <option value="LP_HOC_TAP">Lớp phó học tập</option>
+            <option value="LP_VAN_MINH">Lớp phó văn minh</option>
+            <option value="LP_LAO_DONG">Lớp phó lao động</option>
+            <option value="LP_SU_KIEN">Lớp phó sự kiện</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('createAccountModal')">Hủy</button>
+        <button class="btn btn-primary" onclick="saveNewAccount()">Tạo tài khoản</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: GHI NHẬN VI PHẠM / KHEN THƯỞNG -->
+  <div class="modal-overlay" id="recordModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-pen-to-square"></i> Ghi nhận Vi phạm / Khen thưởng</div>
+        <button class="modal-close" onclick="closeModal('recordModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Chọn hành vi (Theo quyền hạn của bạn)</label>
+          <select id="ruleActionSelect" class="form-control" onchange="updateRuleDeltaDisplay()"></select>
+          <div id="rulePointsNotice" style="font-size: 0.82rem; margin-top: 4px; color: var(--cyan-accent);"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ngày ghi nhận (Mặc định thời gian hiện tại, có thể chỉnh lại)</label>
+          <input type="date" id="recordDateInput" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Chọn một hoặc nhiều học sinh áp dụng</label>
+          <div class="multi-select-box" id="recordStudentsChecklist">
+            <!-- List checkbox học sinh -->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('recordModal')">Hủy</button>
+        <button class="btn btn-primary" onclick="saveRecordEntry()">Lưu dữ liệu</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: XEM DÒNG THỜI GIAN LỊCH SỬ 1 HỌC SINH (GVCN) -->
+  <div class="modal-overlay" id="historyExportModal">
+    <div class="modal-window" style="max-width: 800px;">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-clock-rotate-left"></i> Lịch sử rèn luyện học sinh</div>
+        <button class="modal-close" onclick="closeModal('historyExportModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Chọn học sinh cần xem</label>
+          <select id="historyStudentSelect" class="form-control" onchange="renderStudentTimeline()"></select>
+        </div>
+        <div class="timeline-container">
+          <div class="timeline-col rewards">
+            <h4><i class="fa-solid fa-medal"></i> Khen thưởng đã ghi nhận</h4>
+            <div id="timelineRewardsList">Chưa có ghi nhận.</div>
+          </div>
+          <div class="timeline-col violations">
+            <h4><i class="fa-solid fa-triangle-exclamation"></i> Vi phạm đã ghi nhận</h4>
+            <div id="timelineViolationsList">Chưa có ghi nhận.</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('historyExportModal')">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: TÙY CHỈNH ĐIỂM QUY CHẾ (GVCN) -->
+  <div class="modal-overlay" id="customRulesModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-sliders"></i> Tùy chỉnh danh mục &amp; điểm thay đổi</div>
+        <button class="modal-close" onclick="closeModal('customRulesModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Tên vi phạm hoặc khen thưởng mới</label>
+          <input type="text" id="newRuleName" class="form-control" placeholder="ví dụ: Giúp đỡ bạn cùng tiến..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Điểm số thay đổi (số âm nếu vi phạm, số dương nếu khen thưởng)</label>
+          <input type="number" id="newRuleScore" class="form-control" placeholder="ví dụ: 5 hoặc -5" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phân quyền vai trò được phép ghi nhận mục này</label>
+          <select id="newRuleRole" class="form-control">
+            <option value="ALL">Mọi cán sự</option>
+            <option value="GVCN">Chỉ GVCN</option>
+            <option value="LOP_TRUONG">Lớp trưởng</option>
+            <option value="BI_THU">Bí thư</option>
+            <option value="LP_HOC_TAP">Lớp phó học tập</option>
+            <option value="LP_VAN_MINH">Lớp phó văn minh</option>
+            <option value="LP_LAO_DONG">Lớp phó lao động</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" style="width: 100%; margin-bottom: 16px;" onclick="saveCustomRule()">
+          Thêm quy chế mới
+        </button>
+        <div class="form-group">
+          <label class="form-label">Danh sách quy chế hiện tại</label>
+          <div id="rulesListDisplay" class="multi-select-box" style="max-height: 180px;"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('customRulesModal')">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: TẠO THẺ CÔNG VIỆC LAO ĐỘNG (GVCN) -->
+  <div class="modal-overlay" id="createLaborTaskModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-broom"></i> Tạo thẻ công việc lao động</div>
+        <button class="modal-close" onclick="closeModal('createLaborTaskModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Tên công việc</label>
+          <input type="text" id="laborTaskNameInput" class="form-control" placeholder="ví dụ: Quét lớp & lau bảng, Lau cửa sổ, Đổ rác..." />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('createLaborTaskModal')">Hủy</button>
+        <button class="btn btn-primary" onclick="saveLaborTaskCard()">Tạo thẻ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: PHÂN CÔNG LAO ĐỘNG HÀNG TUẦN -->
+  <div class="modal-overlay" id="assignLaborWeeklyModal">
+    <div class="modal-window" style="max-width: 700px;">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-calendar-week"></i> Phân công lao động theo tuần</div>
+        <button class="modal-close" onclick="closeModal('assignLaborWeeklyModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Tuần phân công (ví dụ: Tuần 1, Tuần 2...)</label>
+          <input type="text" id="weeklyWeekLabel" class="form-control" placeholder="Nhập tên tuần (ví dụ: Tuần 1 - Học kì 1)..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Chọn ngày áp dụng</label>
+          <select id="weeklyDaySelect" class="form-control">
+            <option value="2">Thứ Hai</option>
+            <option value="3">Thứ Ba</option>
+            <option value="4">Thứ Tư</option>
+            <option value="5">Thứ Năm</option>
+            <option value="6">Thứ Sáu</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Chọn thẻ công việc</label>
+          <select id="weeklyTaskSelect" class="form-control"></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Chọn một hoặc nhiều học sinh đảm nhận</label>
+          <div class="multi-select-box" id="weeklyStudentsChecklist"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('assignLaborWeeklyModal')">Hủy</button>
+        <button class="btn btn-primary" onclick="saveWeeklyLaborAssignment()">Lưu phân công</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: PHÂN CÔNG LAO ĐỘNG ĐỘT XUẤT -->
+  <div class="modal-overlay" id="assignLaborAdhocModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-bolt"></i> Phân công lao động đột xuất</div>
+        <button class="modal-close" onclick="closeModal('assignLaborAdhocModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Tên đợt / Buổi lao động đột xuất</label>
+          <input type="text" id="adhocSessionName" class="form-control" placeholder="ví dụ: Tổng vệ sinh chuẩn bị lễ 20/11..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nội dung công việc</label>
+          <input type="text" id="adhocTaskDetail" class="form-control" placeholder="ví dụ: Kê bàn ghế hội trường, dọn cỏ sân sau..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Chọn học sinh tham gia</label>
+          <div class="multi-select-box" id="adhocStudentsChecklist"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('assignLaborAdhocModal')">Hủy</button>
+        <button class="btn btn-primary" onclick="saveAdhocLaborAssignment()">Lưu phân công</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TÍCH HỢP FIREBASE THEO ĐÚNG CẤU HÌNH ĐÃ CUNG CẤP -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+    import { 
+      getFirestore, doc, getDoc, setDoc, onSnapshot 
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA0j6GNle7duLh2_RRkoBXd6QMK4TPobuI",
+      authDomain: "a3-1f8da.firebaseapp.com",
+      projectId: "a3-1f8da",
+      storageBucket: "a3-1f8da.firebasestorage.app",
+      messagingSenderId: "460157439484",
+      appId: "1:460157439484:web:e836557722daa12da1f679",
+      measurementId: "G-TGRJR7CZXE"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore(app);
+
+    // Bảng quy chế chuẩn hóa theo yêu cầu
+    const DEFAULT_RULES = [
+      { id: 'LT_1', name: 'Vắng buổi sáng', delta: -5, roles: ['GVCN', 'LOP_TRUONG'] },
+      { id: 'LT_2', name: 'Vắng trái buổi', delta: -5, roles: ['GVCN', 'LOP_TRUONG'] },
+      { id: 'LT_3', name: 'Trễ buổi sáng', delta: -2, roles: ['GVCN', 'LOP_TRUONG'] },
+      { id: 'LT_4', name: 'Trễ trái buổi', delta: -2, roles: ['GVCN', 'LOP_TRUONG'] },
+      { id: 'LT_5', name: 'Bỏ tiết', delta: -10, roles: ['GVCN', 'LOP_TRUONG'] },
+      { id: 'BT_1', name: 'Có phát biểu', delta: 2, roles: ['GVCN', 'BI_THU'] },
+      { id: 'BT_2', name: 'Có điểm 10', delta: 10, roles: ['GVCN', 'BI_THU'] },
+      { id: 'BT_3', name: 'Có điểm từ 9 đến dưới 10', delta: 5, roles: ['GVCN', 'BI_THU'] },
+      { id: 'BT_4', name: 'Tham gia phong trào', delta: 5, roles: ['GVCN', 'BI_THU'] },
+      { id: 'BT_5', name: 'Đạt giải phong trào', delta: 10, roles: ['GVCN', 'BI_THU'] },
+      { id: 'LPHT_1', name: 'Không học bài', delta: -5, roles: ['GVCN', 'LP_HOC_TAP'] },
+      { id: 'LPHT_2', name: 'Không làm bài', delta: -5, roles: ['GVCN', 'LP_HOC_TAP'] },
+      { id: 'LPHT_3', name: 'Không chép bài', delta: -2, roles: ['GVCN', 'LP_HOC_TAP'] },
+      { id: 'LPHT_4', name: 'Không mang tài liệu sách vở', delta: -2, roles: ['GVCN', 'LP_HOC_TAP'] },
+      { id: 'LPVM_1', name: 'Không đồng phục quần áo', delta: -2, roles: ['GVCN', 'LP_VAN_MINH'] },
+      { id: 'LPVM_2', name: 'Không mang giày dép quai hậu hoặc bít gót', delta: -2, roles: ['GVCN', 'LP_VAN_MINH'] },
+      { id: 'LPVM_3', name: 'Không phù hiệu bảng tên', delta: -2, roles: ['GVCN', 'LP_VAN_MINH'] },
+      { id: 'LPVM_4', name: 'Lỗi tóc tai', delta: -2, roles: ['GVCN', 'LP_VAN_MINH'] },
+      { id: 'LPVM_5', name: 'Ra khỏi chỗ và ngồi sai chỗ', delta: -2, roles: ['GVCN', 'LP_VAN_MINH'] },
+      { id: 'LPVM_6', name: 'Gây ồn', delta: -2, roles: ['GVCN', 'LP_VAN_MINH'] },
+      { id: 'LPVM_7', name: 'Nói tục chửi thề', delta: -5, roles: ['GVCN', 'LP_VAN_MINH'] },
+      { id: 'LPVM_8', name: 'Sử dụng điện thoại sai phép', delta: -5, roles: ['GVCN', 'LP_VAN_MINH'] },
+      { id: 'LPVM_9', name: 'Vô lễ', delta: -20, roles: ['GVCN', 'LP_VAN_MINH'] },
+      { id: 'LPVM_10', name: 'Đánh nhau', delta: -30, roles: ['GVCN', 'LP_VAN_MINH'] },
+      { id: 'LPVM_11', name: 'Bài bạc', delta: -30, roles: ['GVCN', 'LP_VAN_MINH'] },
+      { id: 'LPVM_12', name: 'Sử dụng đồ uống có cồn', delta: -30, roles: ['GVCN', 'LP_VAN_MINH'] },
+      { id: 'LPVM_13', name: 'Gian lận thi cử', delta: -20, roles: ['GVCN', 'LP_VAN_MINH'] },
+      { id: 'LPVM_14', name: 'Vi phạm pháp luật', delta: -50, roles: ['GVCN', 'LP_VAN_MINH'] },
+      { id: 'LPLD_1', name: 'Không trực đúng phân công', delta: -5, roles: ['GVCN', 'LP_LAO_DONG'] },
+      { id: 'LPLD_2', name: 'Xả rác bừa bãi hoặc để rác trong hộc bàn sau khi ra về', delta: -5, roles: ['GVCN', 'LP_LAO_DONG'] },
+      { id: 'LPLD_3', name: 'Ăn trong lớp', delta: -2, roles: ['GVCN', 'LP_LAO_DONG'] }
+    ];
+
+    const BCS_POSITIONS = [
+      'Lớp trưởng',
+      'Lớp phó học tập',
+      'Lớp phó văn minh',
+      'Lớp phó lao động',
+      'Lớp phó sự kiện',
+      'Sao đỏ',
+      'Cán sự thư viện',
+      'Tổ trưởng tổ 1',
+      'Tổ trưởng tổ 2',
+      'Tổ trưởng tổ 3',
+      'Tổ trưởng tổ 4'
+    ];
+
+    // Cấu trúc trạng thái chuẩn sạch
+    let appState = {
+      defaultScore: 100,
+      students: [],
+      notices: [],
+      records: [],
+      bcs: {},
+      accounts: [
+        { username: 'admin', password: '123', fullname: 'Quản trị viên', role: 'ADMIN' }
+      ],
+      rules: DEFAULT_RULES,
+      laborTaskCards: [],
+      laborWeekly: {},
+      laborAdhoc: []
+    };
+
+    let currentUser = null;
+    let selectedLaborDay = '2';
+
+    const docRef = doc(db, 'class12a3', 'data');
+
+    // Đồng bộ Realtime từ Firestore
+    onSnapshot(docRef, (snapshot) => {
+      if (snapshot.exists()) {
+        const cloudData = snapshot.data();
+        appState = { ...appState, ...cloudData };
+      } else {
+        setDoc(docRef, appState);
+      }
+      renderAll();
+    }, (error) => {
+      console.warn("Lỗi đồng bộ Firestore, chuyển sang lưu trữ cục bộ:", error);
+      const local = localStorage.getItem('class12a3_local');
+      if (local) {
+        try { appState = JSON.parse(local); } catch(e) {}
+      }
+      renderAll();
+    });
+
+    async function syncData() {
+      try {
+        await setDoc(docRef, appState);
+      } catch (e) {
+        localStorage.setItem('class12a3_local', JSON.stringify(appState));
+      }
+    }
+
+    // Khởi tạo giao diện
+    function renderAll() {
+      renderNotices();
+      renderRanking();
+      renderBCS();
+      renderAccountsTable();
+      renderLabor();
+      updateAuthUI();
+    }
+
+    function updateAuthUI() {
+      const loginBtn = document.getElementById('loginBtn');
+      const userInfo = document.getElementById('userInfoContainer');
+      const gvcnManage = document.getElementById('gvcnManageSection');
+      const adminManage = document.getElementById('adminManageSection');
+      const recordSec = document.getElementById('recordSection');
+      const noticeAction = document.getElementById('noticeGvcnAction');
+      const laborAct = document.getElementById('laborActions');
+
+      if (!currentUser) {
+        loginBtn.style.display = 'inline-flex';
+        userInfo.style.display = 'none';
+        gvcnManage.style.display = 'none';
+        adminManage.style.display = 'none';
+        recordSec.style.display = 'none';
+        noticeAction.style.display = 'none';
+        laborAct.style.display = 'none';
+        return;
+      }
+
+      loginBtn.style.display = 'none';
+      userInfo.style.display = 'inline-flex';
+      document.getElementById('userNameText').innerText = currentUser.fullname;
+      document.getElementById('userRoleText').innerText = getRoleLabel(currentUser.role);
+
+      const isGvcn = currentUser.role === 'GVCN' || currentUser.role === 'ADMIN';
+      const isLpLaoDong = currentUser.role === 'LP_LAO_DONG';
+
+      gvcnManage.style.display = isGvcn ? 'block' : 'none';
+      adminManage.style.display = (currentUser.role === 'ADMIN' || currentUser.role === 'GVCN') ? 'block' : 'none';
+      recordSec.style.display = 'block';
+      noticeAction.style.display = isGvcn ? 'inline-block' : 'none';
+      laborAct.style.display = (isGvcn || isLpLaoDong) ? 'flex' : 'none';
+
+      document.getElementById('defaultScoreLabel').innerText = `${appState.defaultScore || 100} điểm`;
+    }
+
+    function getRoleLabel(role) {
+      const map = {
+        'ADMIN': 'Quản Trị Viên',
+        'GVCN': 'Giáo Viên Chủ Nhiệm',
+        'LOP_TRUONG': 'Lớp Trưởng',
+        'BI_THU': 'Bí Thư',
+        'LP_HOC_TAP': 'Lớp Phó Học Tập',
+        'LP_VAN_MINH': 'Lớp Phó Văn Minh',
+        'LP_LAO_DONG': 'Lớp Phó Lao Động',
+        'LP_SU_KIEN': 'Lớp Phó Sự Kiện'
+      };
+      return map[role] || role;
+    }
+
+    // Hiển thị Thông báo
+    function renderNotices() {
+      const container = document.getElementById('noticeListContainer');
+      if (!appState.notices || appState.notices.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="fa-regular fa-bell-slash"></i>
+            <p>Hiện chưa có thông báo mới nào từ giáo viên chủ nhiệm.</p>
+          </div>
+        `;
+        return;
+      }
+      container.innerHTML = appState.notices.slice().reverse().map(n => `
+        <div class="notice-item">
+          <div class="notice-header">
+            <span><strong>Người đăng:</strong> ${n.author || 'GVCN'}</span>
+            <span><i class="fa-regular fa-clock"></i> ${n.date}</span>
+          </div>
+          <div class="notice-content">${escapeHtml(n.content)}</div>
+        </div>
+      `).join('');
+    }
+
+    // Hiển thị Bảng xếp hạng Top 10
+    function renderRanking() {
+      const grid = document.getElementById('rankingGrid');
+      if (!appState.students || appState.students.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state" style="grid-column: 1/-1;">
+            <i class="fa-solid fa-ranking-star"></i>
+            <p>Chưa có dữ liệu rèn luyện học sinh.</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Tính điểm theo ghi nhận
+      const scoresMap = {};
+      appState.students.forEach(s => {
+        scoresMap[s.stt] = (appState.defaultScore !== undefined ? appState.defaultScore : 100);
+      });
+
+      if (appState.records) {
+        appState.records.forEach(r => {
+          if (r.studentStts) {
+            r.studentStts.forEach(stt => {
+              if (scoresMap[stt] !== undefined) {
+                scoresMap[stt] += Number(r.delta || 0);
+              }
+            });
+          }
+        });
+      }
+
+      const sorted = [...appState.students].map(s => ({
+        ...s,
+        score: scoresMap[s.stt]
+      })).sort((a, b) => b.score - a.score).slice(0, 10);
+
+      grid.innerHTML = sorted.map((st, idx) => {
+        let rankClass = '';
+        let badgeIcon = `<span class="ranking-rank">${idx + 1}</span>`;
+        if (idx === 0) {
+          rankClass = 'top-1';
+          badgeIcon = `<span class="ranking-rank"><i class="fa-solid fa-crown"></i></span>`;
+        } else if (idx === 1) {
+          rankClass = 'top-2';
+          badgeIcon = `<span class="ranking-rank">2</span>`;
+        } else if (idx === 2) {
+          rankClass = 'top-3';
+          badgeIcon = `<span class="ranking-rank">3</span>`;
+        }
+
+        return `
+          <div class="ranking-card ${rankClass}">
+            ${badgeIcon}
+            <div class="ranking-info">
+              <div class="ranking-name">${st.stt}. ${escapeHtml(st.name)}</div>
+              <div class="ranking-score"><i class="fa-solid fa-bolt"></i> ${st.score} điểm</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Hiển thị Ban Cán Sự Lớp
+    function renderBCS() {
+      const container = document.getElementById('bcsContainer');
+      const bcsEntries = Object.entries(appState.bcs || {}).filter(([stt, roles]) => roles && roles.length > 0);
+
+      if (bcsEntries.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state" style="grid-column: 1/-1;">
+            <i class="fa-solid fa-user-group"></i>
+            <p>Chưa có danh sách ban cán sự lớp.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = bcsEntries.map(([stt, roles]) => {
+        const student = appState.students.find(s => String(s.stt) === String(stt));
+        const name = student ? student.name : `Học sinh STT ${stt}`;
+        return `
+          <div class="bcs-card">
+            <div class="bcs-student-name">${stt}. ${escapeHtml(name)}</div>
+            <div class="bcs-roles-wrap">
+              ${roles.map(r => `<span class="badge-role">${escapeHtml(r)}</span>`).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Hiển thị Lao động
+    function renderLabor() {
+      const weeklyList = document.getElementById('weeklyTasksList');
+      const currentTasks = (appState.laborWeekly && appState.laborWeekly[selectedLaborDay]) || [];
+
+      if (currentTasks.length === 0) {
+        weeklyList.innerHTML = `
+          <div class="empty-state">
+            <i class="fa-regular fa-calendar-xmark"></i>
+            <p>Chưa có thẻ phân công lao động cho ngày này.</p>
+          </div>
+        `;
+      } else {
+        weeklyList.innerHTML = currentTasks.map(t => `
+          <div class="task-card">
+            <div class="task-title"><i class="fa-solid fa-thumbtack"></i> ${escapeHtml(t.taskName)}</div>
+            <div class="task-students">
+              <strong>Học sinh đảm nhận:</strong> ${t.students.map(s => escapeHtml(s)).join(', ') || 'Chưa phân công'}
+            </div>
+          </div>
+        `).join('');
+      }
+
+      const adhocList = document.getElementById('adhocTasksList');
+      if (!appState.laborAdhoc || appState.laborAdhoc.length === 0) {
+        adhocList.innerHTML = `
+          <div class="empty-state">
+            <i class="fa-regular fa-clipboard"></i>
+            <p>Chưa có thông báo lao động đột xuất.</p>
+          </div>
+        `;
+      } else {
+        adhocList.innerHTML = appState.laborAdhoc.slice().reverse().map(item => `
+          <div class="task-card" style="border-left: 4px solid var(--cyan-accent);">
+            <div class="task-title">${escapeHtml(item.title)}</div>
+            <div style="font-size: 0.88rem; color: #cbd5e1; margin-bottom: 4px;">
+              <strong>Nhiệm vụ:</strong> ${escapeHtml(item.detail)}
+            </div>
+            <div class="task-students">
+              <strong>Phụ trách:</strong> ${item.students.map(s => escapeHtml(s)).join(', ')}
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    // Hiển thị Danh sách tài khoản
+    function renderAccountsTable() {
+      const wrap = document.getElementById('accountsListTable');
+      if (!appState.accounts || appState.accounts.length === 0) {
+        wrap.innerHTML = `<div class="empty-state">Chưa có tài khoản nào.</div>`;
+        return;
+      }
+      wrap.innerHTML = `
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem; text-align: left;">
+            <thead>
+              <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-muted);">
+                <th style="padding: 8px;">Tên đăng nhập</th>
+                <th style="padding: 8px;">Họ và tên</th>
+                <th style="padding: 8px;">Vai trò</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${appState.accounts.map(acc => `
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                  <td style="padding: 8px; font-weight: 600;">${escapeHtml(acc.username)}</td>
+                  <td style="padding: 8px;">${escapeHtml(acc.fullname)}</td>
+                  <td style="padding: 8px;"><span class="badge-role">${getRoleLabel(acc.role)}</span></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    // Helper Utility
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/[&<>"']/g, function(m) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+      });
+    }
+
+    // Window Handlers
+    window.openModal = function(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.classList.add('active');
+        if (id === 'assignBcsModal') prepareBcsModal();
+        if (id === 'manageStudentsModal') renderStudentManageList();
+        if (id === 'customRulesModal') renderRulesModal();
+        if (id === 'historyExportModal') prepareHistoryModal();
+        if (id === 'assignLaborWeeklyModal') prepareLaborWeeklyModal();
+        if (id === 'assignLaborAdhocModal') prepareLaborAdhocModal();
+      }
+    };
+
+    window.closeModal = function(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.remove('active');
+    };
+
+    window.handleLogin = function() {
+      const u = document.getElementById('loginUsername').value.trim();
+      const p = document.getElementById('loginPassword').value.trim();
+      const found = (appState.accounts || []).find(a => a.username === u && a.password === p);
+
+      if (found) {
+        currentUser = found;
+        closeModal('loginModal');
+        document.getElementById('loginUsername').value = '';
+        document.getElementById('loginPassword').value = '';
+        updateAuthUI();
+      } else {
+        alert('Tên đăng nhập hoặc mật khẩu không chính xác!');
+      }
+    };
+
+    window.logout = function() {
+      currentUser = null;
+      updateAuthUI();
+    };
+
+    window.saveNotice = async function() {
+      const val = document.getElementById('noticeContentInput').value.trim();
+      if (!val) {
+        alert('Vui lòng nhập nội dung thông báo!');
+        return;
+      }
+      const now = new Date();
+      const dateStr = `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')} ngày ${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
+      
+      if (!appState.notices) appState.notices = [];
+      appState.notices.push({
+        id: 'notice_' + Date.now(),
+        author: currentUser ? currentUser.fullname : 'GVCN',
+        date: dateStr,
+        content: val
+      });
+
+      await syncData();
+      document.getElementById('noticeContentInput').value = '';
+      closeModal('addNoticeModal');
+      renderNotices();
+    };
+
+    window.saveImportStudents = async function() {
+      const text = document.getElementById('plainTextStudents').value.trim();
+      const score = Number(document.getElementById('initScoreInput').value) || 100;
+      if (!text) {
+        alert('Vui lòng dán danh sách học sinh!');
+        return;
+      }
+
+      appState.defaultScore = score;
+      if (!appState.students) appState.students = [];
+
+      const lines = text.split('\n');
+      lines.forEach(line => {
+        const trimmed = line.trim();
+        if (trimmed) {
+          const match = trimmed.match(/^(\d+)\s+(.+)$/);
+          if (match) {
+            const stt = parseInt(match[1], 10);
+            const name = match[2].trim();
+            const existingIdx = appState.students.findIndex(s => s.stt === stt);
+            if (existingIdx >= 0) {
+              appState.students[existingIdx].name = name;
+            } else {
+              appState.students.push({ stt: stt, name: name });
+            }
+          }
+        }
+      });
+
+      appState.students.sort((a, b) => a.stt - b.stt);
+      await syncData();
+      closeModal('importStudentsModal');
+      document.getElementById('plainTextStudents').value = '';
+      renderAll();
+      alert('Đã cập nhật danh sách học sinh thành công!');
+    };
+
+    function renderStudentManageList() {
+      const wrap = document.getElementById('studentManageListWrap');
+      if (!appState.students || appState.students.length === 0) {
+        wrap.innerHTML = `<div class="empty-state">Chưa có học sinh trong danh sách.</div>`;
+        return;
+      }
+      wrap.innerHTML = appState.students.map(s => `
+        <div class="student-manage-item">
+          <span><strong>${s.stt}.</strong> ${escapeHtml(s.name)}</span>
+          <button class="btn btn-danger" style="padding: 4px 10px; font-size: 0.78rem;" onclick="deleteStudent(${s.stt})">
+            <i class="fa-solid fa-trash"></i> Xóa
+          </button>
+        </div>
+      `).join('');
+    }
+
+    window.deleteStudent = async function(stt) {
+      if (confirm(`Bạn có chắc chắn muốn xóa học sinh STT ${stt}?`)) {
+        appState.students = appState.students.filter(s => s.stt !== stt);
+        if (appState.bcs && appState.bcs[stt]) delete appState.bcs[stt];
+        await syncData();
+        renderStudentManageList();
+        renderAll();
+      }
+    };
+
+    window.confirmDeleteAllStudents = async function() {
+      if (confirm('CẢNH BÁO: Hành động này sẽ xóa toàn bộ thẻ học sinh trong lớp. Bạn có muốn tiếp tục?')) {
+        appState.students = [];
+        appState.bcs = {};
+        appState.records = [];
+        await syncData();
+        renderStudentManageList();
+        renderAll();
+      }
+    };
+
+    function prepareBcsModal() {
+      const sel = document.getElementById('bcsStudentSelect');
+      sel.innerHTML = (appState.students || []).map(s => `
+        <option value="${s.stt}">${s.stt} - ${escapeHtml(s.name)}</option>
+      `).join('');
+
+      const checks = document.getElementById('bcsRoleCheckboxes');
+      checks.innerHTML = BCS_POSITIONS.map(pos => `
+        <label class="checkbox-item">
+          <input type="checkbox" name="bcs_role_item" value="${pos}" />
+          <span>${pos}</span>
+        </label>
+      `).join('');
+
+      sel.onchange = function() {
+        const val = sel.value;
+        const currentRoles = (appState.bcs && appState.bcs[val]) || [];
+        document.querySelectorAll("input[name='bcs_role_item']").forEach(cb => {
+          cb.checked = currentRoles.includes(cb.value);
+        });
+      };
+      if (sel.value) sel.onchange();
+    }
+
+    window.saveStudentBcsRoles = async function() {
+      const stt = document.getElementById('bcsStudentSelect').value;
+      if (!stt) return;
+      const checkedRoles = [];
+      document.querySelectorAll("input[name='bcs_role_item']:checked").forEach(cb => {
+        checkedRoles.push(cb.value);
+      });
+
+      if (!appState.bcs) appState.bcs = {};
+      appState.bcs[stt] = checkedRoles;
+      await syncData();
+      closeModal('assignBcsModal');
+      renderBCS();
+      alert('Đã cập nhật chức vụ Ban cán sự thành công!');
+    };
+
+    window.openRecordModal = function() {
+      if (!currentUser) return;
+      const ruleSelect = document.getElementById('ruleActionSelect');
+      const role = currentUser.role;
+
+      const userRules = (appState.rules || DEFAULT_RULES).filter(r => {
+        if (role === 'GVCN' || role === 'ADMIN') return true;
+        return r.roles && (r.roles.includes(role) || r.roles.includes('ALL'));
+      });
+
+      ruleSelect.innerHTML = userRules.map(r => `
+        <option value="${r.id}" data-delta="${r.delta}">${r.name} (${r.delta > 0 ? '+' : ''}${r.delta} điểm)</option>
+      `).join('');
+
+      const now = new Date();
+      document.getElementById('recordDateInput').value = now.toISOString().split('T')[0];
+
+      const checkWrap = document.getElementById('recordStudentsChecklist');
+      checkWrap.innerHTML = (appState.students || []).map(s => `
+        <label class="checkbox-item">
+          <input type="checkbox" name="record_student_item" value="${s.stt}" />
+          <span>${s.stt}. ${escapeHtml(s.name)}</span>
+        </label>
+      `).join('');
+
+      updateRuleDeltaDisplay();
+      openModal('recordModal');
+    };
+
+    window.updateRuleDeltaDisplay = function() {
+      const sel = document.getElementById('ruleActionSelect');
+      const opt = sel.options[sel.selectedIndex];
+      if (opt) {
+        const delta = opt.getAttribute('data-delta');
+        document.getElementById('rulePointsNotice').innerText = `Mức thay đổi: ${delta > 0 ? '+' : ''}${delta} điểm cho mỗi học sinh được chọn.`;
+      }
+    };
+
+    window.saveRecordEntry = async function() {
+      const ruleId = document.getElementById('ruleActionSelect').value;
+      const dateVal = document.getElementById('recordDateInput').value;
+      const sel = document.getElementById('ruleActionSelect');
+      const opt = sel.options[sel.selectedIndex];
+      const delta = opt ? Number(opt.getAttribute('data-delta')) : 0;
+      const ruleName = opt ? opt.text.split(' (')[0] : '';
+
+      const selectedStts = [];
+      document.querySelectorAll("input[name='record_student_item']:checked").forEach(cb => {
+        selectedStts.push(parseInt(cb.value, 10));
+      });
+
+      if (selectedStts.length === 0) {
+        alert('Vui lòng chọn ít nhất một học sinh!');
+        return;
+      }
+
+      if (!appState.records) appState.records = [];
+      appState.records.push({
+        id: 'rec_' + Date.now(),
+        date: dateVal,
+        ruleId: ruleId,
+        ruleName: ruleName,
+        delta: delta,
+        studentStts: selectedStts,
+        recordedBy: currentUser.fullname
+      });
+
+      await syncData();
+      closeModal('recordModal');
+      renderRanking();
+      alert('Đã lưu dữ liệu thành công!');
+    };
+
+    function prepareHistoryModal() {
+      const sel = document.getElementById('historyStudentSelect');
+      sel.innerHTML = (appState.students || []).map(s => `
+        <option value="${s.stt}">${s.stt} - ${escapeHtml(s.name)}</option>
+      `).join('');
+      renderStudentTimeline();
+    }
+
+    window.renderStudentTimeline = function() {
+      const stt = parseInt(document.getElementById('historyStudentSelect').value, 10);
+      const rewWrap = document.getElementById('timelineRewardsList');
+      const vioWrap = document.getElementById('timelineViolationsList');
+
+      const userRecords = (appState.records || []).filter(r => r.studentStts && r.studentStts.includes(stt));
+      const rewards = userRecords.filter(r => r.delta > 0);
+      const violations = userRecords.filter(r => r.delta < 0);
+
+      rewWrap.innerHTML = rewards.length === 0 ? '<p style="color: var(--text-muted); font-size: 0.85rem;">Chưa có khen thưởng nào.</p>' : rewards.map(r => `
+        <div class="timeline-item">
+          <div class="timeline-date"><i class="fa-regular fa-calendar"></i> ${r.date} &bull; Bởi: ${escapeHtml(r.recordedBy)}</div>
+          <div style="font-weight: 600; color: var(--success);">${escapeHtml(r.ruleName)} (+${r.delta}đ)</div>
+        </div>
+      `).join('');
+
+      vioWrap.innerHTML = violations.length === 0 ? '<p style="color: var(--text-muted); font-size: 0.85rem;">Không có vi phạm nào.</p>' : violations.map(r => `
+        <div class="timeline-item">
+          <div class="timeline-date"><i class="fa-regular fa-calendar"></i> ${r.date} &bull; Bởi: ${escapeHtml(r.recordedBy)}</div>
+          <div style="font-weight: 600; color: var(--danger);">${escapeHtml(r.ruleName)} (${r.delta}đ)</div>
+        </div>
+      `).join('');
+    };
+
+    function renderRulesModal() {
+      const list = document.getElementById('rulesListDisplay');
+      list.innerHTML = (appState.rules || DEFAULT_RULES).map(r => `
+        <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.82rem;">
+          <span>${escapeHtml(r.name)}</span>
+          <strong style="color: ${r.delta > 0 ? 'var(--success)' : 'var(--danger)'};">${r.delta > 0 ? '+' : ''}${r.delta}đ</strong>
+        </div>
+      `).join('');
+    }
+
+    window.saveCustomRule = async function() {
+      const name = document.getElementById('newRuleName').value.trim();
+      const score = Number(document.getElementById('newRuleScore').value);
+      const role = document.getElementById('newRuleRole').value;
+
+      if (!name || isNaN(score)) {
+        alert('Vui lòng nhập tên quy chế và số điểm hợp lệ!');
+        return;
+      }
+
+      if (!appState.rules) appState.rules = [...DEFAULT_RULES];
+      appState.rules.push({
+        id: 'cust_' + Date.now(),
+        name: name,
+        delta: score,
+        roles: role === 'ALL' ? ['ALL'] : ['GVCN', role]
+      });
+
+      await syncData();
+      document.getElementById('newRuleName').value = '';
+      document.getElementById('newRuleScore').value = '';
+      renderRulesModal();
+      alert('Đã thêm quy chế mới!');
+    };
+
+    window.saveNewAccount = async function() {
+      const u = document.getElementById('newAccountUsername').value.trim();
+      const fn = document.getElementById('newAccountFullname').value.trim();
+      const p = document.getElementById('newAccountPassword').value.trim();
+      const r = document.getElementById('newAccountRole').value;
+
+      if (!u || !p || !fn) {
+        alert('Vui lòng điền đầy đủ thông tin tài khoản!');
+        return;
+      }
+
+      if (!appState.accounts) appState.accounts = [];
+      if (appState.accounts.some(a => a.username === u)) {
+        alert('Tên đăng nhập này đã tồn tại!');
+        return;
+      }
+
+      appState.accounts.push({
+        username: u,
+        fullname: fn,
+        password: p,
+        role: r
+      });
+
+      await syncData();
+      closeModal('createAccountModal');
+      document.getElementById('newAccountUsername').value = '';
+      document.getElementById('newAccountFullname').value = '';
+      document.getElementById('newAccountPassword').value = '';
+      renderAccountsTable();
+      alert('Đã tạo tài khoản thành công!');
+    };
+
+    // Phân công lao động
+    window.switchLaborTab = function(tab) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      if (tab === 'weekly') {
+        document.getElementById('laborWeeklyView').style.display = 'block';
+        document.getElementById('laborAdhocView').style.display = 'none';
+      } else {
+        document.getElementById('laborWeeklyView').style.display = 'none';
+        document.getElementById('laborAdhocView').style.display = 'block';
+      }
+    };
+
+    window.selectDay = function(day) {
+      selectedLaborDay = day;
+      document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      renderLabor();
+    };
+
+    window.saveLaborTaskCard = async function() {
+      const name = document.getElementById('laborTaskNameInput').value.trim();
+      if (!name) return;
+      if (!appState.laborTaskCards) appState.laborTaskCards = [];
+      appState.laborTaskCards.push({ id: 'task_' + Date.now(), name: name });
+      await syncData();
+      document.getElementById('laborTaskNameInput').value = '';
+      closeModal('createLaborTaskModal');
+      alert('Đã tạo thẻ công việc thành công!');
+    };
+
+    function prepareLaborWeeklyModal() {
+      const sel = document.getElementById('weeklyTaskSelect');
+      const cards = appState.laborTaskCards || [];
+      if (cards.length === 0) {
+        sel.innerHTML = '<option value="">Chưa có thẻ công việc nào (Hãy tạo thẻ trước)</option>';
+      } else {
+        sel.innerHTML = cards.map(c => `<option value="${c.name}">${escapeHtml(c.name)}</option>`).join('');
+      }
+
+      const wrap = document.getElementById('weeklyStudentsChecklist');
+      wrap.innerHTML = (appState.students || []).map(s => `
+        <label class="checkbox-item">
+          <input type="checkbox" name="weekly_student_item" value="${s.name}" />
+          <span>${s.stt}. ${escapeHtml(s.name)}</span>
+        </label>
+      `).join('');
+    }
+
+    window.saveWeeklyLaborAssignment = async function() {
+      const weekLabel = document.getElementById('weeklyWeekLabel').value.trim();
+      const day = document.getElementById('weeklyDaySelect').value;
+      const task = document.getElementById('weeklyTaskSelect').value;
+
+      if (!task) {
+        alert('Vui lòng chọn hoặc tạo thẻ công việc!');
+        return;
+      }
+
+      const chosenStudents = [];
+      document.querySelectorAll("input[name='weekly_student_item']:checked").forEach(cb => {
+        chosenStudents.push(cb.value);
+      });
+
+      if (!appState.laborWeekly) appState.laborWeekly = {};
+      if (!appState.laborWeekly[day]) appState.laborWeekly[day] = [];
+
+      appState.laborWeekly[day].push({
+        week: weekLabel || 'Tuần này',
+        taskName: task,
+        students: chosenStudents
+      });
+
+      await syncData();
+      closeModal('assignLaborWeeklyModal');
+      renderLabor();
+      alert('Đã lưu phân công lịch trực nhật!');
+    };
+
+    function prepareLaborAdhocModal() {
+      const wrap = document.getElementById('adhocStudentsChecklist');
+      wrap.innerHTML = (appState.students || []).map(s => `
+        <label class="checkbox-item">
+          <input type="checkbox" name="adhoc_student_item" value="${s.name}" />
+          <span>${s.stt}. ${escapeHtml(s.name)}</span>
+        </label>
+      `).join('');
+    }
+
+    window.saveAdhocLaborAssignment = async function() {
+      const title = document.getElementById('adhocSessionName').value.trim();
+      const detail = document.getElementById('adhocTaskDetail').value.trim();
+
+      if (!title || !detail) {
+        alert('Vui lòng nhập đầy đủ thông tin lao động đột xuất!');
+        return;
+      }
+
+      const chosen = [];
+      document.querySelectorAll("input[name='adhoc_student_item']:checked").forEach(cb => {
+        chosen.push(cb.value);
+      });
+
+      if (!appState.laborAdhoc) appState.laborAdhoc = [];
+      appState.laborAdhoc.push({
+        id: 'adhoc_' + Date.now(),
+        title: title,
+        detail: detail,
+        students: chosen
+      });
+
+      await syncData();
+      closeModal('assignLaborAdhocModal');
+      document.getElementById('adhocSessionName').value = '';
+      document.getElementById('adhocTaskDetail').value = '';
+      renderLabor();
+      alert('Đã lưu lịch lao động đột xuất!');
+    };
+  </script>
+</body>
+</html>
