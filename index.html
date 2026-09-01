@@ -18,11 +18,9 @@
       --primary-500: #3b82f6;
       --primary-400: #60a5fa;
       --primary-100: #dbeafe;
-      --primary-50: #eff6ff;
       --cyan-accent: #06b6d4;
       --bg-dark: #081225;
       --bg-card: rgba(15, 33, 67, 0.75);
-      --bg-card-hover: rgba(22, 48, 97, 0.85);
       --border-color: rgba(96, 165, 250, 0.22);
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
@@ -33,13 +31,7 @@
       --success: #10b981;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
     body {
       background: radial-gradient(circle at 15% 15%, #0d2757 0%, var(--bg-dark) 85%);
       color: var(--text-main);
@@ -48,11 +40,7 @@
       padding-bottom: 50px;
     }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 16px;
-    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
 
     header {
       background: rgba(11, 26, 54, 0.85);
@@ -64,15 +52,9 @@
       padding: 14px 0;
     }
 
-    .header-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-    }
-
+    .header-inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
     .brand-title {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 800;
       background: linear-gradient(135deg, #93c5fd, #38bdf8, #60a5fa);
       -webkit-background-clip: text;
@@ -82,12 +64,7 @@
       gap: 10px;
     }
 
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
+    .header-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 
     .btn {
       display: inline-flex;
@@ -109,29 +86,21 @@
       color: #fff;
       box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
     }
-    .btn-primary:hover {
-      opacity: 0.92;
-      transform: translateY(-1px);
-    }
+    .btn-primary:hover { opacity: 0.92; transform: translateY(-1px); }
 
     .btn-outline {
       background: rgba(255, 255, 255, 0.05);
       color: #e2e8f0;
       border-color: var(--border-color);
     }
-    .btn-outline:hover {
-      background: rgba(255, 255, 255, 0.12);
-    }
+    .btn-outline:hover { background: rgba(255, 255, 255, 0.12); }
 
     .btn-danger {
       background: rgba(239, 68, 68, 0.15);
       color: #fca5a5;
       border-color: rgba(239, 68, 68, 0.3);
     }
-    .btn-danger:hover {
-      background: var(--danger);
-      color: #fff;
-    }
+    .btn-danger:hover { background: var(--danger); color: #fff; }
 
     .hero-banner {
       margin: 24px 0 32px;
@@ -141,22 +110,10 @@
       border-radius: 20px;
       backdrop-filter: blur(12px);
       text-align: center;
-      position: relative;
-      overflow: hidden;
     }
 
-    .hero-banner h1 {
-      font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      margin-bottom: 8px;
-    }
-
-    .hero-banner p {
-      color: var(--primary-400);
-      font-size: 1.05rem;
-      font-weight: 600;
-    }
+    .hero-banner h1 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
+    .hero-banner p { color: var(--primary-400); font-size: 1.05rem; font-weight: 600; }
 
     .user-pill {
       display: inline-flex;
@@ -190,7 +147,7 @@
     }
 
     .section-title {
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 700;
       display: flex;
       align-items: center;
@@ -198,19 +155,8 @@
       color: #bae6fd;
     }
 
-    .empty-state {
-      text-align: center;
-      padding: 36px 16px;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    .empty-state i {
-      font-size: 2.5rem;
-      margin-bottom: 12px;
-      display: block;
-      color: rgba(148, 163, 184, 0.4);
-    }
+    .empty-state { text-align: center; padding: 36px 16px; color: var(--text-muted); font-size: 0.95rem; }
+    .empty-state i { font-size: 2.5rem; margin-bottom: 12px; display: block; color: rgba(148, 163, 184, 0.4); }
 
     .notice-item {
       background: rgba(255, 255, 255, 0.03);
@@ -219,27 +165,10 @@
       border-radius: 8px;
       margin-bottom: 12px;
     }
+    .notice-header { display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px; }
+    .notice-content { font-size: 0.96rem; color: #f1f5f9; white-space: pre-wrap; }
 
-    .notice-header {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
-
-    .notice-content {
-      font-size: 0.96rem;
-      color: #f1f5f9;
-      white-space: pre-wrap;
-    }
-
-    .ranking-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 16px;
-    }
-
+    .ranking-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
     .ranking-card {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border-color);
@@ -248,25 +177,15 @@
       display: flex;
       align-items: center;
       gap: 16px;
-      position: relative;
       transition: transform 0.2s ease;
     }
-
-    .ranking-card:hover {
-      transform: translateY(-2px);
-    }
+    .ranking-card:hover { transform: translateY(-2px); }
 
     .ranking-rank {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      font-weight: 800;
-      background: rgba(255, 255, 255, 0.08);
-      color: #94a3b8;
+      width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 800;
+      background: rgba(255, 255, 255, 0.08); color: #94a3b8;
     }
 
     .ranking-card.top-1 {
@@ -274,54 +193,27 @@
       background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(15, 33, 67, 0.8));
       box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
     }
-    .ranking-card.top-1 .ranking-rank {
-      background: var(--gold);
-      color: #000;
-    }
+    .ranking-card.top-1 .ranking-rank { background: var(--gold); color: #000; }
 
     .ranking-card.top-2 {
       border: 2px solid var(--silver);
       background: linear-gradient(135deg, rgba(148, 163, 184, 0.15), rgba(15, 33, 67, 0.8));
       box-shadow: 0 0 16px rgba(148, 163, 184, 0.2);
     }
-    .ranking-card.top-2 .ranking-rank {
-      background: var(--silver);
-      color: #000;
-    }
+    .ranking-card.top-2 .ranking-rank { background: var(--silver); color: #000; }
 
     .ranking-card.top-3 {
       border: 2px solid var(--bronze);
       background: linear-gradient(135deg, rgba(217, 119, 6, 0.15), rgba(15, 33, 67, 0.8));
       box-shadow: 0 0 16px rgba(217, 119, 6, 0.2);
     }
-    .ranking-card.top-3 .ranking-rank {
-      background: var(--bronze);
-      color: #fff;
-    }
+    .ranking-card.top-3 .ranking-rank { background: var(--bronze); color: #fff; }
 
-    .ranking-info {
-      flex: 1;
-    }
+    .ranking-info { flex: 1; }
+    .ranking-name { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
+    .ranking-score { font-size: 0.88rem; color: var(--cyan-accent); font-weight: 600; }
 
-    .ranking-name {
-      font-weight: 700;
-      font-size: 1rem;
-      margin-bottom: 4px;
-      color: #f8fafc;
-    }
-
-    .ranking-score {
-      font-size: 0.88rem;
-      color: var(--cyan-accent);
-      font-weight: 600;
-    }
-
-    .bcs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-      gap: 14px;
-    }
-
+    .bcs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px; }
     .bcs-card {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border-color);
@@ -331,27 +223,12 @@
       flex-direction: column;
       gap: 8px;
     }
-
-    .bcs-student-name {
-      font-weight: 700;
-      color: #bae6fd;
-      font-size: 1.05rem;
-    }
-
-    .bcs-roles-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
+    .bcs-student-name { font-weight: 700; color: #bae6fd; font-size: 1.05rem; }
+    .bcs-roles-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
     .badge-role {
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      background: rgba(6, 182, 212, 0.15);
-      color: #38bdf8;
+      display: inline-block; padding: 4px 10px; border-radius: 6px;
+      font-size: 0.78rem; font-weight: 600;
+      background: rgba(6, 182, 212, 0.15); color: #38bdf8;
       border: 1px solid rgba(6, 182, 212, 0.3);
     }
 
@@ -367,20 +244,8 @@
       gap: 20px;
       flex-wrap: wrap;
     }
-
-    .drive-content h3 {
-      font-size: 1.15rem;
-      color: #a7f3d0;
-      margin-bottom: 4px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .drive-content p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
+    .drive-content h3 { font-size: 1.15rem; color: #a7f3d0; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+    .drive-content p { font-size: 0.9rem; color: var(--text-muted); }
 
     .slogan-banner {
       text-align: center;
@@ -390,279 +255,81 @@
       border-radius: 18px;
       margin-top: 30px;
     }
-
     .slogan-banner h2 {
-      font-size: 1.35rem;
-      font-weight: 800;
-      letter-spacing: 1px;
+      font-size: 1.35rem; font-weight: 800; letter-spacing: 1px;
       background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
-      padding: 16px;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(8px);
+      display: none; align-items: center; justify-content: center;
+      z-index: 2000; padding: 16px;
     }
-
-    .modal-overlay.active {
-      display: flex;
-    }
-
+    .modal-overlay.active { display: flex; }
     .modal-window {
-      background: #0d2146;
-      border: 1px solid var(--border-color);
-      border-radius: 18px;
-      max-width: 650px;
-      width: 100%;
-      max-height: 90vh;
-      display: flex;
-      flex-direction: column;
+      background: #0d2146; border: 1px solid var(--border-color);
+      border-radius: 18px; max-width: 650px; width: 100%;
+      max-height: 90vh; display: flex; flex-direction: column;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-      animation: modalFadeIn 0.25s ease;
     }
-
-    @keyframes modalFadeIn {
-      from { opacity: 0; transform: scale(0.96); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
     .modal-header {
-      padding: 18px 24px;
-      border-bottom: 1px solid var(--border-color);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      padding: 18px 24px; border-bottom: 1px solid var(--border-color);
+      display: flex; justify-content: space-between; align-items: center;
     }
+    .modal-title { font-size: 1.15rem; font-weight: 700; color: #93c5fd; }
+    .modal-close { background: transparent; border: none; color: var(--text-muted); font-size: 1.3rem; cursor: pointer; }
+    .modal-body { padding: 20px 24px; overflow-y: auto; }
+    .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end; gap: 12px; }
 
-    .modal-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #93c5fd;
-    }
-
-    .modal-close {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      font-size: 1.3rem;
-      cursor: pointer;
-    }
-    .modal-close:hover {
-      color: #fff;
-    }
-
-    .modal-body {
-      padding: 20px 24px;
-      overflow-y: auto;
-    }
-
-    .modal-footer {
-      padding: 16px 24px;
-      border-top: 1px solid var(--border-color);
-      display: flex;
-      justify-content: flex-end;
-      gap: 12px;
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    .form-label {
-      display: block;
-      font-size: 0.88rem;
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: #cbd5e1;
-    }
-
+    .form-group { margin-bottom: 16px; }
+    .form-label { display: block; font-size: 0.88rem; font-weight: 600; margin-bottom: 6px; color: #cbd5e1; }
     .form-control {
-      width: 100%;
-      background: rgba(11, 26, 54, 0.8);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 10px 14px;
-      color: #fff;
-      font-size: 0.92rem;
-      outline: none;
+      width: 100%; background: rgba(11, 26, 54, 0.8);
+      border: 1px solid var(--border-color); border-radius: 10px;
+      padding: 10px 14px; color: #fff; font-size: 0.92rem; outline: none;
     }
-
-    .form-control:focus {
-      border-color: var(--primary-400);
-      box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
-    }
+    .form-control:focus { border-color: var(--primary-400); box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2); }
 
     .multi-select-box {
-      max-height: 180px;
-      overflow-y: auto;
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 8px;
-      background: rgba(11, 26, 54, 0.5);
+      max-height: 180px; overflow-y: auto; border: 1px solid var(--border-color);
+      border-radius: 10px; padding: 8px; background: rgba(11, 26, 54, 0.5);
     }
+    .checkbox-item { display: flex; align-items: center; gap: 10px; padding: 6px 10px; border-radius: 6px; font-size: 0.88rem; cursor: pointer; }
+    .checkbox-item:hover { background: rgba(255, 255, 255, 0.05); }
 
-    .checkbox-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 6px 10px;
-      border-radius: 6px;
-      font-size: 0.88rem;
-      cursor: pointer;
-    }
-
-    .checkbox-item:hover {
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .tab-nav {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 16px;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 8px;
-      overflow-x: auto;
-    }
-
+    .tab-nav { display: flex; gap: 8px; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
     .tab-btn {
-      background: transparent;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 8px;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.88rem;
-      white-space: nowrap;
+      background: transparent; border: none; padding: 8px 16px;
+      border-radius: 8px; color: var(--text-muted); cursor: pointer;
+      font-weight: 600; font-size: 0.88rem;
     }
+    .tab-btn.active { background: var(--primary-600); color: #fff; }
 
-    .tab-btn.active {
-      background: var(--primary-600);
-      color: #fff;
-    }
+    .timeline-container { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 768px) { .timeline-container { grid-template-columns: 1fr; } }
+    .timeline-col { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; }
+    .timeline-col h4 { font-size: 0.95rem; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color); }
+    .timeline-col.rewards h4 { color: var(--success); }
+    .timeline-col.violations h4 { color: var(--danger); }
+    .timeline-item { padding: 10px; border-radius: 8px; background: rgba(255, 255, 255, 0.03); margin-bottom: 8px; font-size: 0.85rem; }
+    .timeline-date { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px; }
 
-    .timeline-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
+    .student-manage-list { max-height: 250px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 10px; }
+    .student-manage-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.88rem; }
 
-    @media (max-width: 768px) {
-      .timeline-container {
-        grid-template-columns: 1fr;
-      }
-    }
+    .task-card { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; margin-bottom: 12px; }
+    .task-title { font-weight: 700; color: #93c5fd; font-size: 0.95rem; margin-bottom: 6px; }
+    .task-students { font-size: 0.88rem; color: #cbd5e1; }
 
-    .timeline-col {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 14px;
-    }
-
-    .timeline-col h4 {
-      font-size: 0.95rem;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .timeline-col.rewards h4 {
-      color: var(--success);
-    }
-
-    .timeline-col.violations h4 {
-      color: var(--danger);
-    }
-
-    .timeline-item {
-      padding: 10px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.03);
-      margin-bottom: 8px;
-      font-size: 0.85rem;
-    }
-
-    .timeline-date {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-    }
-
-    .student-manage-list {
-      max-height: 250px;
-      overflow-y: auto;
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-    }
-
-    .student-manage-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 14px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      font-size: 0.88rem;
-    }
-
-    .student-manage-item:last-child {
-      border-bottom: none;
-    }
-
-    .task-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 12px;
-    }
-
-    .task-title {
-      font-weight: 700;
-      color: #93c5fd;
-      font-size: 0.95rem;
-      margin-bottom: 6px;
-    }
-
-    .task-students {
-      font-size: 0.88rem;
-      color: #cbd5e1;
-    }
-
-    .day-selector {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
-    }
-
+    .day-selector { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
     .day-btn {
-      padding: 6px 12px;
-      border-radius: 6px;
-      border: 1px solid var(--border-color);
-      background: rgba(255, 255, 255, 0.04);
-      color: #cbd5e1;
-      cursor: pointer;
-      font-size: 0.82rem;
-      font-weight: 600;
+      padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border-color);
+      background: rgba(255, 255, 255, 0.04); color: #cbd5e1; cursor: pointer; font-size: 0.82rem; font-weight: 600;
     }
-
-    .day-btn.active {
-      background: var(--cyan-accent);
-      color: #000;
-      border-color: var(--cyan-accent);
-    }
+    .day-btn.active { background: var(--cyan-accent); color: #000; border-color: var(--cyan-accent); }
   </style>
 </head>
 <body>
@@ -681,7 +348,7 @@
             <span style="opacity: 0.6;">|</span>
             <strong id="userRoleText" style="color: var(--cyan-accent);">Chức vụ</strong>
           </span>
-          <button class="btn btn-danger" onclick="logout()">
+          <button class="btn btn-danger" onclick="logoutUser()">
             <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
           </button>
         </div>
@@ -719,7 +386,7 @@
       </div>
     </section>
 
-    <!-- Quản lý lớp (Chỉ GVCN) -->
+    <!-- Quản lý lớp (Chỉ GVCN / Admin) -->
     <section id="gvcnManageSection" class="section-box" style="display: none;">
       <div class="section-header">
         <div class="section-title">
@@ -749,20 +416,18 @@
       </p>
     </section>
 
-    <!-- Quản lý Tài khoản (Admin & GVCN) -->
+    <!-- Quản lý Tài khoản (Chỉ toapt989@gmail.com / Admin) -->
     <section id="adminManageSection" class="section-box" style="display: none;">
       <div class="section-header">
         <div class="section-title">
           <i class="fa-solid fa-user-shield"></i>
-          <span>Trang Quản Trị Cấp Tài Khoản</span>
+          <span>Quản Trị Cấp Tài Khoản Cán Sự</span>
         </div>
         <button class="btn btn-primary" onclick="openModal('createAccountModal')">
-          <i class="fa-solid fa-user-plus"></i> Tạo tài khoản mới
+          <i class="fa-solid fa-user-plus"></i> Cấp tài khoản mới
         </button>
       </div>
-      <div id="accountsListTable">
-        <!-- Bảng danh sách tài khoản -->
-      </div>
+      <div id="accountsListTable"></div>
     </section>
 
     <!-- Bảng xếp hạng rèn luyện -->
@@ -773,7 +438,7 @@
           <span>Bảng Xếp Hạng Rèn Luyện (Top 10)</span>
         </div>
         <span style="font-size: 0.85rem; color: var(--text-muted);">
-          Tự động cập nhật tức thời theo kết quả ghi nhận
+          Tự động thống kê dựa trên ghi nhận vi phạm và khen thưởng
         </span>
       </div>
       <div id="rankingGrid" class="ranking-grid">
@@ -795,7 +460,7 @@
       <div id="bcsContainer" class="bcs-grid">
         <div class="empty-state" style="grid-column: 1/-1;">
           <i class="fa-solid fa-user-group"></i>
-          <p>Chưa có thông tin ban cán sự lớp.</p>
+          <p>Chưa có danh sách ban cán sự lớp.</p>
         </div>
       </div>
     </section>
@@ -808,11 +473,9 @@
           <span>Ghi Nhận Vi Phạm &amp; Khen Thưởng</span>
         </div>
       </div>
-      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-        <button class="btn btn-primary" onclick="openRecordModal()">
-          <i class="fa-solid fa-circle-plus"></i> Ghi nhận điểm rèn luyện mới
-        </button>
-      </div>
+      <button class="btn btn-primary" onclick="openRecordModal()">
+        <i class="fa-solid fa-circle-plus"></i> Ghi nhận rèn luyện mới
+      </button>
     </section>
 
     <!-- Phân công lao động -->
@@ -836,12 +499,12 @@
       </div>
 
       <div class="tab-nav">
-        <button class="tab-btn active" onclick="switchLaborTab('weekly')">Lịch trực tuần hiện tại</button>
+        <button class="tab-btn active" onclick="switchLaborTab('weekly')">Lịch trực tuần</button>
         <button class="tab-btn" onclick="switchLaborTab('adhoc')">Lao động đột xuất</button>
       </div>
 
       <div id="laborWeeklyView">
-        <div class="day-selector" id="daySelectorWrap">
+        <div class="day-selector">
           <button class="day-btn active" onclick="selectDay('2')">Thứ Hai</button>
           <button class="day-btn" onclick="selectDay('3')">Thứ Ba</button>
           <button class="day-btn" onclick="selectDay('4')">Thứ Tư</button>
@@ -851,7 +514,7 @@
         <div id="weeklyTasksList">
           <div class="empty-state">
             <i class="fa-regular fa-calendar-xmark"></i>
-            <p>Chưa có phân công lịch trực nhật tuần.</p>
+            <p>Chưa có phân công trực nhật tuần.</p>
           </div>
         </div>
       </div>
@@ -860,7 +523,7 @@
         <div id="adhocTasksList">
           <div class="empty-state">
             <i class="fa-regular fa-clipboard"></i>
-            <p>Chưa có thông báo lao động đột xuất.</p>
+            <p>Chưa có phân công lao động đột xuất.</p>
           </div>
         </div>
       </div>
@@ -883,7 +546,7 @@
     </div>
   </main>
 
-  <!-- MODAL: ĐĂNG NHẬP -->
+  <!-- MODAL: ĐĂNG NHẬP (FIREBASE AUTH) -->
   <div class="modal-overlay" id="loginModal">
     <div class="modal-window">
       <div class="modal-header">
@@ -892,20 +555,22 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label class="form-label">Tên tài khoản</label>
-          <input type="text" id="loginUsername" class="form-control" placeholder="Nhập tên đăng nhập..." />
+          <label class="form-label">Email tài khoản</label>
+          <input type="email" id="loginEmail" class="form-control" placeholder="nhập email của bạn..." />
         </div>
         <div class="form-group">
           <label class="form-label">Mật khẩu</label>
-          <input type="password" id="loginPassword" class="form-control" placeholder="Nhập mật khẩu..." />
+          <input type="password" id="loginPassword" class="form-control" placeholder="nhập mật khẩu..." />
         </div>
-        <div style="font-size: 0.8rem; color: var(--text-muted);">
-          Tài khoản quản trị khởi tạo hệ thống: <code>admin</code> / mật khẩu: <code>123</code>
+        <div style="margin-top: 10px;">
+          <button type="button" class="btn btn-outline" style="font-size: 0.8rem; width: 100%;" onclick="setupAdminInitial()">
+            <i class="fa-solid fa-key"></i> Đăng ký lần đầu (toapt989@gmail.com)
+          </button>
         </div>
       </div>
       <div class="modal-footer">
         <button class="btn btn-outline" onclick="closeModal('loginModal')">Hủy</button>
-        <button class="btn btn-primary" onclick="handleLogin()">Đăng nhập</button>
+        <button class="btn btn-primary" onclick="handleAuthLogin()">Đăng nhập</button>
       </div>
     </div>
   </div>
@@ -914,13 +579,13 @@
   <div class="modal-overlay" id="addNoticeModal">
     <div class="modal-window">
       <div class="modal-header">
-        <div class="modal-title"><i class="fa-solid fa-bullhorn"></i> Thêm thông báo mới (GVCN)</div>
+        <div class="modal-title"><i class="fa-solid fa-bullhorn"></i> Thêm thông báo mới</div>
         <button class="modal-close" onclick="closeModal('addNoticeModal')">&times;</button>
       </div>
       <div class="modal-body">
         <div class="form-group">
           <label class="form-label">Nội dung thông báo</label>
-          <textarea id="noticeContentInput" class="form-control" rows="5" placeholder="Nhập nội dung thông báo cho học sinh và phụ huynh..."></textarea>
+          <textarea id="noticeContentInput" class="form-control" rows="5" placeholder="Nhập nội dung thông báo..."></textarea>
         </div>
       </div>
       <div class="modal-footer">
@@ -943,12 +608,9 @@
           <input type="number" id="initScoreInput" class="form-control" value="100" />
         </div>
         <div class="form-group">
-          <label class="form-label">Dán danh sách theo định dạng &lt;STT&gt; &lt;Họ và tên&gt;</label>
-          <textarea id="plainTextStudents" class="form-control" rows="8" placeholder="1  Nguyễn Văn A&#10;2  Trần Thị B&#10;3  Lê Hoàng C..."></textarea>
+          <label class="form-label">Dán danh sách định dạng &lt;STT&gt; &lt;Họ và tên&gt;</label>
+          <textarea id="plainTextStudents" class="form-control" rows="8" placeholder="1  Nguyễn Văn A&#10;2  Trần Thị B..."></textarea>
         </div>
-        <p style="font-size: 0.8rem; color: var(--text-muted);">
-          Mỗi học sinh nằm trên 1 dòng. Nếu đã có STT thì hệ thống sẽ cập nhật họ tên, nếu chưa có sẽ thêm mới.
-        </p>
       </div>
       <div class="modal-footer">
         <button class="btn btn-outline" onclick="closeModal('importStudentsModal')">Hủy</button>
@@ -970,10 +632,8 @@
           <select id="bcsStudentSelect" class="form-control"></select>
         </div>
         <div class="form-group">
-          <label class="form-label">Chọn các chức danh đảm nhận (Một học sinh có thể giữ nhiều chức danh)</label>
-          <div class="multi-select-box" id="bcsRoleCheckboxes">
-            <!-- Checkbox roles -->
-          </div>
+          <label class="form-label">Chọn các chức danh đảm nhận</label>
+          <div class="multi-select-box" id="bcsRoleCheckboxes"></div>
         </div>
       </div>
       <div class="modal-footer">
@@ -983,7 +643,7 @@
     </div>
   </div>
 
-  <!-- MODAL: QUẢN LÝ THẺ HỌC SINH (XÓA TỪNG EM HOẶC CẢ LỚP) -->
+  <!-- MODAL: QUẢN LÝ THẺ HỌC SINH -->
   <div class="modal-overlay" id="manageStudentsModal">
     <div class="modal-window">
       <div class="modal-header">
@@ -997,9 +657,7 @@
             <i class="fa-solid fa-trash-can"></i> Xóa toàn bộ lớp
           </button>
         </div>
-        <div class="student-manage-list" id="studentManageListWrap">
-          <!-- Render danh sách học sinh và nút xóa -->
-        </div>
+        <div class="student-manage-list" id="studentManageListWrap"></div>
       </div>
       <div class="modal-footer">
         <button class="btn btn-outline" onclick="closeModal('manageStudentsModal')">Đóng</button>
@@ -1007,28 +665,28 @@
     </div>
   </div>
 
-  <!-- MODAL: TẠO TÀI KHOẢN (ADMIN / GVCN) -->
+  <!-- MODAL: TẠO TÀI KHOẢN CÁN SỰ (MÃ HÓA QUA FIREBASE AUTH) -->
   <div class="modal-overlay" id="createAccountModal">
     <div class="modal-window">
       <div class="modal-header">
-        <div class="modal-title"><i class="fa-solid fa-user-plus"></i> Tạo tài khoản phân quyền</div>
+        <div class="modal-title"><i class="fa-solid fa-user-plus"></i> Cấp tài khoản mới</div>
         <button class="modal-close" onclick="closeModal('createAccountModal')">&times;</button>
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label class="form-label">Tên tài khoản (viết liền không dấu)</label>
-          <input type="text" id="newAccountUsername" class="form-control" placeholder="ví dụ: gvcn, loptruong, bithu..." />
+          <label class="form-label">Email tài khoản</label>
+          <input type="email" id="newAccountEmail" class="form-control" placeholder="ví dụ: loptruong@12a3.edu.vn hoặc loptruong@gmail.com" />
         </div>
         <div class="form-group">
           <label class="form-label">Họ và tên người sử dụng</label>
-          <input type="text" id="newAccountFullname" class="form-control" placeholder="ví dụ: Thầy Công Tòa, Nguyễn Văn A..." />
+          <input type="text" id="newAccountFullname" class="form-control" placeholder="ví dụ: Nguyễn Văn A..." />
         </div>
         <div class="form-group">
-          <label class="form-label">Mật khẩu</label>
-          <input type="password" id="newAccountPassword" class="form-control" placeholder="Nhập mật khẩu..." />
+          <label class="form-label">Mật khẩu khởi tạo</label>
+          <input type="password" id="newAccountPassword" class="form-control" placeholder="Tối thiểu 6 ký tự..." />
         </div>
         <div class="form-group">
-          <label class="form-label">Vai trò / Chức vụ</label>
+          <label class="form-label">Vai trò / Quyền hạn</label>
           <select id="newAccountRole" class="form-control">
             <option value="GVCN">Giáo viên chủ nhiệm (Toàn quyền)</option>
             <option value="LOP_TRUONG">Lớp trưởng</option>
@@ -1056,19 +714,17 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label class="form-label">Chọn hành vi (Theo quyền hạn của bạn)</label>
+          <label class="form-label">Chọn hành vi</label>
           <select id="ruleActionSelect" class="form-control" onchange="updateRuleDeltaDisplay()"></select>
           <div id="rulePointsNotice" style="font-size: 0.82rem; margin-top: 4px; color: var(--cyan-accent);"></div>
         </div>
         <div class="form-group">
-          <label class="form-label">Ngày ghi nhận (Mặc định thời gian hiện tại, có thể chỉnh lại)</label>
+          <label class="form-label">Ngày ghi nhận</label>
           <input type="date" id="recordDateInput" class="form-control" />
         </div>
         <div class="form-group">
-          <label class="form-label">Chọn một hoặc nhiều học sinh áp dụng</label>
-          <div class="multi-select-box" id="recordStudentsChecklist">
-            <!-- List checkbox học sinh -->
-          </div>
+          <label class="form-label">Chọn một hoặc nhiều học sinh</label>
+          <div class="multi-select-box" id="recordStudentsChecklist"></div>
         </div>
       </div>
       <div class="modal-footer">
@@ -1078,7 +734,7 @@
     </div>
   </div>
 
-  <!-- MODAL: XEM DÒNG THỜI GIAN LỊCH SỬ 1 HỌC SINH (GVCN) -->
+  <!-- MODAL: XEM LỊCH SỬ RÈN LUYỆN 1 HỌC SINH -->
   <div class="modal-overlay" id="historyExportModal">
     <div class="modal-window" style="max-width: 800px;">
       <div class="modal-header">
@@ -1087,16 +743,16 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label class="form-label">Chọn học sinh cần xem</label>
+          <label class="form-label">Chọn học sinh</label>
           <select id="historyStudentSelect" class="form-control" onchange="renderStudentTimeline()"></select>
         </div>
         <div class="timeline-container">
           <div class="timeline-col rewards">
-            <h4><i class="fa-solid fa-medal"></i> Khen thưởng đã ghi nhận</h4>
+            <h4><i class="fa-solid fa-medal"></i> Khen thưởng</h4>
             <div id="timelineRewardsList">Chưa có ghi nhận.</div>
           </div>
           <div class="timeline-col violations">
-            <h4><i class="fa-solid fa-triangle-exclamation"></i> Vi phạm đã ghi nhận</h4>
+            <h4><i class="fa-solid fa-triangle-exclamation"></i> Vi phạm</h4>
             <div id="timelineViolationsList">Chưa có ghi nhận.</div>
           </div>
         </div>
@@ -1107,7 +763,7 @@
     </div>
   </div>
 
-  <!-- MODAL: TÙY CHỈNH ĐIỂM QUY CHẾ (GVCN) -->
+  <!-- MODAL: TÙY CHỈNH ĐIỂM QUY CHẾ -->
   <div class="modal-overlay" id="customRulesModal">
     <div class="modal-window">
       <div class="modal-header">
@@ -1116,15 +772,15 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label class="form-label">Tên vi phạm hoặc khen thưởng mới</label>
-          <input type="text" id="newRuleName" class="form-control" placeholder="ví dụ: Giúp đỡ bạn cùng tiến..." />
+          <label class="form-label">Tên vi phạm / khen thưởng mới</label>
+          <input type="text" id="newRuleName" class="form-control" placeholder="ví dụ: Giúp đỡ bạn..." />
         </div>
         <div class="form-group">
-          <label class="form-label">Điểm số thay đổi (số âm nếu vi phạm, số dương nếu khen thưởng)</label>
+          <label class="form-label">Điểm thay đổi (âm nếu vi phạm, dương nếu khen thưởng)</label>
           <input type="number" id="newRuleScore" class="form-control" placeholder="ví dụ: 5 hoặc -5" />
         </div>
         <div class="form-group">
-          <label class="form-label">Phân quyền vai trò được phép ghi nhận mục này</label>
+          <label class="form-label">Quyền ghi nhận</label>
           <select id="newRuleRole" class="form-control">
             <option value="ALL">Mọi cán sự</option>
             <option value="GVCN">Chỉ GVCN</option>
@@ -1139,7 +795,7 @@
           Thêm quy chế mới
         </button>
         <div class="form-group">
-          <label class="form-label">Danh sách quy chế hiện tại</label>
+          <label class="form-label">Danh sách quy chế hiện có</label>
           <div id="rulesListDisplay" class="multi-select-box" style="max-height: 180px;"></div>
         </div>
       </div>
@@ -1149,7 +805,7 @@
     </div>
   </div>
 
-  <!-- MODAL: TẠO THẺ CÔNG VIỆC LAO ĐỘNG (GVCN) -->
+  <!-- MODAL: TẠO THẺ CÔNG VIỆC LAO ĐỘNG -->
   <div class="modal-overlay" id="createLaborTaskModal">
     <div class="modal-window">
       <div class="modal-header">
@@ -1159,7 +815,7 @@
       <div class="modal-body">
         <div class="form-group">
           <label class="form-label">Tên công việc</label>
-          <input type="text" id="laborTaskNameInput" class="form-control" placeholder="ví dụ: Quét lớp & lau bảng, Lau cửa sổ, Đổ rác..." />
+          <input type="text" id="laborTaskNameInput" class="form-control" placeholder="ví dụ: Quét lớp, Lau bảng, Đổ rác..." />
         </div>
       </div>
       <div class="modal-footer">
@@ -1178,11 +834,11 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label class="form-label">Tuần phân công (ví dụ: Tuần 1, Tuần 2...)</label>
-          <input type="text" id="weeklyWeekLabel" class="form-control" placeholder="Nhập tên tuần (ví dụ: Tuần 1 - Học kì 1)..." />
+          <label class="form-label">Tên tuần</label>
+          <input type="text" id="weeklyWeekLabel" class="form-control" placeholder="ví dụ: Tuần 1, Tuần 2..." />
         </div>
         <div class="form-group">
-          <label class="form-label">Chọn ngày áp dụng</label>
+          <label class="form-label">Chọn ngày</label>
           <select id="weeklyDaySelect" class="form-control">
             <option value="2">Thứ Hai</option>
             <option value="3">Thứ Ba</option>
@@ -1196,7 +852,7 @@
           <select id="weeklyTaskSelect" class="form-control"></select>
         </div>
         <div class="form-group">
-          <label class="form-label">Chọn một hoặc nhiều học sinh đảm nhận</label>
+          <label class="form-label">Chọn một hoặc nhiều học sinh</label>
           <div class="multi-select-box" id="weeklyStudentsChecklist"></div>
         </div>
       </div>
@@ -1216,12 +872,12 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label class="form-label">Tên đợt / Buổi lao động đột xuất</label>
-          <input type="text" id="adhocSessionName" class="form-control" placeholder="ví dụ: Tổng vệ sinh chuẩn bị lễ 20/11..." />
+          <label class="form-label">Tên đợt lao động</label>
+          <input type="text" id="adhocSessionName" class="form-control" placeholder="ví dụ: Dọn vệ sinh sân trường..." />
         </div>
         <div class="form-group">
           <label class="form-label">Nội dung công việc</label>
-          <input type="text" id="adhocTaskDetail" class="form-control" placeholder="ví dụ: Kê bàn ghế hội trường, dọn cỏ sân sau..." />
+          <input type="text" id="adhocTaskDetail" class="form-control" placeholder="ví dụ: Nhổ cỏ khu bồn hoa..." />
         </div>
         <div class="form-group">
           <label class="form-label">Chọn học sinh tham gia</label>
@@ -1235,13 +891,15 @@
     </div>
   </div>
 
-  <!-- TÍCH HỢP FIREBASE THEO ĐÚNG CẤU HÌNH ĐÃ CUNG CẤP -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
     import { 
-      getFirestore, doc, getDoc, setDoc, onSnapshot 
+      getFirestore, doc, setDoc, onSnapshot 
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { 
+      getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword 
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyA0j6GNle7duLh2_RRkoBXd6QMK4TPobuI",
@@ -1256,8 +914,10 @@
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
     const db = getFirestore(app);
+    const auth = getAuth(app);
 
-    // Bảng quy chế chuẩn hóa theo yêu cầu
+    const ADMIN_PRIMARY_EMAIL = "toapt989@gmail.com";
+
     const DEFAULT_RULES = [
       { id: 'LT_1', name: 'Vắng buổi sáng', delta: -5, roles: ['GVCN', 'LOP_TRUONG'] },
       { id: 'LT_2', name: 'Vắng trái buổi', delta: -5, roles: ['GVCN', 'LOP_TRUONG'] },
@@ -1293,29 +953,19 @@
     ];
 
     const BCS_POSITIONS = [
-      'Lớp trưởng',
-      'Lớp phó học tập',
-      'Lớp phó văn minh',
-      'Lớp phó lao động',
-      'Lớp phó sự kiện',
-      'Sao đỏ',
-      'Cán sự thư viện',
-      'Tổ trưởng tổ 1',
-      'Tổ trưởng tổ 2',
-      'Tổ trưởng tổ 3',
-      'Tổ trưởng tổ 4'
+      'Lớp trưởng', 'Lớp phó học tập', 'Lớp phó văn minh',
+      'Lớp phó lao động', 'Lớp phó sự kiện', 'Sao đỏ',
+      'Cán sự thư viện', 'Tổ trưởng tổ 1', 'Tổ trưởng tổ 2',
+      'Tổ trưởng tổ 3', 'Tổ trưởng tổ 4'
     ];
 
-    // Cấu trúc trạng thái chuẩn sạch
     let appState = {
       defaultScore: 100,
       students: [],
       notices: [],
       records: [],
       bcs: {},
-      accounts: [
-        { username: 'admin', password: '123', fullname: 'Quản trị viên', role: 'ADMIN' }
-      ],
+      userRoles: {},
       rules: DEFAULT_RULES,
       laborTaskCards: [],
       laborWeekly: {},
@@ -1327,33 +977,41 @@
 
     const docRef = doc(db, 'class12a3', 'data');
 
-    // Đồng bộ Realtime từ Firestore
     onSnapshot(docRef, (snapshot) => {
       if (snapshot.exists()) {
-        const cloudData = snapshot.data();
-        appState = { ...appState, ...cloudData };
+        appState = { ...appState, ...snapshot.data() };
       } else {
         setDoc(docRef, appState);
-      }
-      renderAll();
-    }, (error) => {
-      console.warn("Lỗi đồng bộ Firestore, chuyển sang lưu trữ cục bộ:", error);
-      const local = localStorage.getItem('class12a3_local');
-      if (local) {
-        try { appState = JSON.parse(local); } catch(e) {}
       }
       renderAll();
     });
 
     async function syncData() {
-      try {
-        await setDoc(docRef, appState);
-      } catch (e) {
-        localStorage.setItem('class12a3_local', JSON.stringify(appState));
-      }
+      await setDoc(docRef, appState);
     }
 
-    // Khởi tạo giao diện
+    onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
+        const email = firebaseUser.email.toLowerCase();
+        let role = 'CAN_SU';
+        let fullname = firebaseUser.email;
+
+        if (email === ADMIN_PRIMARY_EMAIL.toLowerCase()) {
+          role = 'GVCN';
+          fullname = 'Thầy Công Tòa (GVCN)';
+        } else if (appState.userRoles && appState.userRoles[email]) {
+          role = appState.userRoles[email].role;
+          fullname = appState.userRoles[email].fullname;
+        }
+
+        currentUser = { email, role, fullname };
+      } else {
+        currentUser = null;
+      }
+      updateAuthUI();
+      renderAll();
+    });
+
     function renderAll() {
       renderNotices();
       renderRanking();
@@ -1388,11 +1046,11 @@
       document.getElementById('userNameText').innerText = currentUser.fullname;
       document.getElementById('userRoleText').innerText = getRoleLabel(currentUser.role);
 
-      const isGvcn = currentUser.role === 'GVCN' || currentUser.role === 'ADMIN';
+      const isGvcn = currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL;
       const isLpLaoDong = currentUser.role === 'LP_LAO_DONG';
 
       gvcnManage.style.display = isGvcn ? 'block' : 'none';
-      adminManage.style.display = (currentUser.role === 'ADMIN' || currentUser.role === 'GVCN') ? 'block' : 'none';
+      adminManage.style.display = isGvcn ? 'block' : 'none';
       recordSec.style.display = 'block';
       noticeAction.style.display = isGvcn ? 'inline-block' : 'none';
       laborAct.style.display = (isGvcn || isLpLaoDong) ? 'flex' : 'none';
@@ -1402,7 +1060,6 @@
 
     function getRoleLabel(role) {
       const map = {
-        'ADMIN': 'Quản Trị Viên',
         'GVCN': 'Giáo Viên Chủ Nhiệm',
         'LOP_TRUONG': 'Lớp Trưởng',
         'BI_THU': 'Bí Thư',
@@ -1414,7 +1071,6 @@
       return map[role] || role;
     }
 
-    // Hiển thị Thông báo
     function renderNotices() {
       const container = document.getElementById('noticeListContainer');
       if (!appState.notices || appState.notices.length === 0) {
@@ -1429,7 +1085,7 @@
       container.innerHTML = appState.notices.slice().reverse().map(n => `
         <div class="notice-item">
           <div class="notice-header">
-            <span><strong>Người đăng:</strong> ${n.author || 'GVCN'}</span>
+            <span><strong>Người đăng:</strong> ${escapeHtml(n.author)}</span>
             <span><i class="fa-regular fa-clock"></i> ${n.date}</span>
           </div>
           <div class="notice-content">${escapeHtml(n.content)}</div>
@@ -1437,7 +1093,6 @@
       `).join('');
     }
 
-    // Hiển thị Bảng xếp hạng Top 10
     function renderRanking() {
       const grid = document.getElementById('rankingGrid');
       if (!appState.students || appState.students.length === 0) {
@@ -1450,7 +1105,6 @@
         return;
       }
 
-      // Tính điểm theo ghi nhận
       const scoresMap = {};
       appState.students.forEach(s => {
         scoresMap[s.stt] = (appState.defaultScore !== undefined ? appState.defaultScore : 100);
@@ -1460,9 +1114,7 @@
         appState.records.forEach(r => {
           if (r.studentStts) {
             r.studentStts.forEach(stt => {
-              if (scoresMap[stt] !== undefined) {
-                scoresMap[stt] += Number(r.delta || 0);
-              }
+              if (scoresMap[stt] !== undefined) scoresMap[stt] += Number(r.delta || 0);
             });
           }
         });
@@ -1499,7 +1151,6 @@
       }).join('');
     }
 
-    // Hiển thị Ban Cán Sự Lớp
     function renderBCS() {
       const container = document.getElementById('bcsContainer');
       const bcsEntries = Object.entries(appState.bcs || {}).filter(([stt, roles]) => roles && roles.length > 0);
@@ -1528,7 +1179,6 @@
       }).join('');
     }
 
-    // Hiển thị Lao động
     function renderLabor() {
       const weeklyList = document.getElementById('weeklyTasksList');
       const currentTasks = (appState.laborWeekly && appState.laborWeekly[selectedLaborDay]) || [];
@@ -1545,7 +1195,7 @@
           <div class="task-card">
             <div class="task-title"><i class="fa-solid fa-thumbtack"></i> ${escapeHtml(t.taskName)}</div>
             <div class="task-students">
-              <strong>Học sinh đảm nhận:</strong> ${t.students.map(s => escapeHtml(s)).join(', ') || 'Chưa phân công'}
+              <strong>Học sinh:</strong> ${t.students.map(s => escapeHtml(s)).join(', ') || 'Chưa phân công'}
             </div>
           </div>
         `).join('');
@@ -1574,29 +1224,31 @@
       }
     }
 
-    // Hiển thị Danh sách tài khoản
     function renderAccountsTable() {
       const wrap = document.getElementById('accountsListTable');
-      if (!appState.accounts || appState.accounts.length === 0) {
-        wrap.innerHTML = `<div class="empty-state">Chưa có tài khoản nào.</div>`;
-        return;
-      }
+      const rolesEntries = Object.entries(appState.userRoles || {});
+      
       wrap.innerHTML = `
-        <div style="overflow-x: auto;">
+        <div style="overflow-x: auto; margin-top: 10px;">
           <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem; text-align: left;">
             <thead>
               <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-muted);">
-                <th style="padding: 8px;">Tên đăng nhập</th>
-                <th style="padding: 8px;">Họ và tên</th>
+                <th style="padding: 8px;">Email tài khoản</th>
+                <th style="padding: 8px;">Họ tên</th>
                 <th style="padding: 8px;">Vai trò</th>
               </tr>
             </thead>
             <tbody>
-              ${appState.accounts.map(acc => `
+              <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <td style="padding: 8px; font-weight: 600; color: #93c5fd;">toapt989@gmail.com</td>
+                <td style="padding: 8px;">Quản trị viên / GVCN</td>
+                <td style="padding: 8px;"><span class="badge-role">GVCN (Toàn quyền)</span></td>
+              </tr>
+              ${rolesEntries.map(([email, info]) => `
                 <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                  <td style="padding: 8px; font-weight: 600;">${escapeHtml(acc.username)}</td>
-                  <td style="padding: 8px;">${escapeHtml(acc.fullname)}</td>
-                  <td style="padding: 8px;"><span class="badge-role">${getRoleLabel(acc.role)}</span></td>
+                  <td style="padding: 8px; font-weight: 600;">${escapeHtml(email)}</td>
+                  <td style="padding: 8px;">${escapeHtml(info.fullname)}</td>
+                  <td style="padding: 8px;"><span class="badge-role">${getRoleLabel(info.role)}</span></td>
                 </tr>
               `).join('')}
             </tbody>
@@ -1605,7 +1257,6 @@
       `;
     }
 
-    // Helper Utility
     function escapeHtml(str) {
       if (!str) return '';
       return String(str).replace(/[&<>"']/g, function(m) {
@@ -1613,7 +1264,6 @@
       });
     }
 
-    // Window Handlers
     window.openModal = function(id) {
       const modal = document.getElementById(id);
       if (modal) {
@@ -1632,25 +1282,89 @@
       if (modal) modal.classList.remove('active');
     };
 
-    window.handleLogin = function() {
-      const u = document.getElementById('loginUsername').value.trim();
-      const p = document.getElementById('loginPassword').value.trim();
-      const found = (appState.accounts || []).find(a => a.username === u && a.password === p);
-
-      if (found) {
-        currentUser = found;
+    // ĐĂNG NHẬP FIREBASE AUTH
+    window.handleAuthLogin = async function() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+      if (!email || !password) {
+        alert('Vui lòng nhập đầy đủ email và mật khẩu!');
+        return;
+      }
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
         closeModal('loginModal');
-        document.getElementById('loginUsername').value = '';
+        document.getElementById('loginEmail').value = '';
         document.getElementById('loginPassword').value = '';
-        updateAuthUI();
-      } else {
-        alert('Tên đăng nhập hoặc mật khẩu không chính xác!');
+      } catch (err) {
+        alert('Đăng nhập thất bại: ' + err.message);
       }
     };
 
-    window.logout = function() {
-      currentUser = null;
-      updateAuthUI();
+    // ĐĂNG KÝ LẦN ĐẦU CHO TOAPT989@GMAIL.COM
+    window.setupAdminInitial = async function() {
+      const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+      const pass = document.getElementById('loginPassword').value.trim();
+      if (email !== ADMIN_PRIMARY_EMAIL.toLowerCase()) {
+        alert('Nút này chỉ dùng để kích hoạt mật khẩu lần đầu cho email: ' + ADMIN_PRIMARY_EMAIL);
+        return;
+      }
+      if (pass.length < 6) {
+        alert('Mật khẩu quản trị phải từ 6 ký tự trở lên!');
+        return;
+      }
+      try {
+        await createUserWithEmailAndPassword(auth, email, pass);
+        alert('Đã thiết lập tài khoản Quản trị viên toapt989@gmail.com thành công!');
+        closeModal('loginModal');
+      } catch (err) {
+        alert('Lỗi đăng ký: ' + err.message);
+      }
+    };
+
+    window.logoutUser = async function() {
+      await signOut(auth);
+    };
+
+    // QUẢN TRỊ TẠO TÀI KHOẢN MỚI
+    window.saveNewAccount = async function() {
+      const email = document.getElementById('newAccountEmail').value.trim().toLowerCase();
+      const fn = document.getElementById('newAccountFullname').value.trim();
+      const pass = document.getElementById('newAccountPassword').value.trim();
+      const r = document.getElementById('newAccountRole').value;
+
+      if (!email || !pass || !fn) {
+        alert('Vui lòng điền đầy đủ email, họ tên và mật khẩu!');
+        return;
+      }
+      if (pass.length < 6) {
+        alert('Mật khẩu phải từ 6 ký tự trở lên!');
+        return;
+      }
+
+      try {
+        // Lưu phân quyền vào Firestore
+        if (!appState.userRoles) appState.userRoles = {};
+        appState.userRoles[email] = {
+          fullname: fn,
+          role: r
+        };
+        await syncData();
+
+        // Tạo người dùng trực tiếp trên Firebase
+        const secondaryApp = initializeApp(firebaseConfig, "SecondaryApp");
+        const secondaryAuth = getAuth(secondaryApp);
+        await createUserWithEmailAndPassword(secondaryAuth, email, pass);
+        await signOut(secondaryAuth);
+
+        closeModal('createAccountModal');
+        document.getElementById('newAccountEmail').value = '';
+        document.getElementById('newAccountFullname').value = '';
+        document.getElementById('newAccountPassword').value = '';
+        renderAccountsTable();
+        alert(`Đã tạo tài khoản cán sự thành công cho ${email}! Mật khẩu đã được mã hóa.`);
+      } catch (err) {
+        alert('Lỗi tạo tài khoản: ' + err.message);
+      }
     };
 
     window.saveNotice = async function() {
@@ -1740,7 +1454,7 @@
     };
 
     window.confirmDeleteAllStudents = async function() {
-      if (confirm('CẢNH BÁO: Hành động này sẽ xóa toàn bộ thẻ học sinh trong lớp. Bạn có muốn tiếp tục?')) {
+      if (confirm('CẢNH BÁO: Hành động này sẽ xóa toàn bộ thẻ học sinh. Bạn có muốn tiếp tục?')) {
         appState.students = [];
         appState.bcs = {};
         appState.records = [];
@@ -1787,7 +1501,7 @@
       await syncData();
       closeModal('assignBcsModal');
       renderBCS();
-      alert('Đã cập nhật chức vụ Ban cán sự thành công!');
+      alert('Đã cập nhật chức vụ Ban cán sự!');
     };
 
     window.openRecordModal = function() {
@@ -1796,7 +1510,7 @@
       const role = currentUser.role;
 
       const userRules = (appState.rules || DEFAULT_RULES).filter(r => {
-        if (role === 'GVCN' || role === 'ADMIN') return true;
+        if (role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL) return true;
         return r.roles && (r.roles.includes(role) || r.roles.includes('ALL'));
       });
 
@@ -1824,12 +1538,11 @@
       const opt = sel.options[sel.selectedIndex];
       if (opt) {
         const delta = opt.getAttribute('data-delta');
-        document.getElementById('rulePointsNotice').innerText = `Mức thay đổi: ${delta > 0 ? '+' : ''}${delta} điểm cho mỗi học sinh được chọn.`;
+        document.getElementById('rulePointsNotice').innerText = `Mức thay đổi: ${delta > 0 ? '+' : ''}${delta} điểm cho mỗi em.`;
       }
     };
 
     window.saveRecordEntry = async function() {
-      const ruleId = document.getElementById('ruleActionSelect').value;
       const dateVal = document.getElementById('recordDateInput').value;
       const sel = document.getElementById('ruleActionSelect');
       const opt = sel.options[sel.selectedIndex];
@@ -1850,7 +1563,6 @@
       appState.records.push({
         id: 'rec_' + Date.now(),
         date: dateVal,
-        ruleId: ruleId,
         ruleName: ruleName,
         delta: delta,
         studentStts: selectedStts,
@@ -1860,7 +1572,7 @@
       await syncData();
       closeModal('recordModal');
       renderRanking();
-      alert('Đã lưu dữ liệu thành công!');
+      alert('Đã lưu dữ liệu rèn luyện thành công!');
     };
 
     function prepareHistoryModal() {
@@ -1930,40 +1642,6 @@
       alert('Đã thêm quy chế mới!');
     };
 
-    window.saveNewAccount = async function() {
-      const u = document.getElementById('newAccountUsername').value.trim();
-      const fn = document.getElementById('newAccountFullname').value.trim();
-      const p = document.getElementById('newAccountPassword').value.trim();
-      const r = document.getElementById('newAccountRole').value;
-
-      if (!u || !p || !fn) {
-        alert('Vui lòng điền đầy đủ thông tin tài khoản!');
-        return;
-      }
-
-      if (!appState.accounts) appState.accounts = [];
-      if (appState.accounts.some(a => a.username === u)) {
-        alert('Tên đăng nhập này đã tồn tại!');
-        return;
-      }
-
-      appState.accounts.push({
-        username: u,
-        fullname: fn,
-        password: p,
-        role: r
-      });
-
-      await syncData();
-      closeModal('createAccountModal');
-      document.getElementById('newAccountUsername').value = '';
-      document.getElementById('newAccountFullname').value = '';
-      document.getElementById('newAccountPassword').value = '';
-      renderAccountsTable();
-      alert('Đã tạo tài khoản thành công!');
-    };
-
-    // Phân công lao động
     window.switchLaborTab = function(tab) {
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       event.target.classList.add('active');
@@ -1998,7 +1676,7 @@
       const sel = document.getElementById('weeklyTaskSelect');
       const cards = appState.laborTaskCards || [];
       if (cards.length === 0) {
-        sel.innerHTML = '<option value="">Chưa có thẻ công việc nào (Hãy tạo thẻ trước)</option>';
+        sel.innerHTML = '<option value="">Chưa có thẻ công việc nào</option>';
       } else {
         sel.innerHTML = cards.map(c => `<option value="${c.name}">${escapeHtml(c.name)}</option>`).join('');
       }
@@ -2018,7 +1696,7 @@
       const task = document.getElementById('weeklyTaskSelect').value;
 
       if (!task) {
-        alert('Vui lòng chọn hoặc tạo thẻ công việc!');
+        alert('Vui lòng chọn thẻ công việc!');
         return;
       }
 
@@ -2039,7 +1717,7 @@
       await syncData();
       closeModal('assignLaborWeeklyModal');
       renderLabor();
-      alert('Đã lưu phân công lịch trực nhật!');
+      alert('Đã lưu phân công trực nhật!');
     };
 
     function prepareLaborAdhocModal() {
@@ -2057,7 +1735,7 @@
       const detail = document.getElementById('adhocTaskDetail').value.trim();
 
       if (!title || !detail) {
-        alert('Vui lòng nhập đầy đủ thông tin lao động đột xuất!');
+        alert('Vui lòng nhập đầy đủ thông tin!');
         return;
       }
 
@@ -2079,7 +1757,7 @@
       document.getElementById('adhocSessionName').value = '';
       document.getElementById('adhocTaskDetail').value = '';
       renderLabor();
-      alert('Đã lưu lịch lao động đột xuất!');
+      alert('Đã lưu phân công lao động đột xuất!');
     };
   </script>
 </body>
