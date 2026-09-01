@@ -29,6 +29,7 @@
       --bronze: #d97706;
       --danger: #ef4444;
       --success: #10b981;
+      --warning: #f59e0b;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -164,9 +165,16 @@
       padding: 16px;
       border-radius: 8px;
       margin-bottom: 12px;
+      position: relative;
     }
-    .notice-header { display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px; }
+    .notice-header { display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px; padding-right: 30px; }
     .notice-content { font-size: 0.96rem; color: #f1f5f9; white-space: pre-wrap; }
+    .notice-delete-btn {
+      position: absolute; top: 12px; right: 12px;
+      background: transparent; border: none; color: #fca5a5;
+      cursor: pointer; font-size: 0.9rem;
+    }
+    .notice-delete-btn:hover { color: var(--danger); }
 
     .ranking-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
     .ranking-card {
@@ -213,6 +221,38 @@
     .ranking-name { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
     .ranking-score { font-size: 0.88rem; color: var(--cyan-accent); font-weight: 600; }
 
+    /* Vinh danh đột xuất */
+    .honors-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .honor-card {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(15, 33, 67, 0.7));
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 14px;
+      padding: 16px;
+      position: relative;
+    }
+    .honor-name { font-weight: 700; font-size: 1.05rem; color: #fde68a; margin-bottom: 4px; padding-right: 24px; }
+    .honor-achievement { font-size: 0.9rem; color: #f1f5f9; }
+    .honor-delete-btn {
+      position: absolute; top: 12px; right: 12px;
+      background: transparent; border: none; color: #fca5a5;
+      cursor: pointer;
+    }
+
+    /* Học sinh cần chú ý */
+    .attention-card {
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .attention-name { font-weight: 700; color: #fca5a5; font-size: 0.95rem; }
+    .attention-reason { font-size: 0.85rem; color: #cbd5e1; }
+
     .bcs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px; }
     .bcs-card {
       background: rgba(255, 255, 255, 0.03);
@@ -222,9 +262,14 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
+      position: relative;
     }
-    .bcs-student-name { font-weight: 700; color: #bae6fd; font-size: 1.05rem; }
+    .bcs-student-name { font-weight: 700; color: #bae6fd; font-size: 1.05rem; padding-right: 24px; }
     .bcs-roles-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+    .bcs-delete-single-btn {
+      position: absolute; top: 12px; right: 12px;
+      background: transparent; border: none; color: #fca5a5; cursor: pointer;
+    }
     .badge-role {
       display: inline-block; padding: 4px 10px; border-radius: 6px;
       font-size: 0.78rem; font-weight: 600;
@@ -314,14 +359,17 @@
     .timeline-col h4 { font-size: 0.95rem; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color); }
     .timeline-col.rewards h4 { color: var(--success); }
     .timeline-col.violations h4 { color: var(--danger); }
-    .timeline-item { padding: 10px; border-radius: 8px; background: rgba(255, 255, 255, 0.03); margin-bottom: 8px; font-size: 0.85rem; }
-    .timeline-date { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px; }
+    .timeline-item {
+      padding: 10px; border-radius: 8px; background: rgba(255, 255, 255, 0.03);
+      margin-bottom: 8px; font-size: 0.85rem; position: relative;
+    }
+    .timeline-date { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px; padding-right: 25px; }
 
     .student-manage-list { max-height: 250px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 10px; }
     .student-manage-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.88rem; }
 
-    .task-card { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; margin-bottom: 12px; }
-    .task-title { font-weight: 700; color: #93c5fd; font-size: 0.95rem; margin-bottom: 6px; }
+    .task-card { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; margin-bottom: 12px; position: relative; }
+    .task-title { font-weight: 700; color: #93c5fd; font-size: 0.95rem; margin-bottom: 6px; padding-right: 25px; }
     .task-students { font-size: 0.88rem; color: #cbd5e1; }
 
     .day-selector { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
@@ -386,7 +434,7 @@
       </div>
     </section>
 
-    <!-- Quản lý lớp (Chỉ GVCN / Admin) -->
+    <!-- Quản lý lớp (Chỉ GVCN) -->
     <section id="gvcnManageSection" class="section-box" style="display: none;">
       <div class="section-header">
         <div class="section-title">
@@ -404,10 +452,13 @@
             <i class="fa-solid fa-list-check"></i> Quản lý / Xóa thẻ
           </button>
           <button class="btn btn-outline" onclick="openModal('customRulesModal')">
-            <i class="fa-solid fa-sliders"></i> Tùy chỉnh điểm quy chế
+            <i class="fa-solid fa-sliders"></i> Tùy chỉnh quy chế &amp; điểm
           </button>
           <button class="btn btn-outline" onclick="openModal('historyExportModal')">
-            <i class="fa-solid fa-clock-rotate-left"></i> Xem lịch sử 1 học sinh
+            <i class="fa-solid fa-clock-rotate-left"></i> Lịch sử &amp; Xóa ghi nhận
+          </button>
+          <button class="btn btn-outline" onclick="openModal('attentionManageModal')">
+            <i class="fa-solid fa-triangle-exclamation"></i> Đánh dấu HS cần chú ý
           </button>
         </div>
       </div>
@@ -416,7 +467,7 @@
       </p>
     </section>
 
-    <!-- Quản lý Tài khoản (Chỉ toapt989@gmail.com / Admin) -->
+    <!-- Quản trị Cấp tài khoản cán sự (Chỉ toapt989@gmail.com) -->
     <section id="adminManageSection" class="section-box" style="display: none;">
       <div class="section-header">
         <div class="section-title">
@@ -449,12 +500,54 @@
       </div>
     </section>
 
+    <!-- Mục Vinh danh đột xuất (Ngay sau Bảng xếp hạng) -->
+    <section class="section-box">
+      <div class="section-header">
+        <div class="section-title">
+          <i class="fa-solid fa-award" style="color: var(--gold);"></i>
+          <span>Vinh Danh Đột Xuất</span>
+        </div>
+        <div id="honorGvcnAction" style="display: none;">
+          <button class="btn btn-primary" onclick="openModal('addHonorModal')">
+            <i class="fa-solid fa-star"></i> Thêm vinh danh
+          </button>
+        </div>
+      </div>
+      <div id="honorsGrid" class="honors-grid">
+        <div class="empty-state" style="grid-column: 1/-1;">
+          <i class="fa-regular fa-star"></i>
+          <p>Chưa có vinh danh đột xuất nào.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mục Học sinh cần chú ý (Chỉ GVCN và BCS xem được) -->
+    <section id="attentionSection" class="section-box" style="display: none;">
+      <div class="section-header">
+        <div class="section-title" style="color: #fca5a5;">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          <span>Danh Sách Học Sinh Cần Chú Ý (Nội bộ BCS &amp; GVCN)</span>
+        </div>
+      </div>
+      <div id="attentionListWrap">
+        <div class="empty-state">
+          <i class="fa-regular fa-face-smile"></i>
+          <p>Hiện không có học sinh nào trong danh sách cần chú ý.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- Ban cán sự lớp -->
     <section class="section-box">
       <div class="section-header">
         <div class="section-title">
           <i class="fa-solid fa-people-roof"></i>
           <span>Ban Cán Sự Lớp 12A3</span>
+        </div>
+        <div id="bcsClearAction" style="display: none;">
+          <button class="btn btn-danger" onclick="clearAllBcs()">
+            <i class="fa-solid fa-trash-can"></i> Xóa toàn bộ BCS
+          </button>
         </div>
       </div>
       <div id="bcsContainer" class="bcs-grid">
@@ -488,6 +581,9 @@
         <div id="laborActions" style="display: none; gap: 8px;">
           <button class="btn btn-primary" onclick="openModal('createLaborTaskModal')">
             <i class="fa-solid fa-plus"></i> Tạo thẻ công việc
+          </button>
+          <button class="btn btn-outline" onclick="openModal('manageTaskCardsModal')">
+            <i class="fa-solid fa-tags"></i> Quản lý thẻ công việc
           </button>
           <button class="btn btn-outline" onclick="openModal('assignLaborWeeklyModal')">
             <i class="fa-solid fa-calendar-week"></i> Phân công theo tuần
@@ -546,7 +642,7 @@
     </div>
   </main>
 
-  <!-- MODAL: ĐĂNG NHẬP (FIREBASE AUTH) -->
+  <!-- MODAL: ĐĂNG NHẬP -->
   <div class="modal-overlay" id="loginModal">
     <div class="modal-window">
       <div class="modal-header">
@@ -591,6 +687,60 @@
       <div class="modal-footer">
         <button class="btn btn-outline" onclick="closeModal('addNoticeModal')">Hủy</button>
         <button class="btn btn-primary" onclick="saveNotice()">Đăng thông báo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: VINH DANH ĐỘT XUẤT -->
+  <div class="modal-overlay" id="addHonorModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-award"></i> Thêm Vinh Danh Đột Xuất</div>
+        <button class="modal-close" onclick="closeModal('addHonorModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Họ và tên học sinh</label>
+          <input type="text" id="honorStudentName" class="form-control" placeholder="ví dụ: Nguyễn Văn A..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Thành tích vinh danh</label>
+          <textarea id="honorAchievement" class="form-control" rows="3" placeholder="ví dụ: Đạt giải Nhất học sinh giỏi cấp tỉnh môn Hóa học..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('addHonorModal')">Hủy</button>
+        <button class="btn btn-primary" onclick="saveHonor()">Lưu vinh danh</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ĐÁNH DẤU HỌC SINH CẦN CHÚ Ý (GVCN) -->
+  <div class="modal-overlay" id="attentionManageModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-triangle-exclamation"></i> Đánh Dấu Học Sinh Cần Chú Ý</div>
+        <button class="modal-close" onclick="closeModal('attentionManageModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Chọn học sinh</label>
+          <select id="attentionStudentSelect" class="form-control"></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Lý do cần chú ý / Lưu ý nề nếp &amp; học tập</label>
+          <input type="text" id="attentionReasonInput" class="form-control" placeholder="ví dụ: Hay đi trễ, mất tập trung giờ Hóa, gia đình bận..." />
+        </div>
+        <button class="btn btn-primary" style="width: 100%; margin-bottom: 16px;" onclick="addStudentAttention()">
+          <i class="fa-solid fa-plus"></i> Đánh dấu vào danh sách
+        </button>
+        <div class="form-group">
+          <label class="form-label">Danh sách đang đánh dấu</label>
+          <div id="attentionManageListWrap" class="student-manage-list"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('attentionManageModal')">Đóng</button>
       </div>
     </div>
   </div>
@@ -665,7 +815,7 @@
     </div>
   </div>
 
-  <!-- MODAL: TẠO TÀI KHOẢN CÁN SỰ (MÃ HÓA QUA FIREBASE AUTH) -->
+  <!-- MODAL: CẤP TÀI KHOẢN MỚI -->
   <div class="modal-overlay" id="createAccountModal">
     <div class="modal-window">
       <div class="modal-header">
@@ -675,7 +825,7 @@
       <div class="modal-body">
         <div class="form-group">
           <label class="form-label">Email tài khoản</label>
-          <input type="email" id="newAccountEmail" class="form-control" placeholder="ví dụ: loptruong@12a3.edu.vn hoặc loptruong@gmail.com" />
+          <input type="email" id="newAccountEmail" class="form-control" placeholder="ví dụ: loptruong@gmail.com..." />
         </div>
         <div class="form-group">
           <label class="form-label">Họ và tên người sử dụng</label>
@@ -691,6 +841,8 @@
             <option value="GVCN">Giáo viên chủ nhiệm (Toàn quyền)</option>
             <option value="LOP_TRUONG">Lớp trưởng</option>
             <option value="BI_THU">Bí thư</option>
+            <option value="PHO_BI_THU">Phó Bí thư</option>
+            <option value="UV_BCH">Ủy viên BCH</option>
             <option value="LP_HOC_TAP">Lớp phó học tập</option>
             <option value="LP_VAN_MINH">Lớp phó văn minh</option>
             <option value="LP_LAO_DONG">Lớp phó lao động</option>
@@ -734,11 +886,11 @@
     </div>
   </div>
 
-  <!-- MODAL: XEM LỊCH SỬ RÈN LUYỆN 1 HỌC SINH -->
+  <!-- MODAL: LỊCH SỬ RÈN LUYỆN & XÓA GHI NHẬN CỦA 1 HỌC SINH (GVCN) -->
   <div class="modal-overlay" id="historyExportModal">
     <div class="modal-window" style="max-width: 800px;">
       <div class="modal-header">
-        <div class="modal-title"><i class="fa-solid fa-clock-rotate-left"></i> Lịch sử rèn luyện học sinh</div>
+        <div class="modal-title"><i class="fa-solid fa-clock-rotate-left"></i> Lịch sử rèn luyện &amp; Xóa ghi nhận nhầm</div>
         <button class="modal-close" onclick="closeModal('historyExportModal')">&times;</button>
       </div>
       <div class="modal-body">
@@ -763,40 +915,37 @@
     </div>
   </div>
 
-  <!-- MODAL: TÙY CHỈNH ĐIỂM QUY CHẾ -->
+  <!-- MODAL: TÙY CHỈNH DANH MỤC & ĐIỂM SỐ QUY CHẾ (GVCN) -->
   <div class="modal-overlay" id="customRulesModal">
-    <div class="modal-window">
+    <div class="modal-window" style="max-width: 750px;">
       <div class="modal-header">
-        <div class="modal-title"><i class="fa-solid fa-sliders"></i> Tùy chỉnh danh mục &amp; điểm thay đổi</div>
+        <div class="modal-title"><i class="fa-solid fa-sliders"></i> Tùy chỉnh danh mục &amp; Điểm quy chế</div>
         <button class="modal-close" onclick="closeModal('customRulesModal')">&times;</button>
       </div>
       <div class="modal-body">
-        <div class="form-group">
-          <label class="form-label">Tên vi phạm / khen thưởng mới</label>
-          <input type="text" id="newRuleName" class="form-control" placeholder="ví dụ: Giúp đỡ bạn..." />
+        <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 10px; margin-bottom: 16px;">
+          <h4 style="font-size: 0.95rem; margin-bottom: 10px; color: var(--cyan-accent);">Thêm quy chế mới</h4>
+          <div style="display: grid; grid-template-columns: 2fr 1fr 1.5fr; gap: 8px;">
+            <input type="text" id="newRuleName" class="form-control" placeholder="Tên hành vi..." />
+            <input type="number" id="newRuleScore" class="form-control" placeholder="Điểm (âm/dương)..." />
+            <select id="newRuleRole" class="form-control">
+              <option value="ALL">Mọi cán sự</option>
+              <option value="GVCN">Chỉ GVCN</option>
+              <option value="LOP_TRUONG">Lớp trưởng</option>
+              <option value="BI_THU">Bí thư / Đoàn</option>
+              <option value="LP_HOC_TAP">Lớp phó học tập</option>
+              <option value="LP_VAN_MINH">Lớp phó văn minh</option>
+              <option value="LP_LAO_DONG">Lớp phó lao động</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" onclick="saveCustomRule()">
+            Thêm quy chế mới
+          </button>
         </div>
+
         <div class="form-group">
-          <label class="form-label">Điểm thay đổi (âm nếu vi phạm, dương nếu khen thưởng)</label>
-          <input type="number" id="newRuleScore" class="form-control" placeholder="ví dụ: 5 hoặc -5" />
-        </div>
-        <div class="form-group">
-          <label class="form-label">Quyền ghi nhận</label>
-          <select id="newRuleRole" class="form-control">
-            <option value="ALL">Mọi cán sự</option>
-            <option value="GVCN">Chỉ GVCN</option>
-            <option value="LOP_TRUONG">Lớp trưởng</option>
-            <option value="BI_THU">Bí thư</option>
-            <option value="LP_HOC_TAP">Lớp phó học tập</option>
-            <option value="LP_VAN_MINH">Lớp phó văn minh</option>
-            <option value="LP_LAO_DONG">Lớp phó lao động</option>
-          </select>
-        </div>
-        <button class="btn btn-primary" style="width: 100%; margin-bottom: 16px;" onclick="saveCustomRule()">
-          Thêm quy chế mới
-        </button>
-        <div class="form-group">
-          <label class="form-label">Danh sách quy chế hiện có</label>
-          <div id="rulesListDisplay" class="multi-select-box" style="max-height: 180px;"></div>
+          <label class="form-label">Danh sách quy chế &amp; Tùy chỉnh điểm trực tiếp</label>
+          <div id="rulesEditableListWrap" class="multi-select-box" style="max-height: 280px;"></div>
         </div>
       </div>
       <div class="modal-footer">
@@ -821,6 +970,22 @@
       <div class="modal-footer">
         <button class="btn btn-outline" onclick="closeModal('createLaborTaskModal')">Hủy</button>
         <button class="btn btn-primary" onclick="saveLaborTaskCard()">Tạo thẻ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: QUẢN LÝ & XÓA THẺ CÔNG VIỆC LAO ĐỘNG (GVCN) -->
+  <div class="modal-overlay" id="manageTaskCardsModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-tags"></i> Quản lý thẻ công việc</div>
+        <button class="modal-close" onclick="closeModal('manageTaskCardsModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="manageTaskCardsList" class="student-manage-list"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('manageTaskCardsModal')">Đóng</button>
       </div>
     </div>
   </div>
@@ -873,11 +1038,11 @@
       <div class="modal-body">
         <div class="form-group">
           <label class="form-label">Tên đợt lao động</label>
-          <input type="text" id="adhocSessionName" class="form-control" placeholder="ví dụ: Dọn vệ sinh sân trường..." />
+          <input type="text" id="adhocSessionName" class="form-control" placeholder="ví dụ: Dọn vệ sinh hội trường..." />
         </div>
         <div class="form-group">
           <label class="form-label">Nội dung công việc</label>
-          <input type="text" id="adhocTaskDetail" class="form-control" placeholder="ví dụ: Nhổ cỏ khu bồn hoa..." />
+          <input type="text" id="adhocTaskDetail" class="form-control" placeholder="ví dụ: Kê bàn ghế, quét dọn..." />
         </div>
         <div class="form-group">
           <label class="form-label">Chọn học sinh tham gia</label>
@@ -924,11 +1089,11 @@
       { id: 'LT_3', name: 'Trễ buổi sáng', delta: -2, roles: ['GVCN', 'LOP_TRUONG'] },
       { id: 'LT_4', name: 'Trễ trái buổi', delta: -2, roles: ['GVCN', 'LOP_TRUONG'] },
       { id: 'LT_5', name: 'Bỏ tiết', delta: -10, roles: ['GVCN', 'LOP_TRUONG'] },
-      { id: 'BT_1', name: 'Có phát biểu', delta: 2, roles: ['GVCN', 'BI_THU'] },
-      { id: 'BT_2', name: 'Có điểm 10', delta: 10, roles: ['GVCN', 'BI_THU'] },
-      { id: 'BT_3', name: 'Có điểm từ 9 đến dưới 10', delta: 5, roles: ['GVCN', 'BI_THU'] },
-      { id: 'BT_4', name: 'Tham gia phong trào', delta: 5, roles: ['GVCN', 'BI_THU'] },
-      { id: 'BT_5', name: 'Đạt giải phong trào', delta: 10, roles: ['GVCN', 'BI_THU'] },
+      { id: 'BT_1', name: 'Có phát biểu', delta: 2, roles: ['GVCN', 'BI_THU', 'PHO_BI_THU', 'UV_BCH'] },
+      { id: 'BT_2', name: 'Có điểm 10', delta: 10, roles: ['GVCN', 'BI_THU', 'PHO_BI_THU', 'UV_BCH'] },
+      { id: 'BT_3', name: 'Có điểm từ 9 đến dưới 10', delta: 5, roles: ['GVCN', 'BI_THU', 'PHO_BI_THU', 'UV_BCH'] },
+      { id: 'BT_4', name: 'Tham gia phong trào', delta: 5, roles: ['GVCN', 'BI_THU', 'PHO_BI_THU', 'UV_BCH'] },
+      { id: 'BT_5', name: 'Đạt giải phong trào', delta: 10, roles: ['GVCN', 'BI_THU', 'PHO_BI_THU', 'UV_BCH'] },
       { id: 'LPHT_1', name: 'Không học bài', delta: -5, roles: ['GVCN', 'LP_HOC_TAP'] },
       { id: 'LPHT_2', name: 'Không làm bài', delta: -5, roles: ['GVCN', 'LP_HOC_TAP'] },
       { id: 'LPHT_3', name: 'Không chép bài', delta: -2, roles: ['GVCN', 'LP_HOC_TAP'] },
@@ -953,10 +1118,20 @@
     ];
 
     const BCS_POSITIONS = [
-      'Lớp trưởng', 'Lớp phó học tập', 'Lớp phó văn minh',
-      'Lớp phó lao động', 'Lớp phó sự kiện', 'Sao đỏ',
-      'Cán sự thư viện', 'Tổ trưởng tổ 1', 'Tổ trưởng tổ 2',
-      'Tổ trưởng tổ 3', 'Tổ trưởng tổ 4'
+      'Bí thư',
+      'Phó Bí thư',
+      'Ủy viên BCH',
+      'Lớp trưởng',
+      'Lớp phó học tập',
+      'Lớp phó văn minh',
+      'Lớp phó lao động',
+      'Lớp phó sự kiện',
+      'Sao đỏ',
+      'Cán sự thư viện',
+      'Tổ trưởng tổ 1',
+      'Tổ trưởng tổ 2',
+      'Tổ trưởng tổ 3',
+      'Tổ trưởng tổ 4'
     ];
 
     let appState = {
@@ -967,6 +1142,8 @@
       bcs: {},
       userRoles: {},
       rules: DEFAULT_RULES,
+      honors: [],
+      attentions: [],
       laborTaskCards: [],
       laborWeekly: {},
       laborAdhoc: []
@@ -979,7 +1156,9 @@
 
     onSnapshot(docRef, (snapshot) => {
       if (snapshot.exists()) {
-        appState = { ...appState, ...snapshot.data() };
+        const d = snapshot.data();
+        appState = { ...appState, ...d };
+        if (!appState.rules || appState.rules.length === 0) appState.rules = DEFAULT_RULES;
       } else {
         setDoc(docRef, appState);
       }
@@ -1015,6 +1194,8 @@
     function renderAll() {
       renderNotices();
       renderRanking();
+      renderHonors();
+      renderAttentionList();
       renderBCS();
       renderAccountsTable();
       renderLabor();
@@ -1028,6 +1209,9 @@
       const adminManage = document.getElementById('adminManageSection');
       const recordSec = document.getElementById('recordSection');
       const noticeAction = document.getElementById('noticeGvcnAction');
+      const honorAction = document.getElementById('honorGvcnAction');
+      const attentionSec = document.getElementById('attentionSection');
+      const bcsClear = document.getElementById('bcsClearAction');
       const laborAct = document.getElementById('laborActions');
 
       if (!currentUser) {
@@ -1037,6 +1221,9 @@
         adminManage.style.display = 'none';
         recordSec.style.display = 'none';
         noticeAction.style.display = 'none';
+        honorAction.style.display = 'none';
+        attentionSec.style.display = 'none';
+        bcsClear.style.display = 'none';
         laborAct.style.display = 'none';
         return;
       }
@@ -1053,6 +1240,9 @@
       adminManage.style.display = isGvcn ? 'block' : 'none';
       recordSec.style.display = 'block';
       noticeAction.style.display = isGvcn ? 'inline-block' : 'none';
+      honorAction.style.display = isGvcn ? 'inline-block' : 'none';
+      attentionSec.style.display = 'block'; // Hiển thị cho cả GVCN và BCS khi đã đăng nhập
+      bcsClear.style.display = isGvcn ? 'inline-block' : 'none';
       laborAct.style.display = (isGvcn || isLpLaoDong) ? 'flex' : 'none';
 
       document.getElementById('defaultScoreLabel').innerText = `${appState.defaultScore || 100} điểm`;
@@ -1063,6 +1253,8 @@
         'GVCN': 'Giáo Viên Chủ Nhiệm',
         'LOP_TRUONG': 'Lớp Trưởng',
         'BI_THU': 'Bí Thư',
+        'PHO_BI_THU': 'Phó Bí Thư',
+        'UV_BCH': 'Ủy Viên BCH',
         'LP_HOC_TAP': 'Lớp Phó Học Tập',
         'LP_VAN_MINH': 'Lớp Phó Văn Minh',
         'LP_LAO_DONG': 'Lớp Phó Lao Động',
@@ -1071,8 +1263,11 @@
       return map[role] || role;
     }
 
+    // THÔNG BÁO GVCN & XÓA THÔNG BÁO
     function renderNotices() {
       const container = document.getElementById('noticeListContainer');
+      const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL);
+
       if (!appState.notices || appState.notices.length === 0) {
         container.innerHTML = `
           <div class="empty-state">
@@ -1084,6 +1279,7 @@
       }
       container.innerHTML = appState.notices.slice().reverse().map(n => `
         <div class="notice-item">
+          ${isGvcn ? `<button class="notice-delete-btn" title="Xóa thông báo này" onclick="deleteNotice('${n.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
           <div class="notice-header">
             <span><strong>Người đăng:</strong> ${escapeHtml(n.author)}</span>
             <span><i class="fa-regular fa-clock"></i> ${n.date}</span>
@@ -1093,6 +1289,15 @@
       `).join('');
     }
 
+    window.deleteNotice = async function(id) {
+      if (confirm('Bạn có muốn xóa thông báo này?')) {
+        appState.notices = appState.notices.filter(n => n.id !== id);
+        await syncData();
+        renderNotices();
+      }
+    };
+
+    // BẢNG XẾP HẠNG TOP 10
     function renderRanking() {
       const grid = document.getElementById('rankingGrid');
       if (!appState.students || appState.students.length === 0) {
@@ -1151,8 +1356,147 @@
       }).join('');
     }
 
+    // VINH DANH ĐỘT XUẤT (GVCN THÊM/XÓA)
+    function renderHonors() {
+      const grid = document.getElementById('honorsGrid');
+      const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL);
+
+      if (!appState.honors || appState.honors.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state" style="grid-column: 1/-1;">
+            <i class="fa-regular fa-star"></i>
+            <p>Chưa có vinh danh đột xuất nào.</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = appState.honors.slice().reverse().map(h => `
+        <div class="honor-card">
+          ${isGvcn ? `<button class="honor-delete-btn" title="Xóa vinh danh này" onclick="deleteHonor('${h.id}')"><i class="fa-solid fa-xmark"></i></button>` : ''}
+          <div class="honor-name"><i class="fa-solid fa-medal" style="color: var(--gold); margin-right: 6px;"></i>${escapeHtml(h.name)}</div>
+          <div class="honor-achievement">${escapeHtml(h.achievement)}</div>
+        </div>
+      `).join('');
+    }
+
+    window.saveHonor = async function() {
+      const name = document.getElementById('honorStudentName').value.trim();
+      const ach = document.getElementById('honorAchievement').value.trim();
+      if (!name || !ach) {
+        alert('Vui lòng nhập tên học sinh và thành tích!');
+        return;
+      }
+      if (!appState.honors) appState.honors = [];
+      appState.honors.push({
+        id: 'honor_' + Date.now(),
+        name: name,
+        achievement: ach
+      });
+      await syncData();
+      document.getElementById('honorStudentName').value = '';
+      document.getElementById('honorAchievement').value = '';
+      closeModal('addHonorModal');
+      renderHonors();
+      alert('Đã thêm vinh danh đột xuất!');
+    };
+
+    window.deleteHonor = async function(id) {
+      if (confirm('Bạn có chắc chắn muốn xóa vinh danh này?')) {
+        appState.honors = appState.honors.filter(h => h.id !== id);
+        await syncData();
+        renderHonors();
+      }
+    };
+
+    // HỌC SINH CẦN CHÚ Ý (CHỈ GVCN & BCS XEM, CHỈ GVCN ĐÁNH DẤU/XÓA)
+    function renderAttentionList() {
+      const wrap = document.getElementById('attentionListWrap');
+      const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL);
+
+      if (!appState.attentions || appState.attentions.length === 0) {
+        wrap.innerHTML = `
+          <div class="empty-state">
+            <i class="fa-regular fa-face-smile"></i>
+            <p>Hiện không có học sinh nào trong danh sách cần chú ý.</p>
+          </div>
+        `;
+        return;
+      }
+
+      wrap.innerHTML = appState.attentions.map(att => {
+        const student = (appState.students || []).find(s => String(s.stt) === String(att.stt));
+        const sName = student ? student.name : `Học sinh STT ${att.stt}`;
+        return `
+          <div class="attention-card">
+            <div>
+              <div class="attention-name"><i class="fa-solid fa-flag" style="margin-right: 6px;"></i>${att.stt}. ${escapeHtml(sName)}</div>
+              <div class="attention-reason"><strong>Lưu ý:</strong> ${escapeHtml(att.reason)}</div>
+            </div>
+            ${isGvcn ? `
+              <button class="btn btn-danger" style="padding: 4px 10px; font-size: 0.78rem;" onclick="removeAttention(${att.stt})">
+                <i class="fa-solid fa-trash"></i> Bỏ chú ý
+              </button>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    window.addStudentAttention = async function() {
+      const stt = parseInt(document.getElementById('attentionStudentSelect').value, 10);
+      const reason = document.getElementById('attentionReasonInput').value.trim();
+      if (!stt || !reason) {
+        alert('Vui lòng chọn học sinh và nhập lý do cần lưu ý!');
+        return;
+      }
+
+      if (!appState.attentions) appState.attentions = [];
+      const idx = appState.attentions.findIndex(a => a.stt === stt);
+      if (idx >= 0) {
+        appState.attentions[idx].reason = reason;
+      } else {
+        appState.attentions.push({ stt, reason });
+      }
+
+      await syncData();
+      document.getElementById('attentionReasonInput').value = '';
+      renderAttentionManageList();
+      renderAttentionList();
+      alert('Đã cập nhật học sinh cần chú ý!');
+    };
+
+    window.removeAttention = async function(stt) {
+      if (confirm(`Bạn có muốn gỡ đánh dấu chú ý cho học sinh STT ${stt}?`)) {
+        appState.attentions = (appState.attentions || []).filter(a => a.stt !== stt);
+        await syncData();
+        renderAttentionManageList();
+        renderAttentionList();
+      }
+    };
+
+    function renderAttentionManageList() {
+      const wrap = document.getElementById('attentionManageListWrap');
+      if (!appState.attentions || appState.attentions.length === 0) {
+        wrap.innerHTML = `<div class="empty-state">Chưa có học sinh nào bị đánh dấu.</div>`;
+        return;
+      }
+      wrap.innerHTML = appState.attentions.map(att => {
+        const student = (appState.students || []).find(s => String(s.stt) === String(att.stt));
+        const sName = student ? student.name : `Học sinh STT ${att.stt}`;
+        return `
+          <div class="student-manage-item">
+            <span><strong>${att.stt}. ${escapeHtml(sName)}:</strong> ${escapeHtml(att.reason)}</span>
+            <button class="btn btn-danger" style="padding: 4px 10px; font-size: 0.78rem;" onclick="removeAttention(${att.stt})">Gỡ</button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // BAN CÁN SỰ & XÓA BCS
     function renderBCS() {
       const container = document.getElementById('bcsContainer');
+      const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL);
       const bcsEntries = Object.entries(appState.bcs || {}).filter(([stt, roles]) => roles && roles.length > 0);
 
       if (bcsEntries.length === 0) {
@@ -1166,10 +1510,11 @@
       }
 
       container.innerHTML = bcsEntries.map(([stt, roles]) => {
-        const student = appState.students.find(s => String(s.stt) === String(stt));
+        const student = (appState.students || []).find(s => String(s.stt) === String(stt));
         const name = student ? student.name : `Học sinh STT ${stt}`;
         return `
           <div class="bcs-card">
+            ${isGvcn ? `<button class="bcs-delete-single-btn" title="Xóa toàn bộ chức danh của bạn này" onclick="deleteSingleBcs('${stt}')"><i class="fa-solid fa-xmark"></i></button>` : ''}
             <div class="bcs-student-name">${stt}. ${escapeHtml(name)}</div>
             <div class="bcs-roles-wrap">
               ${roles.map(r => `<span class="badge-role">${escapeHtml(r)}</span>`).join('')}
@@ -1179,8 +1524,187 @@
       }).join('');
     }
 
+    window.deleteSingleBcs = async function(stt) {
+      if (confirm(`Bạn có chắc muốn xóa chức vụ ban cán sự của học sinh STT ${stt}?`)) {
+        if (appState.bcs && appState.bcs[stt]) {
+          delete appState.bcs[stt];
+          await syncData();
+          renderBCS();
+        }
+      }
+    };
+
+    window.clearAllBcs = async function() {
+      if (confirm('CẢNH BÁO: Bạn có chắc chắn muốn xóa toàn bộ danh sách Ban cán sự lớp?')) {
+        appState.bcs = {};
+        await syncData();
+        renderBCS();
+      }
+    };
+
+    // QUẢN TRỊ TÀI KHOẢN & XÓA TÀI KHOẢN
+    function renderAccountsTable() {
+      const wrap = document.getElementById('accountsListTable');
+      const rolesEntries = Object.entries(appState.userRoles || {});
+      
+      wrap.innerHTML = `
+        <div style="overflow-x: auto; margin-top: 10px;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem; text-align: left;">
+            <thead>
+              <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-muted);">
+                <th style="padding: 8px;">Email tài khoản</th>
+                <th style="padding: 8px;">Họ tên</th>
+                <th style="padding: 8px;">Vai trò</th>
+                <th style="padding: 8px; text-align: right;">Hành động</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <td style="padding: 8px; font-weight: 600; color: #93c5fd;">toapt989@gmail.com</td>
+                <td style="padding: 8px;">Quản trị viên / GVCN</td>
+                <td style="padding: 8px;"><span class="badge-role">GVCN (Mặc định)</span></td>
+                <td style="padding: 8px; text-align: right; color: var(--text-muted); font-size: 0.8rem;">Cố định</td>
+              </tr>
+              ${rolesEntries.map(([email, info]) => `
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                  <td style="padding: 8px; font-weight: 600;">${escapeHtml(email)}</td>
+                  <td style="padding: 8px;">${escapeHtml(info.fullname)}</td>
+                  <td style="padding: 8px;"><span class="badge-role">${getRoleLabel(info.role)}</span></td>
+                  <td style="padding: 8px; text-align: right;">
+                    <button class="btn btn-danger" style="padding: 4px 10px; font-size: 0.78rem;" onclick="deleteUserAccount('${escapeHtml(email)}')">
+                      <i class="fa-solid fa-trash"></i> Xóa
+                    </button>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    window.deleteUserAccount = async function(email) {
+      if (confirm(`Bạn có chắc chắn muốn xóa quyền và tài khoản của ${email}?`)) {
+        if (appState.userRoles && appState.userRoles[email]) {
+          delete appState.userRoles[email];
+          await syncData();
+          renderAccountsTable();
+          alert(`Đã xóa tài khoản ${email} khỏi hệ thống!`);
+        }
+      }
+    };
+
+    // TÙY CHỈNH DANH MỤC & ĐIỂM SỐ QUY CHẾ (GVCN)
+    function renderRulesModal() {
+      const list = document.getElementById('rulesEditableListWrap');
+      const rules = appState.rules || DEFAULT_RULES;
+
+      list.innerHTML = rules.map((r, idx) => `
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.82rem; gap: 10px;">
+          <span style="flex: 1;">${escapeHtml(r.name)}</span>
+          <input type="number" value="${r.delta}" style="width: 70px; padding: 4px 6px; border-radius: 6px; background: rgba(0,0,0,0.3); color: #fff; border: 1px solid var(--border-color);" onchange="updateRulePoints(${idx}, this.value)" />
+          <button class="btn btn-danger" style="padding: 2px 8px; font-size: 0.75rem;" onclick="deleteCustomRule(${idx})"><i class="fa-solid fa-trash"></i></button>
+        </div>
+      `).join('');
+    }
+
+    window.updateRulePoints = async function(index, newDelta) {
+      const val = Number(newDelta);
+      if (isNaN(val)) return;
+      if (!appState.rules) appState.rules = [...DEFAULT_RULES];
+      appState.rules[index].delta = val;
+      await syncData();
+    };
+
+    window.deleteCustomRule = async function(index) {
+      if (confirm('Bạn có chắc muốn xóa danh mục quy chế này?')) {
+        appState.rules.splice(index, 1);
+        await syncData();
+        renderRulesModal();
+      }
+    };
+
+    window.saveCustomRule = async function() {
+      const name = document.getElementById('newRuleName').value.trim();
+      const score = Number(document.getElementById('newRuleScore').value);
+      const role = document.getElementById('newRuleRole').value;
+
+      if (!name || isNaN(score)) {
+        alert('Vui lòng nhập tên quy chế và số điểm hợp lệ!');
+        return;
+      }
+
+      if (!appState.rules) appState.rules = [...DEFAULT_RULES];
+      appState.rules.push({
+        id: 'cust_' + Date.now(),
+        name: name,
+        delta: score,
+        roles: role === 'ALL' ? ['ALL'] : ['GVCN', role]
+      });
+
+      await syncData();
+      document.getElementById('newRuleName').value = '';
+      document.getElementById('newRuleScore').value = '';
+      renderRulesModal();
+      alert('Đã thêm quy chế mới!');
+    };
+
+    // LỊCH SỬ RÈN LUYỆN & XÓA GHI NHẬN NHẦM CỦA 1 HỌC SINH (GVCN)
+    function prepareHistoryModal() {
+      const sel = document.getElementById('historyStudentSelect');
+      sel.innerHTML = (appState.students || []).map(s => `
+        <option value="${s.stt}">${s.stt} - ${escapeHtml(s.name)}</option>
+      `).join('');
+      renderStudentTimeline();
+    }
+
+    window.renderStudentTimeline = function() {
+      const stt = parseInt(document.getElementById('historyStudentSelect').value, 10);
+      const rewWrap = document.getElementById('timelineRewardsList');
+      const vioWrap = document.getElementById('timelineViolationsList');
+      const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL);
+
+      const userRecords = (appState.records || []).filter(r => r.studentStts && r.studentStts.includes(stt));
+      const rewards = userRecords.filter(r => r.delta > 0);
+      const violations = userRecords.filter(r => r.delta < 0);
+
+      rewWrap.innerHTML = rewards.length === 0 ? '<p style="color: var(--text-muted); font-size: 0.85rem;">Chưa có khen thưởng nào.</p>' : rewards.map(r => `
+        <div class="timeline-item">
+          ${isGvcn ? `<button class="notice-delete-btn" title="Xóa ghi nhận này" onclick="deleteStudentRecord('${r.id}', ${stt})"><i class="fa-solid fa-trash-can"></i></button>` : ''}
+          <div class="timeline-date"><i class="fa-regular fa-calendar"></i> ${r.date} &bull; Bởi: ${escapeHtml(r.recordedBy)}</div>
+          <div style="font-weight: 600; color: var(--success);">${escapeHtml(r.ruleName)} (+${r.delta}đ)</div>
+        </div>
+      `).join('');
+
+      vioWrap.innerHTML = violations.length === 0 ? '<p style="color: var(--text-muted); font-size: 0.85rem;">Không có vi phạm nào.</p>' : violations.map(r => `
+        <div class="timeline-item">
+          ${isGvcn ? `<button class="notice-delete-btn" title="Xóa ghi nhận này" onclick="deleteStudentRecord('${r.id}', ${stt})"><i class="fa-solid fa-trash-can"></i></button>` : ''}
+          <div class="timeline-date"><i class="fa-regular fa-calendar"></i> ${r.date} &bull; Bởi: ${escapeHtml(r.recordedBy)}</div>
+          <div style="font-weight: 600; color: var(--danger);">${escapeHtml(r.ruleName)} (${r.delta}đ)</div>
+        </div>
+      `).join('');
+    };
+
+    window.deleteStudentRecord = async function(recId, stt) {
+      if (confirm('Bạn có chắc chắn muốn xóa bản ghi này? Điểm số sẽ được hoàn trả.')) {
+        appState.records = appState.records.map(r => {
+          if (r.id === recId) {
+            r.studentStts = r.studentStts.filter(s => s !== stt);
+          }
+          return r;
+        }).filter(r => r.studentStts && r.studentStts.length > 0);
+
+        await syncData();
+        renderStudentTimeline();
+        renderRanking();
+        alert('Đã xóa ghi nhận và cập nhật lại điểm!');
+      }
+    };
+
+    // QUẢN LÝ THẺ CÔNG VIỆC LAO ĐỘNG (GVCN TẠO VÀ XÓA THẺ)
     function renderLabor() {
       const weeklyList = document.getElementById('weeklyTasksList');
+      const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL || currentUser.role === 'LP_LAO_DONG');
       const currentTasks = (appState.laborWeekly && appState.laborWeekly[selectedLaborDay]) || [];
 
       if (currentTasks.length === 0) {
@@ -1191,8 +1715,9 @@
           </div>
         `;
       } else {
-        weeklyList.innerHTML = currentTasks.map(t => `
+        weeklyList.innerHTML = currentTasks.map((t, idx) => `
           <div class="task-card">
+            ${isGvcn ? `<button class="notice-delete-btn" title="Xóa phân công này" onclick="deleteWeeklyTaskAssignment('${selectedLaborDay}', ${idx})"><i class="fa-solid fa-trash-can"></i></button>` : ''}
             <div class="task-title"><i class="fa-solid fa-thumbtack"></i> ${escapeHtml(t.taskName)}</div>
             <div class="task-students">
               <strong>Học sinh:</strong> ${t.students.map(s => escapeHtml(s)).join(', ') || 'Chưa phân công'}
@@ -1212,6 +1737,7 @@
       } else {
         adhocList.innerHTML = appState.laborAdhoc.slice().reverse().map(item => `
           <div class="task-card" style="border-left: 4px solid var(--cyan-accent);">
+            ${isGvcn ? `<button class="notice-delete-btn" title="Xóa lịch này" onclick="deleteAdhocTask('${item.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
             <div class="task-title">${escapeHtml(item.title)}</div>
             <div style="font-size: 0.88rem; color: #cbd5e1; margin-bottom: 4px;">
               <strong>Nhiệm vụ:</strong> ${escapeHtml(item.detail)}
@@ -1224,170 +1750,98 @@
       }
     }
 
-    function renderAccountsTable() {
-      const wrap = document.getElementById('accountsListTable');
-      const rolesEntries = Object.entries(appState.userRoles || {});
-      
-      wrap.innerHTML = `
-        <div style="overflow-x: auto; margin-top: 10px;">
-          <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem; text-align: left;">
-            <thead>
-              <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-muted);">
-                <th style="padding: 8px;">Email tài khoản</th>
-                <th style="padding: 8px;">Họ tên</th>
-                <th style="padding: 8px;">Vai trò</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                <td style="padding: 8px; font-weight: 600; color: #93c5fd;">toapt989@gmail.com</td>
-                <td style="padding: 8px;">Quản trị viên / GVCN</td>
-                <td style="padding: 8px;"><span class="badge-role">GVCN (Toàn quyền)</span></td>
-              </tr>
-              ${rolesEntries.map(([email, info]) => `
-                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                  <td style="padding: 8px; font-weight: 600;">${escapeHtml(email)}</td>
-                  <td style="padding: 8px;">${escapeHtml(info.fullname)}</td>
-                  <td style="padding: 8px;"><span class="badge-role">${getRoleLabel(info.role)}</span></td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
-        </div>
-      `;
-    }
-
-    function escapeHtml(str) {
-      if (!str) return '';
-      return String(str).replace(/[&<>"']/g, function(m) {
-        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
-      });
-    }
-
-    window.openModal = function(id) {
-      const modal = document.getElementById(id);
-      if (modal) {
-        modal.classList.add('active');
-        if (id === 'assignBcsModal') prepareBcsModal();
-        if (id === 'manageStudentsModal') renderStudentManageList();
-        if (id === 'customRulesModal') renderRulesModal();
-        if (id === 'historyExportModal') prepareHistoryModal();
-        if (id === 'assignLaborWeeklyModal') prepareLaborWeeklyModal();
-        if (id === 'assignLaborAdhocModal') prepareLaborAdhocModal();
+    window.deleteWeeklyTaskAssignment = async function(day, index) {
+      if (confirm('Bạn có muốn xóa thẻ phân công trực nhật này?')) {
+        if (appState.laborWeekly && appState.laborWeekly[day]) {
+          appState.laborWeekly[day].splice(index, 1);
+          await syncData();
+          renderLabor();
+        }
       }
     };
 
-    window.closeModal = function(id) {
-      const modal = document.getElementById(id);
-      if (modal) modal.classList.remove('active');
-    };
-
-    // ĐĂNG NHẬP FIREBASE AUTH
-    window.handleAuthLogin = async function() {
-      const email = document.getElementById('loginEmail').value.trim();
-      const password = document.getElementById('loginPassword').value.trim();
-      if (!email || !password) {
-        alert('Vui lòng nhập đầy đủ email và mật khẩu!');
-        return;
-      }
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-        closeModal('loginModal');
-        document.getElementById('loginEmail').value = '';
-        document.getElementById('loginPassword').value = '';
-      } catch (err) {
-        alert('Đăng nhập thất bại: ' + err.message);
-      }
-    };
-
-    // ĐĂNG KÝ LẦN ĐẦU CHO TOAPT989@GMAIL.COM
-    window.setupAdminInitial = async function() {
-      const email = document.getElementById('loginEmail').value.trim().toLowerCase();
-      const pass = document.getElementById('loginPassword').value.trim();
-      if (email !== ADMIN_PRIMARY_EMAIL.toLowerCase()) {
-        alert('Nút này chỉ dùng để kích hoạt mật khẩu lần đầu cho email: ' + ADMIN_PRIMARY_EMAIL);
-        return;
-      }
-      if (pass.length < 6) {
-        alert('Mật khẩu quản trị phải từ 6 ký tự trở lên!');
-        return;
-      }
-      try {
-        await createUserWithEmailAndPassword(auth, email, pass);
-        alert('Đã thiết lập tài khoản Quản trị viên toapt989@gmail.com thành công!');
-        closeModal('loginModal');
-      } catch (err) {
-        alert('Lỗi đăng ký: ' + err.message);
-      }
-    };
-
-    window.logoutUser = async function() {
-      await signOut(auth);
-    };
-
-    // QUẢN TRỊ TẠO TÀI KHOẢN MỚI
-    window.saveNewAccount = async function() {
-      const email = document.getElementById('newAccountEmail').value.trim().toLowerCase();
-      const fn = document.getElementById('newAccountFullname').value.trim();
-      const pass = document.getElementById('newAccountPassword').value.trim();
-      const r = document.getElementById('newAccountRole').value;
-
-      if (!email || !pass || !fn) {
-        alert('Vui lòng điền đầy đủ email, họ tên và mật khẩu!');
-        return;
-      }
-      if (pass.length < 6) {
-        alert('Mật khẩu phải từ 6 ký tự trở lên!');
-        return;
-      }
-
-      try {
-        // Lưu phân quyền vào Firestore
-        if (!appState.userRoles) appState.userRoles = {};
-        appState.userRoles[email] = {
-          fullname: fn,
-          role: r
-        };
+    window.deleteAdhocTask = async function(id) {
+      if (confirm('Bạn có muốn xóa phân công lao động đột xuất này?')) {
+        appState.laborAdhoc = appState.laborAdhoc.filter(a => a.id !== id);
         await syncData();
-
-        // Tạo người dùng trực tiếp trên Firebase
-        const secondaryApp = initializeApp(firebaseConfig, "SecondaryApp");
-        const secondaryAuth = getAuth(secondaryApp);
-        await createUserWithEmailAndPassword(secondaryAuth, email, pass);
-        await signOut(secondaryAuth);
-
-        closeModal('createAccountModal');
-        document.getElementById('newAccountEmail').value = '';
-        document.getElementById('newAccountFullname').value = '';
-        document.getElementById('newAccountPassword').value = '';
-        renderAccountsTable();
-        alert(`Đã tạo tài khoản cán sự thành công cho ${email}! Mật khẩu đã được mã hóa.`);
-      } catch (err) {
-        alert('Lỗi tạo tài khoản: ' + err.message);
+        renderLabor();
       }
     };
 
-    window.saveNotice = async function() {
-      const val = document.getElementById('noticeContentInput').value.trim();
-      if (!val) {
-        alert('Vui lòng nhập nội dung thông báo!');
+    function renderManageTaskCardsList() {
+      const wrap = document.getElementById('manageTaskCardsList');
+      const cards = appState.laborTaskCards || [];
+      if (cards.length === 0) {
+        wrap.innerHTML = `<div class="empty-state">Chưa có thẻ công việc nào được tạo.</div>`;
         return;
       }
-      const now = new Date();
-      const dateStr = `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')} ngày ${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
-      
-      if (!appState.notices) appState.notices = [];
-      appState.notices.push({
-        id: 'notice_' + Date.now(),
-        author: currentUser ? currentUser.fullname : 'GVCN',
-        date: dateStr,
-        content: val
-      });
+      wrap.innerHTML = cards.map(c => `
+        <div class="student-manage-item">
+          <span><i class="fa-solid fa-broom"></i> ${escapeHtml(c.name)}</span>
+          <button class="btn btn-danger" style="padding: 4px 10px; font-size: 0.78rem;" onclick="deleteLaborTaskCard('${c.id}')">
+            <i class="fa-solid fa-trash"></i> Xóa thẻ
+          </button>
+        </div>
+      `).join('');
+    }
 
+    window.deleteLaborTaskCard = async function(id) {
+      if (confirm('Bạn có chắc muốn xóa thẻ công việc này?')) {
+        appState.laborTaskCards = (appState.laborTaskCards || []).filter(c => c.id !== id);
+        await syncData();
+        renderManageTaskCardsList();
+      }
+    };
+
+    window.saveLaborTaskCard = async function() {
+      const name = document.getElementById('laborTaskNameInput').value.trim();
+      if (!name) return;
+      if (!appState.laborTaskCards) appState.laborTaskCards = [];
+      appState.laborTaskCards.push({ id: 'task_' + Date.now(), name: name });
       await syncData();
-      document.getElementById('noticeContentInput').value = '';
-      closeModal('addNoticeModal');
-      renderNotices();
+      document.getElementById('laborTaskNameInput').value = '';
+      closeModal('createLaborTaskModal');
+      alert('Đã tạo thẻ công việc thành công!');
+    };
+
+    // QUẢN LÝ THẺ HỌC SINH
+    function renderStudentManageList() {
+      const wrap = document.getElementById('studentManageListWrap');
+      if (!appState.students || appState.students.length === 0) {
+        wrap.innerHTML = `<div class="empty-state">Chưa có học sinh trong danh sách.</div>`;
+        return;
+      }
+      wrap.innerHTML = appState.students.map(s => `
+        <div class="student-manage-item">
+          <span><strong>${s.stt}.</strong> ${escapeHtml(s.name)}</span>
+          <button class="btn btn-danger" style="padding: 4px 10px; font-size: 0.78rem;" onclick="deleteStudent(${s.stt})">
+            <i class="fa-solid fa-trash"></i> Xóa
+          </button>
+        </div>
+      `).join('');
+    }
+
+    window.deleteStudent = async function(stt) {
+      if (confirm(`Bạn có chắc chắn muốn xóa học sinh STT ${stt}?`)) {
+        appState.students = appState.students.filter(s => s.stt !== stt);
+        if (appState.bcs && appState.bcs[stt]) delete appState.bcs[stt];
+        if (appState.attentions) appState.attentions = appState.attentions.filter(a => a.stt !== stt);
+        await syncData();
+        renderStudentManageList();
+        renderAll();
+      }
+    };
+
+    window.confirmDeleteAllStudents = async function() {
+      if (confirm('CẢNH BÁO: Hành động này sẽ xóa toàn bộ học sinh, ban cán sự và lịch sử rèn luyện. Bạn có muốn tiếp tục?')) {
+        appState.students = [];
+        appState.bcs = {};
+        appState.records = [];
+        appState.attentions = [];
+        await syncData();
+        renderStudentManageList();
+        renderAll();
+      }
     };
 
     window.saveImportStudents = async function() {
@@ -1427,43 +1881,7 @@
       alert('Đã cập nhật danh sách học sinh thành công!');
     };
 
-    function renderStudentManageList() {
-      const wrap = document.getElementById('studentManageListWrap');
-      if (!appState.students || appState.students.length === 0) {
-        wrap.innerHTML = `<div class="empty-state">Chưa có học sinh trong danh sách.</div>`;
-        return;
-      }
-      wrap.innerHTML = appState.students.map(s => `
-        <div class="student-manage-item">
-          <span><strong>${s.stt}.</strong> ${escapeHtml(s.name)}</span>
-          <button class="btn btn-danger" style="padding: 4px 10px; font-size: 0.78rem;" onclick="deleteStudent(${s.stt})">
-            <i class="fa-solid fa-trash"></i> Xóa
-          </button>
-        </div>
-      `).join('');
-    }
-
-    window.deleteStudent = async function(stt) {
-      if (confirm(`Bạn có chắc chắn muốn xóa học sinh STT ${stt}?`)) {
-        appState.students = appState.students.filter(s => s.stt !== stt);
-        if (appState.bcs && appState.bcs[stt]) delete appState.bcs[stt];
-        await syncData();
-        renderStudentManageList();
-        renderAll();
-      }
-    };
-
-    window.confirmDeleteAllStudents = async function() {
-      if (confirm('CẢNH BÁO: Hành động này sẽ xóa toàn bộ thẻ học sinh. Bạn có muốn tiếp tục?')) {
-        appState.students = [];
-        appState.bcs = {};
-        appState.records = [];
-        await syncData();
-        renderStudentManageList();
-        renderAll();
-      }
-    };
-
+    // BAN CÁN SỰ MODAL
     function prepareBcsModal() {
       const sel = document.getElementById('bcsStudentSelect');
       sel.innerHTML = (appState.students || []).map(s => `
@@ -1504,6 +1922,7 @@
       alert('Đã cập nhật chức vụ Ban cán sự!');
     };
 
+    // GHI NHẬN RÈN LUYỆN
     window.openRecordModal = function() {
       if (!currentUser) return;
       const ruleSelect = document.getElementById('ruleActionSelect');
@@ -1575,73 +1994,109 @@
       alert('Đã lưu dữ liệu rèn luyện thành công!');
     };
 
-    function prepareHistoryModal() {
-      const sel = document.getElementById('historyStudentSelect');
-      sel.innerHTML = (appState.students || []).map(s => `
-        <option value="${s.stt}">${s.stt} - ${escapeHtml(s.name)}</option>
-      `).join('');
-      renderStudentTimeline();
-    }
+    // CẤP TÀI KHOẢN QUA FIREBASE AUTH
+    window.saveNewAccount = async function() {
+      const email = document.getElementById('newAccountEmail').value.trim().toLowerCase();
+      const fn = document.getElementById('newAccountFullname').value.trim();
+      const pass = document.getElementById('newAccountPassword').value.trim();
+      const r = document.getElementById('newAccountRole').value;
 
-    window.renderStudentTimeline = function() {
-      const stt = parseInt(document.getElementById('historyStudentSelect').value, 10);
-      const rewWrap = document.getElementById('timelineRewardsList');
-      const vioWrap = document.getElementById('timelineViolationsList');
-
-      const userRecords = (appState.records || []).filter(r => r.studentStts && r.studentStts.includes(stt));
-      const rewards = userRecords.filter(r => r.delta > 0);
-      const violations = userRecords.filter(r => r.delta < 0);
-
-      rewWrap.innerHTML = rewards.length === 0 ? '<p style="color: var(--text-muted); font-size: 0.85rem;">Chưa có khen thưởng nào.</p>' : rewards.map(r => `
-        <div class="timeline-item">
-          <div class="timeline-date"><i class="fa-regular fa-calendar"></i> ${r.date} &bull; Bởi: ${escapeHtml(r.recordedBy)}</div>
-          <div style="font-weight: 600; color: var(--success);">${escapeHtml(r.ruleName)} (+${r.delta}đ)</div>
-        </div>
-      `).join('');
-
-      vioWrap.innerHTML = violations.length === 0 ? '<p style="color: var(--text-muted); font-size: 0.85rem;">Không có vi phạm nào.</p>' : violations.map(r => `
-        <div class="timeline-item">
-          <div class="timeline-date"><i class="fa-regular fa-calendar"></i> ${r.date} &bull; Bởi: ${escapeHtml(r.recordedBy)}</div>
-          <div style="font-weight: 600; color: var(--danger);">${escapeHtml(r.ruleName)} (${r.delta}đ)</div>
-        </div>
-      `).join('');
-    };
-
-    function renderRulesModal() {
-      const list = document.getElementById('rulesListDisplay');
-      list.innerHTML = (appState.rules || DEFAULT_RULES).map(r => `
-        <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.82rem;">
-          <span>${escapeHtml(r.name)}</span>
-          <strong style="color: ${r.delta > 0 ? 'var(--success)' : 'var(--danger)'};">${r.delta > 0 ? '+' : ''}${r.delta}đ</strong>
-        </div>
-      `).join('');
-    }
-
-    window.saveCustomRule = async function() {
-      const name = document.getElementById('newRuleName').value.trim();
-      const score = Number(document.getElementById('newRuleScore').value);
-      const role = document.getElementById('newRuleRole').value;
-
-      if (!name || isNaN(score)) {
-        alert('Vui lòng nhập tên quy chế và số điểm hợp lệ!');
+      if (!email || !pass || !fn) {
+        alert('Vui lòng điền đầy đủ email, họ tên và mật khẩu!');
+        return;
+      }
+      if (pass.length < 6) {
+        alert('Mật khẩu phải từ 6 ký tự trở lên!');
         return;
       }
 
-      if (!appState.rules) appState.rules = [...DEFAULT_RULES];
-      appState.rules.push({
-        id: 'cust_' + Date.now(),
-        name: name,
-        delta: score,
-        roles: role === 'ALL' ? ['ALL'] : ['GVCN', role]
+      try {
+        if (!appState.userRoles) appState.userRoles = {};
+        appState.userRoles[email] = { fullname: fn, role: r };
+        await syncData();
+
+        const secondaryApp = initializeApp(firebaseConfig, "SecondaryApp_" + Date.now());
+        const secondaryAuth = getAuth(secondaryApp);
+        await createUserWithEmailAndPassword(secondaryAuth, email, pass);
+        await signOut(secondaryAuth);
+
+        closeModal('createAccountModal');
+        document.getElementById('newAccountEmail').value = '';
+        document.getElementById('newAccountFullname').value = '';
+        document.getElementById('newAccountPassword').value = '';
+        renderAccountsTable();
+        alert(`Đã tạo tài khoản cán sự thành công cho ${email}! Mật khẩu đã được mã hóa an toàn.`);
+      } catch (err) {
+        alert('Lỗi tạo tài khoản: ' + err.message);
+      }
+    };
+
+    // ĐĂNG NHẬP & QUẢN TRỊ VIÊN
+    window.handleAuthLogin = async function() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+      if (!email || !password) {
+        alert('Vui lòng nhập đầy đủ email và mật khẩu!');
+        return;
+      }
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        closeModal('loginModal');
+        document.getElementById('loginEmail').value = '';
+        document.getElementById('loginPassword').value = '';
+      } catch (err) {
+        alert('Đăng nhập thất bại: ' + err.message);
+      }
+    };
+
+    window.setupAdminInitial = async function() {
+      const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+      const pass = document.getElementById('loginPassword').value.trim();
+      if (email !== ADMIN_PRIMARY_EMAIL.toLowerCase()) {
+        alert('Nút này chỉ dùng để kích hoạt mật khẩu lần đầu cho email: ' + ADMIN_PRIMARY_EMAIL);
+        return;
+      }
+      if (pass.length < 6) {
+        alert('Mật khẩu quản trị phải từ 6 ký tự trở lên!');
+        return;
+      }
+      try {
+        await createUserWithEmailAndPassword(auth, email, pass);
+        alert('Đã thiết lập tài khoản Quản trị viên toapt989@gmail.com thành công!');
+        closeModal('loginModal');
+      } catch (err) {
+        alert('Lỗi đăng ký: ' + err.message);
+      }
+    };
+
+    window.logoutUser = async function() {
+      await signOut(auth);
+    };
+
+    window.saveNotice = async function() {
+      const val = document.getElementById('noticeContentInput').value.trim();
+      if (!val) {
+        alert('Vui lòng nhập nội dung thông báo!');
+        return;
+      }
+      const now = new Date();
+      const dateStr = `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')} ngày ${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
+      
+      if (!appState.notices) appState.notices = [];
+      appState.notices.push({
+        id: 'notice_' + Date.now(),
+        author: currentUser ? currentUser.fullname : 'GVCN',
+        date: dateStr,
+        content: val
       });
 
       await syncData();
-      document.getElementById('newRuleName').value = '';
-      document.getElementById('newRuleScore').value = '';
-      renderRulesModal();
-      alert('Đã thêm quy chế mới!');
+      document.getElementById('noticeContentInput').value = '';
+      closeModal('addNoticeModal');
+      renderNotices();
     };
 
+    // PHÂN CÔNG LAO ĐỘNG
     window.switchLaborTab = function(tab) {
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       event.target.classList.add('active');
@@ -1661,22 +2116,11 @@
       renderLabor();
     };
 
-    window.saveLaborTaskCard = async function() {
-      const name = document.getElementById('laborTaskNameInput').value.trim();
-      if (!name) return;
-      if (!appState.laborTaskCards) appState.laborTaskCards = [];
-      appState.laborTaskCards.push({ id: 'task_' + Date.now(), name: name });
-      await syncData();
-      document.getElementById('laborTaskNameInput').value = '';
-      closeModal('createLaborTaskModal');
-      alert('Đã tạo thẻ công việc thành công!');
-    };
-
     function prepareLaborWeeklyModal() {
       const sel = document.getElementById('weeklyTaskSelect');
       const cards = appState.laborTaskCards || [];
       if (cards.length === 0) {
-        sel.innerHTML = '<option value="">Chưa có thẻ công việc nào</option>';
+        sel.innerHTML = '<option value="">Chưa có thẻ công việc nào (Hãy tạo thẻ trước)</option>';
       } else {
         sel.innerHTML = cards.map(c => `<option value="${c.name}">${escapeHtml(c.name)}</option>`).join('');
       }
@@ -1758,6 +2202,37 @@
       document.getElementById('adhocTaskDetail').value = '';
       renderLabor();
       alert('Đã lưu phân công lao động đột xuất!');
+    };
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/[&<>"']/g, function(m) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+      });
+    }
+
+    window.openModal = function(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.classList.add('active');
+        if (id === 'assignBcsModal') prepareBcsModal();
+        if (id === 'manageStudentsModal') renderStudentManageList();
+        if (id === 'customRulesModal') renderRulesModal();
+        if (id === 'historyExportModal') prepareHistoryModal();
+        if (id === 'assignLaborWeeklyModal') prepareLaborWeeklyModal();
+        if (id === 'assignLaborAdhocModal') prepareLaborAdhocModal();
+        if (id === 'manageTaskCardsModal') renderManageTaskCardsList();
+        if (id === 'attentionManageModal') {
+          const sel = document.getElementById('attentionStudentSelect');
+          sel.innerHTML = (appState.students || []).map(s => `<option value="${s.stt}">${s.stt} - ${escapeHtml(s.name)}</option>`).join('');
+          renderAttentionManageList();
+        }
+      }
+    };
+
+    window.closeModal = function(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.remove('active');
     };
   </script>
 </body>
