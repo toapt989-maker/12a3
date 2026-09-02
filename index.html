@@ -111,6 +111,13 @@
     }
     .btn-success:hover { background: var(--success); color: #fff; }
 
+    .btn-warning {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fde68a;
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+    .btn-warning:hover { background: var(--warning); color: #000; }
+
     .btn-info {
       background: rgba(6, 182, 212, 0.2);
       color: #bae6fd;
@@ -402,6 +409,11 @@
         <span>LỚP 12A3 &bull; THPT LONG HỰU ĐÔNG</span>
       </div>
       <div class="header-actions">
+        <!-- Nút xuất điểm danh tháng luôn hiển thị trực tiếp trên thanh công cụ đầu trang -->
+        <button class="btn btn-warning" onclick="openModal('exportAttendanceModal')" title="Xuất bảng điểm danh tháng theo mẫu">
+          <i class="fa-solid fa-calendar-check"></i> Xuất Điểm Danh Tháng (Excel)
+        </button>
+
         <div id="userInfoContainer" style="display: none;">
           <span class="user-pill">
             <i class="fa-solid fa-user-check"></i>
@@ -478,7 +490,8 @@
           <button class="btn btn-outline" onclick="openModal('attentionManageModal')">
             <i class="fa-solid fa-triangle-exclamation"></i> Đánh dấu HS cần chú ý
           </button>
-          <button class="btn btn-success" onclick="openModal('exportAttendanceModal')">
+          <!-- Nút xuất điểm danh tháng nổi bật màu cam ngay trong bảng quản trị GVCN -->
+          <button class="btn btn-warning" onclick="openModal('exportAttendanceModal')">
             <i class="fa-solid fa-calendar-check"></i> Xuất Điểm Danh Tháng (Excel)
           </button>
           <button class="btn btn-success" onclick="openModal('exportRecordsModal')">
@@ -527,7 +540,7 @@
       </div>
     </section>
 
-    <!-- Mục Vinh danh đột xuất (Ngay sau Bảng xếp hạng) -->
+    <!-- Mục Vinh danh đột xuất -->
     <section class="section-box">
       <div class="section-header">
         <div class="section-title">
@@ -548,7 +561,7 @@
       </div>
     </section>
 
-    <!-- Mục Học sinh cần chú ý (Chỉ GVCN và BCS xem được) -->
+    <!-- Mục Học sinh cần chú ý -->
     <section id="attentionSection" class="section-box" style="display: none;">
       <div class="section-header">
         <div class="section-title" style="color: #fca5a5;">
@@ -2103,7 +2116,6 @@
       alert('Đã lưu điểm cải thiện thành công!');
     };
 
-    // XUẤT ĐIỂM DANH HÀNG THÁNG EXCEL THEO MẪU
     window.executeExportAttendanceExcel = function() {
       const selVal = document.getElementById('exportAttendanceMonthSelect').value;
       if (!selVal) return;
