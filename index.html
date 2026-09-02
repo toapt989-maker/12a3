@@ -9,6 +9,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
+  <!-- Thư viện xuất Excel và PDF trực tiếp trên trình duyệt -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+
   <style>
     :root {
       --primary-900: #0f2b5c;
@@ -43,14 +48,13 @@
 
     .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
 
+    /* Thanh đầu trang trượt theo trang, không cố định */
     header {
       background: rgba(11, 26, 54, 0.85);
-      backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border-color);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+      position: static;
       padding: 14px 0;
+      margin-bottom: 15px;
     }
 
     .header-inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
@@ -103,8 +107,15 @@
     }
     .btn-danger:hover { background: var(--danger); color: #fff; }
 
+    .btn-success {
+      background: rgba(16, 185, 129, 0.2);
+      color: #a7f3d0;
+      border-color: rgba(16, 185, 129, 0.4);
+    }
+    .btn-success:hover { background: var(--success); color: #fff; }
+
     .hero-banner {
-      margin: 24px 0 32px;
+      margin: 16px 0 32px;
       padding: 32px 24px;
       background: linear-gradient(135deg, rgba(29, 83, 170, 0.45), rgba(6, 182, 212, 0.15));
       border: 1px solid var(--border-color);
@@ -265,7 +276,7 @@
       position: relative;
     }
     .bcs-student-name { font-weight: 700; color: #bae6fd; font-size: 1.05rem; padding-right: 24px; }
-    .bcs-roles-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+    .bcs-roles-wrap { display: flex; flex-wrap: gap: 6px; }
     .bcs-delete-single-btn {
       position: absolute; top: 12px; right: 12px;
       background: transparent; border: none; color: #fca5a5; cursor: pointer;
@@ -327,7 +338,7 @@
     .modal-title { font-size: 1.15rem; font-weight: 700; color: #93c5fd; }
     .modal-close { background: transparent; border: none; color: var(--text-muted); font-size: 1.3rem; cursor: pointer; }
     .modal-body { padding: 20px 24px; overflow-y: auto; }
-    .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end; gap: 12px; }
+    .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end; gap: 12px; flex-wrap: wrap; }
 
     .form-group { margin-bottom: 16px; }
     .form-label { display: block; font-size: 0.88rem; font-weight: 600; margin-bottom: 6px; color: #cbd5e1; }
@@ -382,6 +393,7 @@
 </head>
 <body>
 
+  <!-- Thanh đầu trang tự do trượt theo giao diện -->
   <header>
     <div class="container header-inner">
       <div class="brand-title">
@@ -420,10 +432,15 @@
           <i class="fa-solid fa-bullhorn"></i>
           <span>Thông báo của Giáo viên Chủ nhiệm</span>
         </div>
-        <div id="noticeGvcnAction" style="display: none;">
-          <button class="btn btn-primary" onclick="openModal('addNoticeModal')">
-            <i class="fa-solid fa-plus"></i> Đăng thông báo mới
-          </button>
+        <div style="display: flex; gap: 8px;">
+          <div id="noticeGvcnAction" style="display: none;">
+            <button class="btn btn-primary" onclick="openModal('addNoticeModal')">
+              <i class="fa-solid fa-plus"></i> Đăng thông báo mới
+            </button>
+            <button class="btn btn-success" onclick="openModal('exportNoticesModal')">
+              <i class="fa-solid fa-file-export"></i> Xuất lịch sử thông báo
+            </button>
+          </div>
         </div>
       </div>
       <div id="noticeListContainer">
@@ -455,10 +472,13 @@
             <i class="fa-solid fa-sliders"></i> Tùy chỉnh quy chế &amp; điểm
           </button>
           <button class="btn btn-outline" onclick="openModal('historyExportModal')">
-            <i class="fa-solid fa-clock-rotate-left"></i> Lịch sử &amp; Xóa ghi nhận
+            <i class="fa-solid fa-clock-rotate-left"></i> Lịch sử rèn luyện
           </button>
           <button class="btn btn-outline" onclick="openModal('attentionManageModal')">
             <i class="fa-solid fa-triangle-exclamation"></i> Đánh dấu HS cần chú ý
+          </button>
+          <button class="btn btn-success" onclick="openModal('exportRecordsModal')">
+            <i class="fa-solid fa-file-excel"></i> Xuất file Vi phạm / Khen thưởng
           </button>
         </div>
       </div>
@@ -578,7 +598,7 @@
           <i class="fa-solid fa-broom"></i>
           <span>Phân Công Trực Nhật &amp; Lao Động</span>
         </div>
-        <div id="laborActions" style="display: none; gap: 8px;">
+        <div id="laborActions" style="display: none; gap: 8px; flex-wrap: wrap;">
           <button class="btn btn-primary" onclick="openModal('createLaborTaskModal')">
             <i class="fa-solid fa-plus"></i> Tạo thẻ công việc
           </button>
@@ -591,15 +611,21 @@
           <button class="btn btn-outline" onclick="openModal('assignLaborAdhocModal')">
             <i class="fa-solid fa-bolt"></i> Phân công đột xuất
           </button>
+          <button class="btn btn-success" onclick="openModal('exportLaborModal')">
+            <i class="fa-solid fa-file-export"></i> Xuất Lịch Lao Động Tuần
+          </button>
         </div>
       </div>
 
       <div class="tab-nav">
-        <button class="tab-btn active" onclick="switchLaborTab('weekly')">Lịch trực tuần</button>
+        <button class="tab-btn active" onclick="switchLaborTab('weekly')">Lịch trực tuần hiện tại</button>
         <button class="tab-btn" onclick="switchLaborTab('adhoc')">Lao động đột xuất</button>
       </div>
 
       <div id="laborWeeklyView">
+        <div style="margin-bottom: 12px; font-size: 0.95rem; color: #38bdf8;">
+          <strong id="currentWeekDisplayTitle">Tuần hiện tại</strong>
+        </div>
         <div class="day-selector">
           <button class="day-btn active" onclick="selectDay('2')">Thứ Hai</button>
           <button class="day-btn" onclick="selectDay('3')">Thứ Ba</button>
@@ -691,7 +717,35 @@
     </div>
   </div>
 
-  <!-- MODAL: VINH DANH ĐỘT XUẤT -->
+  <!-- MODAL: XUẤT LỊCH SỬ THÔNG BÁO -->
+  <div class="modal-overlay" id="exportNoticesModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-file-export"></i> Xuất Lịch Sử Thông Báo</div>
+        <button class="modal-close" onclick="closeModal('exportNoticesModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Từ ngày (tùy chọn)</label>
+          <input type="date" id="noticeExportFromDate" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Đến ngày (tùy chọn)</label>
+          <input type="date" id="noticeExportToDate" class="form-control" />
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">
+          Bao gồm toàn bộ thông báo đã đăng trong hệ thống (kể cả những thông báo đã ẩn đi).
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('exportNoticesModal')">Đóng</button>
+        <button class="btn btn-success" onclick="exportNotices('excel')"><i class="fa-solid fa-file-excel"></i> Xuất Excel</button>
+        <button class="btn btn-primary" onclick="exportNotices('pdf')"><i class="fa-solid fa-file-pdf"></i> Xuất PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: VINH DANH ĐỘT XUẤT (CHỌN TỪ THẺ HỌC SINH) -->
   <div class="modal-overlay" id="addHonorModal">
     <div class="modal-window">
       <div class="modal-header">
@@ -700,8 +754,8 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label class="form-label">Họ và tên học sinh</label>
-          <input type="text" id="honorStudentName" class="form-control" placeholder="ví dụ: Nguyễn Văn A..." />
+          <label class="form-label">Chọn một hoặc nhiều học sinh được vinh danh</label>
+          <div class="multi-select-box" id="honorStudentsChecklist"></div>
         </div>
         <div class="form-group">
           <label class="form-label">Thành tích vinh danh</label>
@@ -729,7 +783,7 @@
         </div>
         <div class="form-group">
           <label class="form-label">Lý do cần chú ý / Lưu ý nề nếp &amp; học tập</label>
-          <input type="text" id="attentionReasonInput" class="form-control" placeholder="ví dụ: Hay đi trễ, mất tập trung giờ Hóa, gia đình bận..." />
+          <input type="text" id="attentionReasonInput" class="form-control" placeholder="ví dụ: Hay đi trễ, mất tập trung, hoàn cảnh..." />
         </div>
         <button class="btn btn-primary" style="width: 100%; margin-bottom: 16px;" onclick="addStudentAttention()">
           <i class="fa-solid fa-plus"></i> Đánh dấu vào danh sách
@@ -915,6 +969,49 @@
     </div>
   </div>
 
+  <!-- MODAL: XUẤT VI PHẠM / KHEN THƯỞNG (EXCEL / PDF) -->
+  <div class="modal-overlay" id="exportRecordsModal">
+    <div class="modal-window" style="max-width: 750px;">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-file-excel"></i> Xuất Báo Cáo Vi Phạm / Khen Thưởng</div>
+        <button class="modal-close" onclick="closeModal('exportRecordsModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Chọn các cột hành vi muốn xuất (chọn 1 hoặc nhiều)</label>
+          <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+            <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.78rem;" onclick="toggleSelectAllExportRules(true)">Chọn tất cả</button>
+            <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.78rem;" onclick="toggleSelectAllExportRules(false)">Bỏ chọn</button>
+          </div>
+          <div class="multi-select-box" id="exportRulesChecklist" style="max-height: 200px;"></div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="form-group">
+            <label class="form-label">Sắp xếp danh sách theo</label>
+            <select id="exportSortOption" class="form-control">
+              <option value="STT_ASC">Theo số thứ tự (STT)</option>
+              <option value="SCORE_DESC">Điểm rèn luyện: Giảm dần</option>
+              <option value="SCORE_ASC">Điểm rèn luyện: Tăng dần</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cột tổng điểm hiện tại</label>
+            <label class="checkbox-item" style="padding: 10px 0;">
+              <input type="checkbox" id="includeCurrentScoreCheck" checked />
+              <span>Xuất kèm cột Tổng điểm rèn luyện hiện tại</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('exportRecordsModal')">Hủy</button>
+        <button class="btn btn-success" onclick="executeExportRecords('excel')"><i class="fa-solid fa-file-excel"></i> Xuất File Excel</button>
+        <button class="btn btn-primary" onclick="executeExportRecords('pdf')"><i class="fa-solid fa-file-pdf"></i> Xuất File PDF</button>
+      </div>
+    </div>
+  </div>
+
   <!-- MODAL: TÙY CHỈNH DANH MỤC & ĐIỂM SỐ QUY CHẾ (GVCN) -->
   <div class="modal-overlay" id="customRulesModal">
     <div class="modal-window" style="max-width: 750px;">
@@ -999,8 +1096,8 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label class="form-label">Tên tuần</label>
-          <input type="text" id="weeklyWeekLabel" class="form-control" placeholder="ví dụ: Tuần 1, Tuần 2..." />
+          <label class="form-label">Tên tuần (ví dụ: Tuần 1, Tuần 2...)</label>
+          <input type="text" id="weeklyWeekLabel" class="form-control" placeholder="Nhập tên tuần..." />
         </div>
         <div class="form-group">
           <label class="form-label">Chọn ngày</label>
@@ -1024,6 +1121,30 @@
       <div class="modal-footer">
         <button class="btn btn-outline" onclick="closeModal('assignLaborWeeklyModal')">Hủy</button>
         <button class="btn btn-primary" onclick="saveWeeklyLaborAssignment()">Lưu phân công</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: XUẤT LỊCH LAO ĐỘNG TUẦN (EXCEL / PDF) -->
+  <div class="modal-overlay" id="exportLaborModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-file-export"></i> Xuất Lịch Lao Động Tuần</div>
+        <button class="modal-close" onclick="closeModal('exportLaborModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Chọn tuần muốn xuất</label>
+          <select id="exportLaborWeekSelect" class="form-control"></select>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">
+          Bảng xuất ra sẽ có cột đầu là Công việc, các cột tiếp theo là Thứ 2, Thứ 3, Thứ 4, Thứ 5, Thứ 6 theo đúng mẫu quy chuẩn.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('exportLaborModal')">Hủy</button>
+        <button class="btn btn-success" onclick="executeExportLabor('excel')"><i class="fa-solid fa-file-excel"></i> Xuất Excel</button>
+        <button class="btn btn-primary" onclick="executeExportLabor('pdf')"><i class="fa-solid fa-file-pdf"></i> Xuất PDF</button>
       </div>
     </div>
   </div>
@@ -1066,6 +1187,7 @@
       getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword 
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
+    // CẤU HÌNH FIREBASE GIỮ NGUYÊN TUYỆT ĐỐI
     const firebaseConfig = {
       apiKey: "AIzaSyA0j6GNle7duLh2_RRkoBXd6QMK4TPobuI",
       authDomain: "a3-1f8da.firebaseapp.com",
@@ -1080,6 +1202,9 @@
     const analytics = getAnalytics(app);
     const db = getFirestore(app);
     const auth = getAuth(app);
+
+    // THAM CHIẾU FIRESTORE GIỮ NGUYÊN TUYỆT ĐỐI
+    const docRef = doc(db, 'class12a3', 'data');
 
     const ADMIN_PRIMARY_EMAIL = "toapt989@gmail.com";
 
@@ -1145,20 +1270,35 @@
       honors: [],
       attentions: [],
       laborTaskCards: [],
-      laborWeekly: {},
+      laborWeeklyHistory: {},
+      currentLaborWeek: '',
       laborAdhoc: []
     };
 
     let currentUser = null;
     let selectedLaborDay = '2';
 
-    const docRef = doc(db, 'class12a3', 'data');
+    // Hàm chuyển đổi sang định dạng dd/mm/yyyy
+    function formatDateVN(dateInput) {
+      if (!dateInput) return '';
+      if (typeof dateInput === 'string' && dateInput.includes('/')) {
+        const p = dateInput.split('/');
+        if (p.length === 3 && p[0].length <= 2 && p[2].length === 4) return dateInput;
+      }
+      const d = new Date(dateInput);
+      if (isNaN(d.getTime())) return String(dateInput);
+      const day = String(d.getDate()).padStart(2, '0');
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const year = d.getFullYear();
+      return `${day}/${month}/${year}`;
+    }
 
     onSnapshot(docRef, (snapshot) => {
       if (snapshot.exists()) {
         const d = snapshot.data();
         appState = { ...appState, ...d };
         if (!appState.rules || appState.rules.length === 0) appState.rules = DEFAULT_RULES;
+        if (!appState.laborWeeklyHistory) appState.laborWeeklyHistory = {};
       } else {
         setDoc(docRef, appState);
       }
@@ -1239,9 +1379,9 @@
       gvcnManage.style.display = isGvcn ? 'block' : 'none';
       adminManage.style.display = isGvcn ? 'block' : 'none';
       recordSec.style.display = 'block';
-      noticeAction.style.display = isGvcn ? 'inline-block' : 'none';
+      noticeAction.style.display = isGvcn ? 'inline-flex' : 'none';
       honorAction.style.display = isGvcn ? 'inline-block' : 'none';
-      attentionSec.style.display = 'block'; // Hiển thị cho cả GVCN và BCS khi đã đăng nhập
+      attentionSec.style.display = 'block';
       bcsClear.style.display = isGvcn ? 'inline-block' : 'none';
       laborAct.style.display = (isGvcn || isLpLaoDong) ? 'flex' : 'none';
 
@@ -1263,12 +1403,13 @@
       return map[role] || role;
     }
 
-    // THÔNG BÁO GVCN & XÓA THÔNG BÁO
+    // THÔNG BÁO GVCN (Xóa là ẩn đi, vẫn lưu đầy đủ)
     function renderNotices() {
       const container = document.getElementById('noticeListContainer');
       const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL);
+      const activeNotices = (appState.notices || []).filter(n => !n.isDeleted);
 
-      if (!appState.notices || appState.notices.length === 0) {
+      if (activeNotices.length === 0) {
         container.innerHTML = `
           <div class="empty-state">
             <i class="fa-regular fa-bell-slash"></i>
@@ -1277,41 +1418,105 @@
         `;
         return;
       }
-      container.innerHTML = appState.notices.slice().reverse().map(n => `
+      container.innerHTML = activeNotices.slice().reverse().map(n => `
         <div class="notice-item">
-          ${isGvcn ? `<button class="notice-delete-btn" title="Xóa thông báo này" onclick="deleteNotice('${n.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
+          ${isGvcn ? `<button class="notice-delete-btn" title="Ẩn thông báo này" onclick="deleteNotice('${n.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
           <div class="notice-header">
             <span><strong>Người đăng:</strong> ${escapeHtml(n.author)}</span>
-            <span><i class="fa-regular fa-clock"></i> ${n.date}</span>
+            <span><i class="fa-regular fa-clock"></i> ${formatDateVN(n.date)}</span>
           </div>
           <div class="notice-content">${escapeHtml(n.content)}</div>
         </div>
       `).join('');
     }
 
+    window.saveNotice = async function() {
+      const val = document.getElementById('noticeContentInput').value.trim();
+      if (!val) {
+        alert('Vui lòng nhập nội dung thông báo!');
+        return;
+      }
+      const now = new Date();
+      const dateStr = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
+      
+      if (!appState.notices) appState.notices = [];
+      appState.notices.push({
+        id: 'notice_' + Date.now(),
+        author: currentUser ? currentUser.fullname : 'GVCN',
+        date: dateStr,
+        rawTimestamp: now.getTime(),
+        content: val,
+        isDeleted: false
+      });
+
+      await syncData();
+      document.getElementById('noticeContentInput').value = '';
+      closeModal('addNoticeModal');
+      renderNotices();
+    };
+
     window.deleteNotice = async function(id) {
-      if (confirm('Bạn có muốn xóa thông báo này?')) {
-        appState.notices = appState.notices.filter(n => n.id !== id);
+      if (confirm('Bạn có muốn ẩn thông báo này khỏi trang chủ? (Hệ thống vẫn lưu trong lịch sử xuất báo cáo)')) {
+        const item = appState.notices.find(n => n.id === id);
+        if (item) item.isDeleted = true;
         await syncData();
         renderNotices();
       }
     };
 
-    // BẢNG XẾP HẠNG TOP 10
-    function renderRanking() {
-      const grid = document.getElementById('rankingGrid');
-      if (!appState.students || appState.students.length === 0) {
-        grid.innerHTML = `
-          <div class="empty-state" style="grid-column: 1/-1;">
-            <i class="fa-solid fa-ranking-star"></i>
-            <p>Chưa có dữ liệu rèn luyện học sinh.</p>
-          </div>
-        `;
+    // XUẤT LỊCH SỬ THÔNG BÁO (EXCEL / PDF) THEO KHOẢNG THỜI GIAN
+    window.exportNotices = function(type) {
+      const fromVal = document.getElementById('noticeExportFromDate').value;
+      const toVal = document.getElementById('noticeExportToDate').value;
+      let fromTs = fromVal ? new Date(fromVal).setHours(0,0,0,0) : 0;
+      let toTs = toVal ? new Date(toVal).setHours(23,59,59,999) : Infinity;
+
+      let list = (appState.notices || []).filter(n => {
+        let ts = n.rawTimestamp;
+        if (!ts && n.date) {
+          const parts = n.date.split('/');
+          if (parts.length === 3) ts = new Date(parts[2], parts[1]-1, parts[0]).getTime();
+        }
+        if (!ts) return true;
+        return ts >= fromTs && ts <= toTs;
+      });
+
+      if (list.length === 0) {
+        alert('Không có thông báo nào trong khoảng thời gian đã chọn!');
         return;
       }
 
+      if (type === 'excel') {
+        const wsData = [
+          ['LỊCH SỬ THÔNG BÁO'],
+          ['Ngày', 'Nội dung thông báo']
+        ];
+        list.forEach(n => {
+          wsData.push([formatDateVN(n.date), n.content]);
+        });
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.aoa_to_sheet(wsData);
+        XLSX.utils.book_append_sheet(wb, ws, 'LichSuThongBao');
+        XLSX.writeFile(wb, `Lich_Su_Thong_Bao_12A3.xlsx`);
+      } else {
+        const { jsPDF } = window.jspdf;
+        const docPdf = new jsPDF();
+        docPdf.text("LICH SU THONG BAO LOP 12A3", 14, 15);
+        const rows = list.map(n => [formatDateVN(n.date), n.content]);
+        docPdf.autoTable({
+          head: [['Ngay', 'Noi dung thong bao']],
+          body: rows,
+          startY: 22
+        });
+        docPdf.save(`Lich_Su_Thong_Bao_12A3.pdf`);
+      }
+      closeModal('exportNoticesModal');
+    };
+
+    // BẢNG XẾP HẠNG TOP 10
+    function calculateAllScores() {
       const scoresMap = {};
-      appState.students.forEach(s => {
+      (appState.students || []).forEach(s => {
         scoresMap[s.stt] = (appState.defaultScore !== undefined ? appState.defaultScore : 100);
       });
 
@@ -1324,7 +1529,22 @@
           }
         });
       }
+      return scoresMap;
+    }
 
+    function renderRanking() {
+      const grid = document.getElementById('rankingGrid');
+      if (!appState.students || appState.students.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state" style="grid-column: 1/-1;">
+            <i class="fa-solid fa-ranking-star"></i>
+            <p>Chưa có dữ liệu rèn luyện học sinh.</p>
+          </div>
+        `;
+        return;
+      }
+
+      const scoresMap = calculateAllScores();
       const sorted = [...appState.students].map(s => ({
         ...s,
         score: scoresMap[s.stt]
@@ -1356,7 +1576,7 @@
       }).join('');
     }
 
-    // VINH DANH ĐỘT XUẤT (GVCN THÊM/XÓA)
+    // VINH DANH ĐỘT XUẤT (CHỌN TỪ THẺ HỌC SINH)
     function renderHonors() {
       const grid = document.getElementById('honorsGrid');
       const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL);
@@ -1371,30 +1591,40 @@
         return;
       }
 
-      grid.innerHTML = appState.honors.slice().reverse().map(h => `
-        <div class="honor-card">
-          ${isGvcn ? `<button class="honor-delete-btn" title="Xóa vinh danh này" onclick="deleteHonor('${h.id}')"><i class="fa-solid fa-xmark"></i></button>` : ''}
-          <div class="honor-name"><i class="fa-solid fa-medal" style="color: var(--gold); margin-right: 6px;"></i>${escapeHtml(h.name)}</div>
-          <div class="honor-achievement">${escapeHtml(h.achievement)}</div>
-        </div>
-      `).join('');
+      grid.innerHTML = appState.honors.slice().reverse().map(h => {
+        const studentNames = (h.studentStts || []).map(stt => {
+          const s = (appState.students || []).find(st => st.stt === stt);
+          return s ? `${s.stt}. ${s.name}` : `Học sinh STT ${stt}`;
+        }).join(', ') || h.name || 'Học sinh';
+
+        return `
+          <div class="honor-card">
+            ${isGvcn ? `<button class="honor-delete-btn" title="Xóa vinh danh này" onclick="deleteHonor('${h.id}')"><i class="fa-solid fa-xmark"></i></button>` : ''}
+            <div class="honor-name"><i class="fa-solid fa-medal" style="color: var(--gold); margin-right: 6px;"></i>${escapeHtml(studentNames)}</div>
+            <div class="honor-achievement">${escapeHtml(h.achievement)}</div>
+          </div>
+        `;
+      }).join('');
     }
 
     window.saveHonor = async function() {
-      const name = document.getElementById('honorStudentName').value.trim();
+      const selected = [];
+      document.querySelectorAll("input[name='honor_student_item']:checked").forEach(cb => {
+        selected.push(parseInt(cb.value, 10));
+      });
       const ach = document.getElementById('honorAchievement').value.trim();
-      if (!name || !ach) {
-        alert('Vui lòng nhập tên học sinh và thành tích!');
+
+      if (selected.length === 0 || !ach) {
+        alert('Vui lòng chọn ít nhất một học sinh và nhập thành tích vinh danh!');
         return;
       }
       if (!appState.honors) appState.honors = [];
       appState.honors.push({
         id: 'honor_' + Date.now(),
-        name: name,
+        studentStts: selected,
         achievement: ach
       });
       await syncData();
-      document.getElementById('honorStudentName').value = '';
       document.getElementById('honorAchievement').value = '';
       closeModal('addHonorModal');
       renderHonors();
@@ -1409,7 +1639,7 @@
       }
     };
 
-    // HỌC SINH CẦN CHÚ Ý (CHỈ GVCN & BCS XEM, CHỈ GVCN ĐÁNH DẤU/XÓA)
+    // HỌC SINH CẦN CHÚ Ý
     function renderAttentionList() {
       const wrap = document.getElementById('attentionListWrap');
       const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL);
@@ -1493,7 +1723,7 @@
       }).join('');
     }
 
-    // BAN CÁN SỰ & XÓA BCS
+    // BAN CÁN SỰ
     function renderBCS() {
       const container = document.getElementById('bcsContainer');
       const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL);
@@ -1542,7 +1772,7 @@
       }
     };
 
-    // QUẢN TRỊ TÀI KHOẢN & XÓA TÀI KHOẢN
+    // QUẢN TRỊ TÀI KHOẢN
     function renderAccountsTable() {
       const wrap = document.getElementById('accountsListTable');
       const rolesEntries = Object.entries(appState.userRoles || {});
@@ -1594,7 +1824,7 @@
       }
     };
 
-    // TÙY CHỈNH DANH MỤC & ĐIỂM SỐ QUY CHẾ (GVCN)
+    // TÙY CHỈNH DANH MỤC & ĐIỂM SỐ QUY CHẾ
     function renderRulesModal() {
       const list = document.getElementById('rulesEditableListWrap');
       const rules = appState.rules || DEFAULT_RULES;
@@ -1649,7 +1879,7 @@
       alert('Đã thêm quy chế mới!');
     };
 
-    // LỊCH SỬ RÈN LUYỆN & XÓA GHI NHẬN NHẦM CỦA 1 HỌC SINH (GVCN)
+    // LỊCH SỬ RÈN LUYỆN 1 HỌC SINH
     function prepareHistoryModal() {
       const sel = document.getElementById('historyStudentSelect');
       sel.innerHTML = (appState.students || []).map(s => `
@@ -1671,7 +1901,7 @@
       rewWrap.innerHTML = rewards.length === 0 ? '<p style="color: var(--text-muted); font-size: 0.85rem;">Chưa có khen thưởng nào.</p>' : rewards.map(r => `
         <div class="timeline-item">
           ${isGvcn ? `<button class="notice-delete-btn" title="Xóa ghi nhận này" onclick="deleteStudentRecord('${r.id}', ${stt})"><i class="fa-solid fa-trash-can"></i></button>` : ''}
-          <div class="timeline-date"><i class="fa-regular fa-calendar"></i> ${r.date} &bull; Bởi: ${escapeHtml(r.recordedBy)}</div>
+          <div class="timeline-date"><i class="fa-regular fa-calendar"></i> ${formatDateVN(r.date)} &bull; Bởi: ${escapeHtml(r.recordedBy)}</div>
           <div style="font-weight: 600; color: var(--success);">${escapeHtml(r.ruleName)} (+${r.delta}đ)</div>
         </div>
       `).join('');
@@ -1679,7 +1909,7 @@
       vioWrap.innerHTML = violations.length === 0 ? '<p style="color: var(--text-muted); font-size: 0.85rem;">Không có vi phạm nào.</p>' : violations.map(r => `
         <div class="timeline-item">
           ${isGvcn ? `<button class="notice-delete-btn" title="Xóa ghi nhận này" onclick="deleteStudentRecord('${r.id}', ${stt})"><i class="fa-solid fa-trash-can"></i></button>` : ''}
-          <div class="timeline-date"><i class="fa-regular fa-calendar"></i> ${r.date} &bull; Bởi: ${escapeHtml(r.recordedBy)}</div>
+          <div class="timeline-date"><i class="fa-regular fa-calendar"></i> ${formatDateVN(r.date)} &bull; Bởi: ${escapeHtml(r.recordedBy)}</div>
           <div style="font-weight: 600; color: var(--danger);">${escapeHtml(r.ruleName)} (${r.delta}đ)</div>
         </div>
       `).join('');
@@ -1701,11 +1931,99 @@
       }
     };
 
-    // QUẢN LÝ THẺ CÔNG VIỆC LAO ĐỘNG (GVCN TẠO VÀ XÓA THẺ)
+    // XUẤT VI PHẠM / KHEN THƯỞNG THEO FILE MẪU CHUẨN
+    function prepareExportRecordsModal() {
+      const wrap = document.getElementById('exportRulesChecklist');
+      const rules = appState.rules || DEFAULT_RULES;
+      wrap.innerHTML = rules.map((r, idx) => `
+        <label class="checkbox-item">
+          <input type="checkbox" name="export_rule_checkbox" value="${escapeHtml(r.name)}" checked />
+          <span>${escapeHtml(r.name)} (${r.delta > 0 ? '+' : ''}${r.delta}đ)</span>
+        </label>
+      `).join('');
+    }
+
+    window.toggleSelectAllExportRules = function(check) {
+      document.querySelectorAll("input[name='export_rule_checkbox']").forEach(cb => cb.checked = check);
+    };
+
+    window.executeExportRecords = function(type) {
+      const selectedRuleNames = [];
+      document.querySelectorAll("input[name='export_rule_checkbox']:checked").forEach(cb => {
+        selectedRuleNames.push(cb.value);
+      });
+
+      if (selectedRuleNames.length === 0) {
+        alert('Vui lòng chọn ít nhất một loại vi phạm hoặc khen thưởng để xuất!');
+        return;
+      }
+
+      const sortOpt = document.getElementById('exportSortOption').value;
+      const includeScore = document.getElementById('includeCurrentScoreCheck').checked;
+      const scoresMap = calculateAllScores();
+
+      let studentList = [...(appState.students || [])];
+      if (sortOpt === 'STT_ASC') {
+        studentList.sort((a, b) => a.stt - b.stt);
+      } else if (sortOpt === 'SCORE_DESC') {
+        studentList.sort((a, b) => scoresMap[b.stt] - scoresMap[a.stt]);
+      } else if (sortOpt === 'SCORE_ASC') {
+        studentList.sort((a, b) => scoresMap[a.stt] - scoresMap[b.stt]);
+      }
+
+      const todayStr = formatDateVN(new Date());
+
+      // Tạo tiêu đề
+      const headerRow = ['STT', 'Họ và tên học sinh', ...selectedRuleNames];
+      if (includeScore) headerRow.push('Tổng điểm hiện tại');
+
+      const dataRows = studentList.map(st => {
+        const row = [st.stt, st.name];
+        selectedRuleNames.forEach(rName => {
+          const matched = (appState.records || []).filter(r => r.studentStts && r.studentStts.includes(st.stt) && r.ruleName === rName);
+          if (matched.length > 0) {
+            const cellText = matched.map(m => `${formatDateVN(m.date)} (${m.delta > 0 ? '+' : ''}${m.delta} điểm)`).join('\n');
+            row.push(cellText);
+          } else {
+            row.push('');
+          }
+        });
+        if (includeScore) row.push(scoresMap[st.stt]);
+        return row;
+      });
+
+      if (type === 'excel') {
+        const titleRow = [`LỊCH SỬ VI PHẠM/KHEN THƯỞNG/ĐIỂM SỐ TÍNH ĐẾN ${todayStr}`];
+        const wsData = [titleRow, headerRow, ...dataRows];
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.aoa_to_sheet(wsData);
+        XLSX.utils.book_append_sheet(wb, ws, 'ViPham_KhenThuong');
+        XLSX.writeFile(wb, `Lich_Su_Ren_Luyen_12A3_${todayStr.replace(/\//g, '-')}.xlsx`);
+      } else {
+        const { jsPDF } = window.jspdf;
+        const docPdf = new jsPDF('landscape');
+        docPdf.text(`LICH SU VI PHAM / KHEN THUONG / DIEM SO TINH DEN ${todayStr}`, 14, 15);
+        docPdf.autoTable({
+          head: [headerRow],
+          body: dataRows,
+          startY: 22,
+          styles: { fontSize: 8 }
+        });
+        docPdf.save(`Lich_Su_Ren_Luyen_12A3.pdf`);
+      }
+      closeModal('exportRecordsModal');
+    };
+
+    // QUẢN LÝ PHÂN CÔNG LAO ĐỘNG
     function renderLabor() {
       const weeklyList = document.getElementById('weeklyTasksList');
       const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL || currentUser.role === 'LP_LAO_DONG');
-      const currentTasks = (appState.laborWeekly && appState.laborWeekly[selectedLaborDay]) || [];
+
+      const weekKey = appState.currentLaborWeek || Object.keys(appState.laborWeeklyHistory || {}).pop() || '';
+      document.getElementById('currentWeekDisplayTitle').innerText = weekKey ? `Phân công: ${weekKey}` : 'Chưa có phân công tuần nào';
+
+      const currentWeekObj = (appState.laborWeeklyHistory && appState.laborWeeklyHistory[weekKey]) || {};
+      const currentTasks = currentWeekObj[selectedLaborDay] || [];
 
       if (currentTasks.length === 0) {
         weeklyList.innerHTML = `
@@ -1717,7 +2035,7 @@
       } else {
         weeklyList.innerHTML = currentTasks.map((t, idx) => `
           <div class="task-card">
-            ${isGvcn ? `<button class="notice-delete-btn" title="Xóa phân công này" onclick="deleteWeeklyTaskAssignment('${selectedLaborDay}', ${idx})"><i class="fa-solid fa-trash-can"></i></button>` : ''}
+            ${isGvcn ? `<button class="notice-delete-btn" title="Xóa phân công này" onclick="deleteWeeklyTaskAssignment('${weekKey}', '${selectedLaborDay}', ${idx})"><i class="fa-solid fa-trash-can"></i></button>` : ''}
             <div class="task-title"><i class="fa-solid fa-thumbtack"></i> ${escapeHtml(t.taskName)}</div>
             <div class="task-students">
               <strong>Học sinh:</strong> ${t.students.map(s => escapeHtml(s)).join(', ') || 'Chưa phân công'}
@@ -1750,10 +2068,41 @@
       }
     }
 
-    window.deleteWeeklyTaskAssignment = async function(day, index) {
+    window.saveWeeklyLaborAssignment = async function() {
+      const weekLabel = document.getElementById('weeklyWeekLabel').value.trim() || 'Tuần này';
+      const day = document.getElementById('weeklyDaySelect').value;
+      const task = document.getElementById('weeklyTaskSelect').value;
+
+      if (!task) {
+        alert('Vui lòng chọn thẻ công việc!');
+        return;
+      }
+
+      const chosenStudents = [];
+      document.querySelectorAll("input[name='weekly_student_item']:checked").forEach(cb => {
+        chosenStudents.push(cb.value);
+      });
+
+      if (!appState.laborWeeklyHistory) appState.laborWeeklyHistory = {};
+      if (!appState.laborWeeklyHistory[weekLabel]) appState.laborWeeklyHistory[weekLabel] = {};
+      if (!appState.laborWeeklyHistory[weekLabel][day]) appState.laborWeeklyHistory[weekLabel][day] = [];
+
+      appState.laborWeeklyHistory[weekLabel][day].push({
+        taskName: task,
+        students: chosenStudents
+      });
+
+      appState.currentLaborWeek = weekLabel;
+      await syncData();
+      closeModal('assignLaborWeeklyModal');
+      renderLabor();
+      alert('Đã lưu phân công trực nhật!');
+    };
+
+    window.deleteWeeklyTaskAssignment = async function(weekKey, day, index) {
       if (confirm('Bạn có muốn xóa thẻ phân công trực nhật này?')) {
-        if (appState.laborWeekly && appState.laborWeekly[day]) {
-          appState.laborWeekly[day].splice(index, 1);
+        if (appState.laborWeeklyHistory && appState.laborWeeklyHistory[weekKey] && appState.laborWeeklyHistory[weekKey][day]) {
+          appState.laborWeeklyHistory[weekKey][day].splice(index, 1);
           await syncData();
           renderLabor();
         }
@@ -1766,6 +2115,68 @@
         await syncData();
         renderLabor();
       }
+    };
+
+    function prepareLaborExportModal() {
+      const sel = document.getElementById('exportLaborWeekSelect');
+      const weeks = Object.keys(appState.laborWeeklyHistory || {});
+      if (weeks.length === 0) {
+        sel.innerHTML = '<option value="">Chưa có dữ liệu phân công tuần nào</option>';
+      } else {
+        sel.innerHTML = weeks.slice().reverse().map(w => `<option value="${escapeHtml(w)}">${escapeHtml(w)}</option>`).join('');
+      }
+    }
+
+    // XUẤT LỊCH LAO ĐỘNG THEO FILE MẪU CHUẨN
+    window.executeExportLabor = function(type) {
+      const weekKey = document.getElementById('exportLaborWeekSelect').value;
+      if (!weekKey) {
+        alert('Vui lòng chọn tuần phân công cần xuất!');
+        return;
+      }
+
+      const weekObj = (appState.laborWeeklyHistory && appState.laborWeeklyHistory[weekKey]) || {};
+      const allTaskNames = (appState.laborTaskCards || []).map(c => c.name);
+
+      // Nếu chưa tạo thẻ công việc độc lập thì gom từ lịch đã phân công
+      const taskSet = new Set(allTaskNames);
+      ['2', '3', '4', '5', '6'].forEach(d => {
+        (weekObj[d] || []).forEach(t => taskSet.add(t.taskName));
+      });
+
+      const headerRow = ['Công việc', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6'];
+      const dataRows = Array.from(taskSet).map(taskName => {
+        const row = [taskName];
+        ['2', '3', '4', '5', '6'].forEach(d => {
+          const matched = (weekObj[d] || []).filter(item => item.taskName === taskName);
+          if (matched.length > 0) {
+            const names = matched.map(m => m.students.join(', ')).filter(Boolean).join('\n');
+            row.push(names);
+          } else {
+            row.push('');
+          }
+        });
+        return row;
+      });
+
+      if (type === 'excel') {
+        const wsData = [headerRow, ...dataRows];
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.aoa_to_sheet(wsData);
+        XLSX.utils.book_append_sheet(wb, ws, 'LichTrucNhat');
+        XLSX.writeFile(wb, `Lich_Truc_Nhat_${weekKey.replace(/\s+/g, '_')}.xlsx`);
+      } else {
+        const { jsPDF } = window.jspdf;
+        const docPdf = new jsPDF('landscape');
+        docPdf.text(`LICH TRUC NHAT LAO DONG - ${weekKey.toUpperCase()}`, 14, 15);
+        docPdf.autoTable({
+          head: [headerRow],
+          body: dataRows,
+          startY: 22
+        });
+        docPdf.save(`Lich_Truc_Nhat_${weekKey.replace(/\s+/g, '_')}.pdf`);
+      }
+      closeModal('exportLaborModal');
     };
 
     function renderManageTaskCardsList() {
@@ -1981,7 +2392,8 @@
       if (!appState.records) appState.records = [];
       appState.records.push({
         id: 'rec_' + Date.now(),
-        date: dateVal,
+        date: formatDateVN(dateVal),
+        rawDate: dateVal,
         ruleName: ruleName,
         delta: delta,
         studentStts: selectedStts,
@@ -2073,30 +2485,7 @@
       await signOut(auth);
     };
 
-    window.saveNotice = async function() {
-      const val = document.getElementById('noticeContentInput').value.trim();
-      if (!val) {
-        alert('Vui lòng nhập nội dung thông báo!');
-        return;
-      }
-      const now = new Date();
-      const dateStr = `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')} ngày ${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
-      
-      if (!appState.notices) appState.notices = [];
-      appState.notices.push({
-        id: 'notice_' + Date.now(),
-        author: currentUser ? currentUser.fullname : 'GVCN',
-        date: dateStr,
-        content: val
-      });
-
-      await syncData();
-      document.getElementById('noticeContentInput').value = '';
-      closeModal('addNoticeModal');
-      renderNotices();
-    };
-
-    // PHÂN CÔNG LAO ĐỘNG
+    // PHÂN CÔNG LAO ĐỘNG GIAO DIỆN
     window.switchLaborTab = function(tab) {
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       event.target.classList.add('active');
@@ -2133,36 +2522,6 @@
         </label>
       `).join('');
     }
-
-    window.saveWeeklyLaborAssignment = async function() {
-      const weekLabel = document.getElementById('weeklyWeekLabel').value.trim();
-      const day = document.getElementById('weeklyDaySelect').value;
-      const task = document.getElementById('weeklyTaskSelect').value;
-
-      if (!task) {
-        alert('Vui lòng chọn thẻ công việc!');
-        return;
-      }
-
-      const chosenStudents = [];
-      document.querySelectorAll("input[name='weekly_student_item']:checked").forEach(cb => {
-        chosenStudents.push(cb.value);
-      });
-
-      if (!appState.laborWeekly) appState.laborWeekly = {};
-      if (!appState.laborWeekly[day]) appState.laborWeekly[day] = [];
-
-      appState.laborWeekly[day].push({
-        week: weekLabel || 'Tuần này',
-        taskName: task,
-        students: chosenStudents
-      });
-
-      await syncData();
-      closeModal('assignLaborWeeklyModal');
-      renderLabor();
-      alert('Đã lưu phân công trực nhật!');
-    };
 
     function prepareLaborAdhocModal() {
       const wrap = document.getElementById('adhocStudentsChecklist');
@@ -2222,6 +2581,17 @@
         if (id === 'assignLaborWeeklyModal') prepareLaborWeeklyModal();
         if (id === 'assignLaborAdhocModal') prepareLaborAdhocModal();
         if (id === 'manageTaskCardsModal') renderManageTaskCardsList();
+        if (id === 'exportLaborModal') prepareLaborExportModal();
+        if (id === 'exportRecordsModal') prepareExportRecordsModal();
+        if (id === 'addHonorModal') {
+          const wrap = document.getElementById('honorStudentsChecklist');
+          wrap.innerHTML = (appState.students || []).map(s => `
+            <label class="checkbox-item">
+              <input type="checkbox" name="honor_student_item" value="${s.stt}" />
+              <span>${s.stt}. ${escapeHtml(s.name)}</span>
+            </label>
+          `).join('');
+        }
         if (id === 'attentionManageModal') {
           const sel = document.getElementById('attentionStudentSelect');
           sel.innerHTML = (appState.students || []).map(s => `<option value="${s.stt}">${s.stt} - ${escapeHtml(s.name)}</option>`).join('');
