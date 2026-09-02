@@ -478,6 +478,9 @@
           <button class="btn btn-outline" onclick="openModal('attentionManageModal')">
             <i class="fa-solid fa-triangle-exclamation"></i> Đánh dấu HS cần chú ý
           </button>
+          <button class="btn btn-success" onclick="openModal('exportAttendanceModal')">
+            <i class="fa-solid fa-calendar-check"></i> Xuất Điểm Danh Tháng (Excel)
+          </button>
           <button class="btn btn-success" onclick="openModal('exportRecordsModal')">
             <i class="fa-solid fa-file-excel"></i> Xuất bảng tổng hợp Excel
           </button>
@@ -962,7 +965,7 @@
         </div>
         <div class="form-group">
           <label class="form-label">Hình thức cải thiện đã thực hiện</label>
-          <input type="text" id="improveScoreReason" class="form-control" placeholder="ví dụ: Trực toàn trường, Trực phòng thực hành, Khắc phục công trình..." />
+          <input type="text" id="improveScoreReason" class="form-control" placeholder="ví dụ: Trực toàn trường, Trực phòng thực hành..." />
         </div>
         <div class="form-group">
           <label class="form-label">Ngày thực hiện</label>
@@ -1005,6 +1008,43 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-outline" onclick="closeModal('historyExportModal')">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: XUẤT ĐIỂM DANH HÀNG THÁNG THEO MẪU (EXCEL) -->
+  <div class="modal-overlay" id="exportAttendanceModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-calendar-check"></i> Xuất Điểm Danh Hàng Tháng (Excel)</div>
+        <button class="modal-close" onclick="closeModal('exportAttendanceModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Chọn tháng xuất điểm danh (Năm học 2026-2027)</label>
+          <select id="exportAttendanceMonthSelect" class="form-control">
+            <option value="8_2026">Tháng 8/2026</option>
+            <option value="9_2026" selected>Tháng 9/2026</option>
+            <option value="10_2026">Tháng 10/2026</option>
+            <option value="11_2026">Tháng 11/2026</option>
+            <option value="12_2026">Tháng 12/2026</option>
+            <option value="1_2027">Tháng 1/2027</option>
+            <option value="2_2027">Tháng 2/2027</option>
+            <option value="3_2027">Tháng 3/2027</option>
+            <option value="4_2027">Tháng 4/2027</option>
+            <option value="5_2027">Tháng 5/2027</option>
+          </select>
+        </div>
+        <div style="background: rgba(255,255,255,0.04); padding: 12px; border-radius: 10px; font-size: 0.85rem; color: #cbd5e1; line-height: 1.6;">
+          <p><strong>Quy ước ký hiệu trên bảng điểm danh:</strong></p>
+          <p>S = Vắng buổi sáng</p>
+          <p>C = Vắng buổi chiều (trái buổi)</p>
+          <p>N = Vắng cả ngày (gồm Vắng không phép hoặc vắng cả sáng lẫn chiều)</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('exportAttendanceModal')">Đóng</button>
+        <button class="btn btn-success" onclick="executeExportAttendanceExcel()"><i class="fa-solid fa-file-excel"></i> Tải File Excel</button>
       </div>
     </div>
   </div>
@@ -1281,6 +1321,7 @@
     const ADMIN_PRIMARY_EMAIL = "toapt989@gmail.com";
 
     const DEFAULT_RULES = [
+      { id: 'GV_VANG_KP', name: 'Vắng không phép (GVCN)', delta: -10, roles: ['GVCN'] },
       { id: 'LT_1', name: 'Vắng buổi sáng', delta: -5, roles: ['GVCN', 'LOP_TRUONG'] },
       { id: 'LT_2', name: 'Vắng trái buổi', delta: -5, roles: ['GVCN', 'LOP_TRUONG'] },
       { id: 'LT_3', name: 'Trễ buổi sáng', delta: -2, roles: ['GVCN', 'LOP_TRUONG'] },
@@ -1362,6 +1403,29 @@
       const month = String(d.getMonth() + 1).padStart(2, '0');
       const year = d.getFullYear();
       return `${day}/${month}/${year}`;
+    }
+
+    function parseRecordDate(r) {
+      if (r.rawDate) {
+        const parts = r.rawDate.split('-');
+        if (parts.length === 3) {
+          return { year: parseInt(parts[0], 10), month: parseInt(parts[1], 10), day: parseInt(parts[2], 10) };
+        }
+      }
+      if (r.date && typeof r.date === 'string') {
+        if (r.date.includes('/')) {
+          const parts = r.date.split('/');
+          if (parts.length === 3) {
+            return { day: parseInt(parts[0], 10), month: parseInt(parts[1], 10), year: parseInt(parts[2], 10) };
+          }
+        } else if (r.date.includes('-')) {
+          const parts = r.date.split('-');
+          if (parts.length === 3) {
+            return { year: parseInt(parts[0], 10), month: parseInt(parts[1], 10), day: parseInt(parts[2], 10) };
+          }
+        }
+      }
+      return null;
     }
 
     onSnapshot(docRef, (snapshot) => {
@@ -1538,7 +1602,6 @@
       }
     };
 
-    // XUẤT THÔNG BÁO EXCEL
     window.exportNoticesExcel = function() {
       const fromVal = document.getElementById('noticeExportFromDate').value;
       const toVal = document.getElementById('noticeExportToDate').value;
@@ -1574,7 +1637,6 @@
       closeModal('exportNoticesModal');
     };
 
-    // TÍNH TOÁN ĐIỂM
     function calculateAllScores() {
       const scoresMap = {};
       (appState.students || []).forEach(s => {
@@ -1637,7 +1699,6 @@
       }).join('');
     }
 
-    // VINH DANH ĐỘT XUẤT
     function renderHonors() {
       const grid = document.getElementById('honorsGrid');
       const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL);
@@ -1700,7 +1761,6 @@
       }
     };
 
-    // HỌC SINH CẦN CHÚ Ý
     function renderAttentionList() {
       const wrap = document.getElementById('attentionListWrap');
       const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL);
@@ -1784,7 +1844,6 @@
       }).join('');
     }
 
-    // BAN CÁN SỰ
     function renderBCS() {
       const container = document.getElementById('bcsContainer');
       const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL);
@@ -1833,7 +1892,6 @@
       }
     };
 
-    // QUẢN TRỊ TÀI KHOẢN
     function renderAccountsTable() {
       const wrap = document.getElementById('accountsListTable');
       const rolesEntries = Object.entries(appState.userRoles || {});
@@ -1885,7 +1943,6 @@
       }
     };
 
-    // TÙY CHỈNH QUY CHẾ
     function renderRulesModal() {
       const list = document.getElementById('rulesEditableListWrap');
       const rules = appState.rules || DEFAULT_RULES;
@@ -1940,7 +1997,6 @@
       alert('Đã thêm quy chế mới!');
     };
 
-    // LỊCH SỬ RÈN LUYỆN 1 HỌC SINH
     function prepareHistoryModal() {
       const sel = document.getElementById('historyStudentSelect');
       sel.innerHTML = (appState.students || []).map(s => `
@@ -1992,7 +2048,6 @@
       }
     };
 
-    // TÍNH NĂNG CỘNG ĐIỂM CẢI THIỆN (CHỈ GVCN)
     window.openImprovementModal = function() {
       const now = new Date();
       document.getElementById('improveDateInput').value = now.toISOString().split('T')[0];
@@ -2048,7 +2103,72 @@
       alert('Đã lưu điểm cải thiện thành công!');
     };
 
-    // XUẤT VI PHẠM / KHEN THƯỞNG EXCEL THEO MẪU
+    // XUẤT ĐIỂM DANH HÀNG THÁNG EXCEL THEO MẪU
+    window.executeExportAttendanceExcel = function() {
+      const selVal = document.getElementById('exportAttendanceMonthSelect').value;
+      if (!selVal) return;
+      const parts = selVal.split('_');
+      const selMonth = parseInt(parts[0], 10);
+      const selYear = parseInt(parts[1], 10);
+
+      const studentList = [...(appState.students || [])].sort((a, b) => a.stt - b.stt);
+      if (studentList.length === 0) {
+        alert('Chưa có học sinh nào trong danh sách lớp!');
+        return;
+      }
+
+      const headerRow = ['STT', 'Họ và tên'];
+      for (let d = 1; d <= 31; d++) {
+        headerRow.push(d);
+      }
+
+      const dataRows = studentList.map(st => {
+        const row = [st.stt, st.name];
+        for (let d = 1; d <= 31; d++) {
+          const dayRecords = (appState.records || []).filter(r => {
+            if (!r.studentStts || !r.studentStts.includes(st.stt)) return false;
+            const pDate = parseRecordDate(r);
+            if (!pDate) return false;
+            return pDate.year === selYear && pDate.month === selMonth && pDate.day === d;
+          });
+
+          let hasSang = false;
+          let hasChieu = false;
+          let hasCaNgay = false;
+
+          dayRecords.forEach(r => {
+            const name = (r.ruleName || '').toLowerCase();
+            if (name.includes('không phép') || name.includes('cả ngày')) {
+              hasCaNgay = true;
+            } else if (name.includes('sáng')) {
+              hasSang = true;
+            } else if (name.includes('trái buổi') || name.includes('chiều')) {
+              hasChieu = true;
+            }
+          });
+
+          let code = '';
+          if (hasCaNgay || (hasSang && hasChieu)) {
+            code = 'N';
+          } else if (hasSang) {
+            code = 'S';
+          } else if (hasChieu) {
+            code = 'C';
+          }
+
+          row.push(code || '');
+        }
+        return row;
+      });
+
+      const wsData = [headerRow, ...dataRows];
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.aoa_to_sheet(wsData);
+      XLSX.utils.book_append_sheet(wb, ws, `Thang_${selMonth}_${selYear}`);
+      XLSX.writeFile(wb, `Diem_Danh_Thang_${selMonth}_${selYear}_12A3.xlsx`);
+      closeModal('exportAttendanceModal');
+    };
+
     function prepareExportRecordsModal() {
       const wrap = document.getElementById('exportRulesChecklist');
       const uniqueRules = new Set();
@@ -2119,7 +2239,6 @@
       closeModal('exportRecordsModal');
     };
 
-    // XUẤT FILE WORD CẢ LỚP (NGẮT TRANG TỪNG HỌC SINH THEO MẪU)
     function prepareExportWordModal() {
       const wrap = document.getElementById('exportWordRulesChecklist');
       const uniqueRules = new Set();
@@ -2235,7 +2354,6 @@
       closeModal('exportWordModal');
     };
 
-    // QUẢN LÝ PHÂN CÔNG LAO ĐỘNG
     function renderLabor() {
       const weeklyList = document.getElementById('weeklyTasksList');
       const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL || currentUser.role === 'LP_LAO_DONG');
@@ -2348,7 +2466,6 @@
       }
     }
 
-    // XUẤT LỊCH LAO ĐỘNG EXCEL THEO MẪU
     window.executeExportLaborExcel = function() {
       const weekKey = document.getElementById('exportLaborWeekSelect').value;
       if (!weekKey) {
@@ -2423,7 +2540,6 @@
       alert('Đã tạo thẻ công việc thành công!');
     };
 
-    // QUẢN LÝ THẺ HỌC SINH
     function renderStudentManageList() {
       const wrap = document.getElementById('studentManageListWrap');
       if (!appState.students || appState.students.length === 0) {
@@ -2500,7 +2616,6 @@
       alert('Đã cập nhật danh sách học sinh thành công!');
     };
 
-    // BAN CÁN SỰ MODAL
     function prepareBcsModal() {
       const sel = document.getElementById('bcsStudentSelect');
       sel.innerHTML = (appState.students || []).map(s => `
@@ -2541,7 +2656,6 @@
       alert('Đã cập nhật chức vụ Ban cán sự!');
     };
 
-    // GHI NHẬN RÈN LUYỆN
     window.openRecordModal = function() {
       if (!currentUser) return;
       const ruleSelect = document.getElementById('ruleActionSelect');
@@ -2614,7 +2728,6 @@
       alert('Đã lưu dữ liệu rèn luyện thành công!');
     };
 
-    // CẤP TÀI KHOẢN QUA FIREBASE AUTH
     window.saveNewAccount = async function() {
       const email = document.getElementById('newAccountEmail').value.trim().toLowerCase();
       const fn = document.getElementById('newAccountFullname').value.trim();
@@ -2651,7 +2764,6 @@
       }
     };
 
-    // ĐĂNG NHẬP & QUẢN TRỊ VIÊN
     window.handleAuthLogin = async function() {
       const email = document.getElementById('loginEmail').value.trim();
       const password = document.getElementById('loginPassword').value.trim();
@@ -2693,7 +2805,6 @@
       await signOut(auth);
     };
 
-    // PHÂN CÔNG LAO ĐỘNG GIAO DIỆN
     window.switchLaborTab = function(tab) {
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       event.target.classList.add('active');
