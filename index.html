@@ -9,10 +9,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- Thư viện xuất Excel và PDF trực tiếp trên trình duyệt -->
+  <!-- Thư viện SheetJS xuất Excel -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
 
   <style>
     :root {
@@ -48,7 +46,6 @@
 
     .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
 
-    /* Thanh đầu trang trượt theo trang, không cố định */
     header {
       background: rgba(11, 26, 54, 0.85);
       border-bottom: 1px solid var(--border-color);
@@ -113,6 +110,13 @@
       border-color: rgba(16, 185, 129, 0.4);
     }
     .btn-success:hover { background: var(--success); color: #fff; }
+
+    .btn-info {
+      background: rgba(6, 182, 212, 0.2);
+      color: #bae6fd;
+      border-color: rgba(6, 182, 212, 0.4);
+    }
+    .btn-info:hover { background: var(--cyan-accent); color: #000; }
 
     .hero-banner {
       margin: 16px 0 32px;
@@ -232,7 +236,6 @@
     .ranking-name { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
     .ranking-score { font-size: 0.88rem; color: var(--cyan-accent); font-weight: 600; }
 
-    /* Vinh danh đột xuất */
     .honors-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
     .honor-card {
       background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(15, 33, 67, 0.7));
@@ -249,7 +252,6 @@
       cursor: pointer;
     }
 
-    /* Học sinh cần chú ý */
     .attention-card {
       background: rgba(239, 68, 68, 0.08);
       border: 1px solid rgba(239, 68, 68, 0.25);
@@ -276,7 +278,7 @@
       position: relative;
     }
     .bcs-student-name { font-weight: 700; color: #bae6fd; font-size: 1.05rem; padding-right: 24px; }
-    .bcs-roles-wrap { display: flex; flex-wrap: gap: 6px; }
+    .bcs-roles-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
     .bcs-delete-single-btn {
       position: absolute; top: 12px; right: 12px;
       background: transparent; border: none; color: #fca5a5; cursor: pointer;
@@ -393,7 +395,6 @@
 </head>
 <body>
 
-  <!-- Thanh đầu trang tự do trượt theo giao diện -->
   <header>
     <div class="container header-inner">
       <div class="brand-title">
@@ -438,7 +439,7 @@
               <i class="fa-solid fa-plus"></i> Đăng thông báo mới
             </button>
             <button class="btn btn-success" onclick="openModal('exportNoticesModal')">
-              <i class="fa-solid fa-file-export"></i> Xuất lịch sử thông báo
+              <i class="fa-solid fa-file-excel"></i> Xuất lịch sử thông báo (Excel)
             </button>
           </div>
         </div>
@@ -478,7 +479,10 @@
             <i class="fa-solid fa-triangle-exclamation"></i> Đánh dấu HS cần chú ý
           </button>
           <button class="btn btn-success" onclick="openModal('exportRecordsModal')">
-            <i class="fa-solid fa-file-excel"></i> Xuất file Vi phạm / Khen thưởng
+            <i class="fa-solid fa-file-excel"></i> Xuất bảng tổng hợp Excel
+          </button>
+          <button class="btn btn-info" onclick="openModal('exportWordModal')">
+            <i class="fa-solid fa-file-word"></i> Xuất lịch sử cá nhân Word
           </button>
         </div>
       </div>
@@ -586,9 +590,14 @@
           <span>Ghi Nhận Vi Phạm &amp; Khen Thưởng</span>
         </div>
       </div>
-      <button class="btn btn-primary" onclick="openRecordModal()">
-        <i class="fa-solid fa-circle-plus"></i> Ghi nhận rèn luyện mới
-      </button>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <button class="btn btn-primary" onclick="openRecordModal()">
+          <i class="fa-solid fa-circle-plus"></i> Ghi nhận rèn luyện theo quy chế
+        </button>
+        <button id="improveScoreBtn" class="btn btn-success" style="display: none;" onclick="openImprovementModal()">
+          <i class="fa-solid fa-arrow-trend-up"></i> Cộng điểm cải thiện (Dành riêng GVCN)
+        </button>
+      </div>
     </section>
 
     <!-- Phân công lao động -->
@@ -612,7 +621,7 @@
             <i class="fa-solid fa-bolt"></i> Phân công đột xuất
           </button>
           <button class="btn btn-success" onclick="openModal('exportLaborModal')">
-            <i class="fa-solid fa-file-export"></i> Xuất Lịch Lao Động Tuần
+            <i class="fa-solid fa-file-excel"></i> Xuất Lịch Lao Động Tuần (Excel)
           </button>
         </div>
       </div>
@@ -717,11 +726,11 @@
     </div>
   </div>
 
-  <!-- MODAL: XUẤT LỊCH SỬ THÔNG BÁO -->
+  <!-- MODAL: XUẤT LỊCH SỬ THÔNG BÁO (EXCEL) -->
   <div class="modal-overlay" id="exportNoticesModal">
     <div class="modal-window">
       <div class="modal-header">
-        <div class="modal-title"><i class="fa-solid fa-file-export"></i> Xuất Lịch Sử Thông Báo</div>
+        <div class="modal-title"><i class="fa-solid fa-file-excel"></i> Xuất Lịch Sử Thông Báo (Excel)</div>
         <button class="modal-close" onclick="closeModal('exportNoticesModal')">&times;</button>
       </div>
       <div class="modal-body">
@@ -739,13 +748,12 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-outline" onclick="closeModal('exportNoticesModal')">Đóng</button>
-        <button class="btn btn-success" onclick="exportNotices('excel')"><i class="fa-solid fa-file-excel"></i> Xuất Excel</button>
-        <button class="btn btn-primary" onclick="exportNotices('pdf')"><i class="fa-solid fa-file-pdf"></i> Xuất PDF</button>
+        <button class="btn btn-success" onclick="exportNoticesExcel()"><i class="fa-solid fa-file-excel"></i> Tải File Excel</button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL: VINH DANH ĐỘT XUẤT (CHỌN TỪ THẺ HỌC SINH) -->
+  <!-- MODAL: VINH DANH ĐỘT XUẤT -->
   <div class="modal-overlay" id="addHonorModal">
     <div class="modal-window">
       <div class="modal-header">
@@ -769,7 +777,7 @@
     </div>
   </div>
 
-  <!-- MODAL: ĐÁNH DẤU HỌC SINH CẦN CHÚ Ý (GVCN) -->
+  <!-- MODAL: ĐÁNH DẤU HỌC SINH CẦN CHÚ Ý -->
   <div class="modal-overlay" id="attentionManageModal">
     <div class="modal-window">
       <div class="modal-header">
@@ -783,7 +791,7 @@
         </div>
         <div class="form-group">
           <label class="form-label">Lý do cần chú ý / Lưu ý nề nếp &amp; học tập</label>
-          <input type="text" id="attentionReasonInput" class="form-control" placeholder="ví dụ: Hay đi trễ, mất tập trung, hoàn cảnh..." />
+          <input type="text" id="attentionReasonInput" class="form-control" placeholder="ví dụ: Hay đi trễ, mất tập trung..." />
         </div>
         <button class="btn btn-primary" style="width: 100%; margin-bottom: 16px;" onclick="addStudentAttention()">
           <i class="fa-solid fa-plus"></i> Đánh dấu vào danh sách
@@ -940,6 +948,38 @@
     </div>
   </div>
 
+  <!-- MODAL: CỘNG ĐIỂM CẢI THIỆN (CHỈ GVCN) -->
+  <div class="modal-overlay" id="improvementModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-arrow-trend-up"></i> Cộng Điểm Cải Thiện (GVCN)</div>
+        <button class="modal-close" onclick="closeModal('improvementModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Số điểm cải thiện (số dương, ví dụ: 1, 2, 3, 5...)</label>
+          <input type="number" id="improveScoreDelta" class="form-control" placeholder="Nhập số điểm cộng cải thiện..." min="1" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Hình thức cải thiện đã thực hiện</label>
+          <input type="text" id="improveScoreReason" class="form-control" placeholder="ví dụ: Trực toàn trường, Trực phòng thực hành, Khắc phục công trình..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ngày thực hiện</label>
+          <input type="date" id="improveDateInput" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Chọn một hoặc nhiều học sinh</label>
+          <div class="multi-select-box" id="improveStudentsChecklist"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('improvementModal')">Hủy</button>
+        <button class="btn btn-success" onclick="saveImprovementEntry()">Lưu điểm cải thiện</button>
+      </div>
+    </div>
+  </div>
+
   <!-- MODAL: LỊCH SỬ RÈN LUYỆN & XÓA GHI NHẬN CỦA 1 HỌC SINH (GVCN) -->
   <div class="modal-overlay" id="historyExportModal">
     <div class="modal-window" style="max-width: 800px;">
@@ -954,7 +994,7 @@
         </div>
         <div class="timeline-container">
           <div class="timeline-col rewards">
-            <h4><i class="fa-solid fa-medal"></i> Khen thưởng</h4>
+            <h4><i class="fa-solid fa-medal"></i> Khen thưởng &amp; Điểm cải thiện</h4>
             <div id="timelineRewardsList">Chưa có ghi nhận.</div>
           </div>
           <div class="timeline-col violations">
@@ -969,11 +1009,11 @@
     </div>
   </div>
 
-  <!-- MODAL: XUẤT VI PHẠM / KHEN THƯỞNG (EXCEL / PDF) -->
+  <!-- MODAL: XUẤT VI PHẠM / KHEN THƯỞNG (EXCEL) -->
   <div class="modal-overlay" id="exportRecordsModal">
     <div class="modal-window" style="max-width: 750px;">
       <div class="modal-header">
-        <div class="modal-title"><i class="fa-solid fa-file-excel"></i> Xuất Báo Cáo Vi Phạm / Khen Thưởng</div>
+        <div class="modal-title"><i class="fa-solid fa-file-excel"></i> Xuất Báo Cáo Vi Phạm / Khen Thưởng (Excel)</div>
         <button class="modal-close" onclick="closeModal('exportRecordsModal')">&times;</button>
       </div>
       <div class="modal-body">
@@ -1006,13 +1046,46 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-outline" onclick="closeModal('exportRecordsModal')">Hủy</button>
-        <button class="btn btn-success" onclick="executeExportRecords('excel')"><i class="fa-solid fa-file-excel"></i> Xuất File Excel</button>
-        <button class="btn btn-primary" onclick="executeExportRecords('pdf')"><i class="fa-solid fa-file-pdf"></i> Xuất File PDF</button>
+        <button class="btn btn-success" onclick="executeExportRecordsExcel()"><i class="fa-solid fa-file-excel"></i> Xuất File Excel</button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL: TÙY CHỈNH DANH MỤC & ĐIỂM SỐ QUY CHẾ (GVCN) -->
+  <!-- MODAL: XUẤT FILE WORD CẢ LỚP (NGẮT TRANG TỪNG HỌC SINH) -->
+  <div class="modal-overlay" id="exportWordModal">
+    <div class="modal-window" style="max-width: 750px;">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-file-word"></i> Xuất Lịch Sử Rèn Luyện Word Cả Lớp</div>
+        <button class="modal-close" onclick="closeModal('exportWordModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Tùy chọn danh mục vi phạm / khen thưởng xuất hiện trong hồ sơ Word</label>
+          <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+            <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.78rem;" onclick="toggleSelectAllWordRules(true)">Chọn tất cả</button>
+            <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.78rem;" onclick="toggleSelectAllWordRules(false)">Bỏ chọn</button>
+          </div>
+          <div class="multi-select-box" id="exportWordRulesChecklist" style="max-height: 200px;"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-item">
+            <input type="checkbox" id="wordIncludeScoreCheck" checked />
+            <span>Xuất kèm dòng "Tổng điểm hiện tại: ... điểm." ở cuối mỗi học sinh</span>
+          </label>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">
+          Mỗi học sinh khi xuất ra file Word sẽ được ngắt sang một trang mới riêng biệt theo đúng biểu mẫu.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('exportWordModal')">Hủy</button>
+        <button class="btn btn-info" onclick="executeExportWordClass()"><i class="fa-solid fa-file-word"></i> Tải File Word (.doc)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: TÙY CHỈNH DANH MỤC & ĐIỂM SỐ QUY CHẾ -->
   <div class="modal-overlay" id="customRulesModal">
     <div class="modal-window" style="max-width: 750px;">
       <div class="modal-header">
@@ -1071,7 +1144,7 @@
     </div>
   </div>
 
-  <!-- MODAL: QUẢN LÝ & XÓA THẺ CÔNG VIỆC LAO ĐỘNG (GVCN) -->
+  <!-- MODAL: QUẢN LÝ THẺ CÔNG VIỆC LAO ĐỘNG -->
   <div class="modal-overlay" id="manageTaskCardsModal">
     <div class="modal-window">
       <div class="modal-header">
@@ -1125,11 +1198,11 @@
     </div>
   </div>
 
-  <!-- MODAL: XUẤT LỊCH LAO ĐỘNG TUẦN (EXCEL / PDF) -->
+  <!-- MODAL: XUẤT LỊCH LAO ĐỘNG TUẦN (EXCEL) -->
   <div class="modal-overlay" id="exportLaborModal">
     <div class="modal-window">
       <div class="modal-header">
-        <div class="modal-title"><i class="fa-solid fa-file-export"></i> Xuất Lịch Lao Động Tuần</div>
+        <div class="modal-title"><i class="fa-solid fa-file-excel"></i> Xuất Lịch Lao Động Tuần (Excel)</div>
         <button class="modal-close" onclick="closeModal('exportLaborModal')">&times;</button>
       </div>
       <div class="modal-body">
@@ -1138,13 +1211,12 @@
           <select id="exportLaborWeekSelect" class="form-control"></select>
         </div>
         <p style="font-size: 0.85rem; color: var(--text-muted);">
-          Bảng xuất ra sẽ có cột đầu là Công việc, các cột tiếp theo là Thứ 2, Thứ 3, Thứ 4, Thứ 5, Thứ 6 theo đúng mẫu quy chuẩn.
+          Bảng xuất ra sẽ có cột đầu là Công việc, các cột tiếp theo là Thứ 2, Thứ 3, Thứ 4, Thứ 5, Thứ 6 theo đúng biểu mẫu.
         </p>
       </div>
       <div class="modal-footer">
         <button class="btn btn-outline" onclick="closeModal('exportLaborModal')">Hủy</button>
-        <button class="btn btn-success" onclick="executeExportLabor('excel')"><i class="fa-solid fa-file-excel"></i> Xuất Excel</button>
-        <button class="btn btn-primary" onclick="executeExportLabor('pdf')"><i class="fa-solid fa-file-pdf"></i> Xuất PDF</button>
+        <button class="btn btn-success" onclick="executeExportLaborExcel()"><i class="fa-solid fa-file-excel"></i> Tải File Excel</button>
       </div>
     </div>
   </div>
@@ -1278,7 +1350,6 @@
     let currentUser = null;
     let selectedLaborDay = '2';
 
-    // Hàm chuyển đổi sang định dạng dd/mm/yyyy
     function formatDateVN(dateInput) {
       if (!dateInput) return '';
       if (typeof dateInput === 'string' && dateInput.includes('/')) {
@@ -1353,6 +1424,7 @@
       const attentionSec = document.getElementById('attentionSection');
       const bcsClear = document.getElementById('bcsClearAction');
       const laborAct = document.getElementById('laborActions');
+      const improveBtn = document.getElementById('improveScoreBtn');
 
       if (!currentUser) {
         loginBtn.style.display = 'inline-flex';
@@ -1365,6 +1437,7 @@
         attentionSec.style.display = 'none';
         bcsClear.style.display = 'none';
         laborAct.style.display = 'none';
+        improveBtn.style.display = 'none';
         return;
       }
 
@@ -1379,6 +1452,7 @@
       gvcnManage.style.display = isGvcn ? 'block' : 'none';
       adminManage.style.display = isGvcn ? 'block' : 'none';
       recordSec.style.display = 'block';
+      improveBtn.style.display = isGvcn ? 'inline-flex' : 'none';
       noticeAction.style.display = isGvcn ? 'inline-flex' : 'none';
       honorAction.style.display = isGvcn ? 'inline-block' : 'none';
       attentionSec.style.display = 'block';
@@ -1403,7 +1477,7 @@
       return map[role] || role;
     }
 
-    // THÔNG BÁO GVCN (Xóa là ẩn đi, vẫn lưu đầy đủ)
+    // THÔNG BÁO GVCN
     function renderNotices() {
       const container = document.getElementById('noticeListContainer');
       const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL);
@@ -1437,7 +1511,7 @@
         return;
       }
       const now = new Date();
-      const dateStr = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
+      const dateStr = formatDateVN(now);
       
       if (!appState.notices) appState.notices = [];
       appState.notices.push({
@@ -1456,7 +1530,7 @@
     };
 
     window.deleteNotice = async function(id) {
-      if (confirm('Bạn có muốn ẩn thông báo này khỏi trang chủ? (Hệ thống vẫn lưu trong lịch sử xuất báo cáo)')) {
+      if (confirm('Bạn có muốn ẩn thông báo này khỏi trang chủ? (Hệ thống vẫn lưu trong lịch sử xuất file)')) {
         const item = appState.notices.find(n => n.id === id);
         if (item) item.isDeleted = true;
         await syncData();
@@ -1464,8 +1538,8 @@
       }
     };
 
-    // XUẤT LỊCH SỬ THÔNG BÁO (EXCEL / PDF) THEO KHOẢNG THỜI GIAN
-    window.exportNotices = function(type) {
+    // XUẤT THÔNG BÁO EXCEL
+    window.exportNoticesExcel = function() {
       const fromVal = document.getElementById('noticeExportFromDate').value;
       const toVal = document.getElementById('noticeExportToDate').value;
       let fromTs = fromVal ? new Date(fromVal).setHours(0,0,0,0) : 0;
@@ -1486,34 +1560,21 @@
         return;
       }
 
-      if (type === 'excel') {
-        const wsData = [
-          ['LỊCH SỬ THÔNG BÁO'],
-          ['Ngày', 'Nội dung thông báo']
-        ];
-        list.forEach(n => {
-          wsData.push([formatDateVN(n.date), n.content]);
-        });
-        const wb = XLSX.utils.book_new();
-        const ws = XLSX.utils.aoa_to_sheet(wsData);
-        XLSX.utils.book_append_sheet(wb, ws, 'LichSuThongBao');
-        XLSX.writeFile(wb, `Lich_Su_Thong_Bao_12A3.xlsx`);
-      } else {
-        const { jsPDF } = window.jspdf;
-        const docPdf = new jsPDF();
-        docPdf.text("LICH SU THONG BAO LOP 12A3", 14, 15);
-        const rows = list.map(n => [formatDateVN(n.date), n.content]);
-        docPdf.autoTable({
-          head: [['Ngay', 'Noi dung thong bao']],
-          body: rows,
-          startY: 22
-        });
-        docPdf.save(`Lich_Su_Thong_Bao_12A3.pdf`);
-      }
+      const wsData = [
+        ['LỊCH SỬ THÔNG BÁO'],
+        ['Ngày', 'Nội dung thông báo']
+      ];
+      list.forEach(n => {
+        wsData.push([formatDateVN(n.date), n.content]);
+      });
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.aoa_to_sheet(wsData);
+      XLSX.utils.book_append_sheet(wb, ws, 'LichSuThongBao');
+      XLSX.writeFile(wb, `Lich_Su_Thong_Bao_12A3.xlsx`);
       closeModal('exportNoticesModal');
     };
 
-    // BẢNG XẾP HẠNG TOP 10
+    // TÍNH TOÁN ĐIỂM
     function calculateAllScores() {
       const scoresMap = {};
       (appState.students || []).forEach(s => {
@@ -1576,7 +1637,7 @@
       }).join('');
     }
 
-    // VINH DANH ĐỘT XUẤT (CHỌN TỪ THẺ HỌC SINH)
+    // VINH DANH ĐỘT XUẤT
     function renderHonors() {
       const grid = document.getElementById('honorsGrid');
       const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL);
@@ -1824,7 +1885,7 @@
       }
     };
 
-    // TÙY CHỈNH DANH MỤC & ĐIỂM SỐ QUY CHẾ
+    // TÙY CHỈNH QUY CHẾ
     function renderRulesModal() {
       const list = document.getElementById('rulesEditableListWrap');
       const rules = appState.rules || DEFAULT_RULES;
@@ -1898,7 +1959,7 @@
       const rewards = userRecords.filter(r => r.delta > 0);
       const violations = userRecords.filter(r => r.delta < 0);
 
-      rewWrap.innerHTML = rewards.length === 0 ? '<p style="color: var(--text-muted); font-size: 0.85rem;">Chưa có khen thưởng nào.</p>' : rewards.map(r => `
+      rewWrap.innerHTML = rewards.length === 0 ? '<p style="color: var(--text-muted); font-size: 0.85rem;">Chưa có khen thưởng / điểm cải thiện nào.</p>' : rewards.map(r => `
         <div class="timeline-item">
           ${isGvcn ? `<button class="notice-delete-btn" title="Xóa ghi nhận này" onclick="deleteStudentRecord('${r.id}', ${stt})"><i class="fa-solid fa-trash-can"></i></button>` : ''}
           <div class="timeline-date"><i class="fa-regular fa-calendar"></i> ${formatDateVN(r.date)} &bull; Bởi: ${escapeHtml(r.recordedBy)}</div>
@@ -1931,14 +1992,73 @@
       }
     };
 
-    // XUẤT VI PHẠM / KHEN THƯỞNG THEO FILE MẪU CHUẨN
+    // TÍNH NĂNG CỘNG ĐIỂM CẢI THIỆN (CHỈ GVCN)
+    window.openImprovementModal = function() {
+      const now = new Date();
+      document.getElementById('improveDateInput').value = now.toISOString().split('T')[0];
+      document.getElementById('improveScoreDelta').value = '';
+      document.getElementById('improveScoreReason').value = '';
+
+      const checkWrap = document.getElementById('improveStudentsChecklist');
+      checkWrap.innerHTML = (appState.students || []).map(s => `
+        <label class="checkbox-item">
+          <input type="checkbox" name="improve_student_item" value="${s.stt}" />
+          <span>${s.stt}. ${escapeHtml(s.name)}</span>
+        </label>
+      `).join('');
+
+      openModal('improvementModal');
+    };
+
+    window.saveImprovementEntry = async function() {
+      const delta = parseInt(document.getElementById('improveScoreDelta').value, 10);
+      const reason = document.getElementById('improveScoreReason').value.trim();
+      const dateVal = document.getElementById('improveDateInput').value;
+
+      if (isNaN(delta) || delta <= 0 || !reason) {
+        alert('Vui lòng nhập số điểm cộng cải thiện hợp lệ (> 0) và hình thức cải thiện!');
+        return;
+      }
+
+      const selectedStts = [];
+      document.querySelectorAll("input[name='improve_student_item']:checked").forEach(cb => {
+        selectedStts.push(parseInt(cb.value, 10));
+      });
+
+      if (selectedStts.length === 0) {
+        alert('Vui lòng chọn ít nhất một học sinh!');
+        return;
+      }
+
+      if (!appState.records) appState.records = [];
+      appState.records.push({
+        id: 'rec_imp_' + Date.now(),
+        date: formatDateVN(dateVal),
+        rawDate: dateVal,
+        ruleName: `Cải thiện: ${reason}`,
+        delta: delta,
+        studentStts: selectedStts,
+        recordedBy: currentUser.fullname,
+        isImprovement: true
+      });
+
+      await syncData();
+      closeModal('improvementModal');
+      renderRanking();
+      alert('Đã lưu điểm cải thiện thành công!');
+    };
+
+    // XUẤT VI PHẠM / KHEN THƯỞNG EXCEL THEO MẪU
     function prepareExportRecordsModal() {
       const wrap = document.getElementById('exportRulesChecklist');
-      const rules = appState.rules || DEFAULT_RULES;
-      wrap.innerHTML = rules.map((r, idx) => `
+      const uniqueRules = new Set();
+      (appState.rules || DEFAULT_RULES).forEach(r => uniqueRules.add(r.name));
+      (appState.records || []).forEach(r => uniqueRules.add(r.ruleName));
+
+      wrap.innerHTML = Array.from(uniqueRules).map(rName => `
         <label class="checkbox-item">
-          <input type="checkbox" name="export_rule_checkbox" value="${escapeHtml(r.name)}" checked />
-          <span>${escapeHtml(r.name)} (${r.delta > 0 ? '+' : ''}${r.delta}đ)</span>
+          <input type="checkbox" name="export_rule_checkbox" value="${escapeHtml(rName)}" checked />
+          <span>${escapeHtml(rName)}</span>
         </label>
       `).join('');
     }
@@ -1947,7 +2067,7 @@
       document.querySelectorAll("input[name='export_rule_checkbox']").forEach(cb => cb.checked = check);
     };
 
-    window.executeExportRecords = function(type) {
+    window.executeExportRecordsExcel = function() {
       const selectedRuleNames = [];
       document.querySelectorAll("input[name='export_rule_checkbox']:checked").forEach(cb => {
         selectedRuleNames.push(cb.value);
@@ -1972,8 +2092,6 @@
       }
 
       const todayStr = formatDateVN(new Date());
-
-      // Tạo tiêu đề
       const headerRow = ['STT', 'Họ và tên học sinh', ...selectedRuleNames];
       if (includeScore) headerRow.push('Tổng điểm hiện tại');
 
@@ -1992,26 +2110,129 @@
         return row;
       });
 
-      if (type === 'excel') {
-        const titleRow = [`LỊCH SỬ VI PHẠM/KHEN THƯỞNG/ĐIỂM SỐ TÍNH ĐẾN ${todayStr}`];
-        const wsData = [titleRow, headerRow, ...dataRows];
-        const wb = XLSX.utils.book_new();
-        const ws = XLSX.utils.aoa_to_sheet(wsData);
-        XLSX.utils.book_append_sheet(wb, ws, 'ViPham_KhenThuong');
-        XLSX.writeFile(wb, `Lich_Su_Ren_Luyen_12A3_${todayStr.replace(/\//g, '-')}.xlsx`);
-      } else {
-        const { jsPDF } = window.jspdf;
-        const docPdf = new jsPDF('landscape');
-        docPdf.text(`LICH SU VI PHAM / KHEN THUONG / DIEM SO TINH DEN ${todayStr}`, 14, 15);
-        docPdf.autoTable({
-          head: [headerRow],
-          body: dataRows,
-          startY: 22,
-          styles: { fontSize: 8 }
-        });
-        docPdf.save(`Lich_Su_Ren_Luyen_12A3.pdf`);
-      }
+      const titleRow = [`LỊCH SỬ VI PHẠM/KHEN THƯỞNG/ĐIỂM SỐ TÍNH ĐẾN ${todayStr}`];
+      const wsData = [titleRow, headerRow, ...dataRows];
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.aoa_to_sheet(wsData);
+      XLSX.utils.book_append_sheet(wb, ws, 'ViPham_KhenThuong');
+      XLSX.writeFile(wb, `Lich_Su_Ren_Luyen_12A3_${todayStr.replace(/\//g, '-')}.xlsx`);
       closeModal('exportRecordsModal');
+    };
+
+    // XUẤT FILE WORD CẢ LỚP (NGẮT TRANG TỪNG HỌC SINH THEO MẪU)
+    function prepareExportWordModal() {
+      const wrap = document.getElementById('exportWordRulesChecklist');
+      const uniqueRules = new Set();
+      (appState.rules || DEFAULT_RULES).forEach(r => uniqueRules.add(r.name));
+      (appState.records || []).forEach(r => uniqueRules.add(r.ruleName));
+
+      wrap.innerHTML = Array.from(uniqueRules).map(rName => `
+        <label class="checkbox-item">
+          <input type="checkbox" name="export_word_rule_checkbox" value="${escapeHtml(rName)}" checked />
+          <span>${escapeHtml(rName)}</span>
+        </label>
+      `).join('');
+    }
+
+    window.toggleSelectAllWordRules = function(check) {
+      document.querySelectorAll("input[name='export_word_rule_checkbox']").forEach(cb => cb.checked = check);
+    };
+
+    window.executeExportWordClass = function() {
+      const selectedRuleNames = [];
+      document.querySelectorAll("input[name='export_word_rule_checkbox']:checked").forEach(cb => {
+        selectedRuleNames.push(cb.value);
+      });
+
+      if (selectedRuleNames.length === 0) {
+        alert('Vui lòng chọn ít nhất một danh mục hành vi!');
+        return;
+      }
+
+      const includeScore = document.getElementById('wordIncludeScoreCheck').checked;
+      const scoresMap = calculateAllScores();
+      const studentList = [...(appState.students || [])].sort((a, b) => a.stt - b.stt);
+
+      if (studentList.length === 0) {
+        alert('Chưa có học sinh nào trong danh sách lớp!');
+        return;
+      }
+
+      let wordContent = `
+        <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+        <head>
+          <meta charset='utf-8'>
+          <title>Lịch sử rèn luyện lớp 12A3</title>
+          <style>
+            body { font-family: 'Times New Roman', Times, serif; font-size: 13pt; line-height: 1.4; }
+            .student-page { page-break-after: always; mso-break-type: page-break; margin-bottom: 30px; }
+            .student-page:last-child { page-break-after: avoid; mso-break-type: none; }
+            p { margin: 4px 0; }
+            .section-heading { font-weight: bold; margin-top: 10px; text-decoration: underline; }
+            .item-line { margin-left: 20px; }
+          </style>
+        </head>
+        <body>
+      `;
+
+      studentList.forEach(st => {
+        const userRecords = (appState.records || []).filter(r => r.studentStts && r.studentStts.includes(st.stt) && selectedRuleNames.includes(r.ruleName));
+        const violations = userRecords.filter(r => r.delta < 0);
+        const rewards = userRecords.filter(r => r.delta > 0);
+
+        const sttStr = String(st.stt).padStart(2, '0');
+
+        let vioLines = '';
+        if (violations.length === 0) {
+          vioLines = `<p class="item-line">(Không có ghi nhận vi phạm)</p>`;
+        } else {
+          violations.forEach((v, vIdx) => {
+            vioLines += `<p class="item-line">- ${escapeHtml(v.ruleName)}: Ngày ${formatDateVN(v.date)} (${v.delta} điểm).</p>`;
+          });
+        }
+
+        let rewLines = '';
+        if (rewards.length === 0) {
+          rewLines = `<p class="item-line">(Không có ghi nhận khen thưởng)</p>`;
+        } else {
+          rewards.forEach((rw, rwIdx) => {
+            rewLines += `<p class="item-line">- ${escapeHtml(rw.ruleName)}: Ngày ${formatDateVN(rw.date)} (+${rw.delta} điểm).</p>`;
+          });
+        }
+
+        let scoreLine = '';
+        if (includeScore) {
+          scoreLine = `<p style="margin-top: 14px; font-weight: bold;">Tổng điểm hiện tại: ${scoresMap[st.stt]} điểm.</p>`;
+        }
+
+        wordContent += `
+          <div class="student-page">
+            <p><strong>Số thứ tự:</strong> ${sttStr}</p>
+            <p><strong>Họ và tên học sinh:</strong> ${escapeHtml(st.name)}</p>
+            
+            <p class="section-heading">Lịch sử vi phạm</p>
+            ${vioLines}
+            
+            <p class="section-heading">Lịch sử khen thưởng</p>
+            ${rewLines}
+            
+            ${scoreLine}
+          </div>
+        `;
+      });
+
+      wordContent += `</body></html>`;
+
+      const blob = new Blob(['\ufeff' + wordContent], { type: 'application/msword' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Lich_Su_Ren_Luyen_Lop12A3.doc`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      closeModal('exportWordModal');
     };
 
     // QUẢN LÝ PHÂN CÔNG LAO ĐỘNG
@@ -2127,8 +2348,8 @@
       }
     }
 
-    // XUẤT LỊCH LAO ĐỘNG THEO FILE MẪU CHUẨN
-    window.executeExportLabor = function(type) {
+    // XUẤT LỊCH LAO ĐỘNG EXCEL THEO MẪU
+    window.executeExportLaborExcel = function() {
       const weekKey = document.getElementById('exportLaborWeekSelect').value;
       if (!weekKey) {
         alert('Vui lòng chọn tuần phân công cần xuất!');
@@ -2138,7 +2359,6 @@
       const weekObj = (appState.laborWeeklyHistory && appState.laborWeeklyHistory[weekKey]) || {};
       const allTaskNames = (appState.laborTaskCards || []).map(c => c.name);
 
-      // Nếu chưa tạo thẻ công việc độc lập thì gom từ lịch đã phân công
       const taskSet = new Set(allTaskNames);
       ['2', '3', '4', '5', '6'].forEach(d => {
         (weekObj[d] || []).forEach(t => taskSet.add(t.taskName));
@@ -2159,23 +2379,11 @@
         return row;
       });
 
-      if (type === 'excel') {
-        const wsData = [headerRow, ...dataRows];
-        const wb = XLSX.utils.book_new();
-        const ws = XLSX.utils.aoa_to_sheet(wsData);
-        XLSX.utils.book_append_sheet(wb, ws, 'LichTrucNhat');
-        XLSX.writeFile(wb, `Lich_Truc_Nhat_${weekKey.replace(/\s+/g, '_')}.xlsx`);
-      } else {
-        const { jsPDF } = window.jspdf;
-        const docPdf = new jsPDF('landscape');
-        docPdf.text(`LICH TRUC NHAT LAO DONG - ${weekKey.toUpperCase()}`, 14, 15);
-        docPdf.autoTable({
-          head: [headerRow],
-          body: dataRows,
-          startY: 22
-        });
-        docPdf.save(`Lich_Truc_Nhat_${weekKey.replace(/\s+/g, '_')}.pdf`);
-      }
+      const wsData = [headerRow, ...dataRows];
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.aoa_to_sheet(wsData);
+      XLSX.utils.book_append_sheet(wb, ws, 'LichTrucNhat');
+      XLSX.writeFile(wb, `Lich_Truc_Nhat_${weekKey.replace(/\s+/g, '_')}.xlsx`);
       closeModal('exportLaborModal');
     };
 
@@ -2583,6 +2791,7 @@
         if (id === 'manageTaskCardsModal') renderManageTaskCardsList();
         if (id === 'exportLaborModal') prepareLaborExportModal();
         if (id === 'exportRecordsModal') prepareExportRecordsModal();
+        if (id === 'exportWordModal') prepareExportWordModal();
         if (id === 'addHonorModal') {
           const wrap = document.getElementById('honorStudentsChecklist');
           wrap.innerHTML = (appState.students || []).map(s => `
