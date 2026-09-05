@@ -44,7 +44,7 @@
       padding-bottom: 50px;
     }
 
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+    .container { max-width: 1260px; margin: 0 auto; padding: 0 16px; }
 
     header {
       background: rgba(11, 26, 54, 0.85);
@@ -54,7 +54,7 @@
       margin-bottom: 15px;
     }
 
-    .header-inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
     .brand-title {
       font-size: 1.2rem;
       font-weight: 800;
@@ -297,6 +297,70 @@
       border: 1px solid rgba(6, 182, 212, 0.3);
     }
 
+    /* BẢNG TRỰC NHẬT MA TRẬN MỚI (THỨ 2 ĐẾN THỨ 7) */
+    .labor-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      background: rgba(11, 26, 54, 0.4);
+      margin-top: 14px;
+    }
+    .labor-matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 850px;
+    }
+    .labor-matrix-table th, .labor-matrix-table td {
+      border: 1px solid var(--border-color);
+      padding: 10px;
+      vertical-align: top;
+    }
+    .labor-matrix-table th {
+      background: rgba(15, 33, 67, 0.85);
+      color: #93c5fd;
+      font-weight: 700;
+      text-align: center;
+    }
+    .labor-matrix-table th.task-col-header {
+      width: 220px;
+      text-align: left;
+    }
+    .labor-matrix-table td.task-name-cell {
+      background: rgba(15, 33, 67, 0.5);
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+    .labor-cell {
+      height: 70px;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .labor-cell.editable {
+      cursor: pointer;
+    }
+    .labor-cell.editable:hover {
+      background: rgba(59, 130, 246, 0.15);
+    }
+    .labor-cell-empty {
+      color: rgba(148, 163, 184, 0.35);
+      font-size: 0.82rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+    .labor-student-tag {
+      display: inline-block;
+      background: rgba(6, 182, 212, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      margin: 2px;
+      line-height: 1.3;
+    }
+
     .drive-banner {
       background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.15));
       border: 1px solid rgba(16, 185, 129, 0.35);
@@ -359,7 +423,7 @@
     .form-control:focus { border-color: var(--primary-400); box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2); }
 
     .multi-select-box {
-      max-height: 180px; overflow-y: auto; border: 1px solid var(--border-color);
+      max-height: 200px; overflow-y: auto; border: 1px solid var(--border-color);
       border-radius: 10px; padding: 8px; background: rgba(11, 26, 54, 0.5);
     }
     .checkbox-item { display: flex; align-items: center; gap: 10px; padding: 6px 10px; border-radius: 6px; font-size: 0.88rem; cursor: pointer; }
@@ -391,13 +455,6 @@
     .task-card { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; margin-bottom: 12px; position: relative; }
     .task-title { font-weight: 700; color: #93c5fd; font-size: 0.95rem; margin-bottom: 6px; padding-right: 25px; }
     .task-students { font-size: 0.88rem; color: #cbd5e1; }
-
-    .day-selector { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
-    .day-btn {
-      padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border-color);
-      background: rgba(255, 255, 255, 0.04); color: #cbd5e1; cursor: pointer; font-size: 0.82rem; font-weight: 600;
-    }
-    .day-btn.active { background: var(--cyan-accent); color: #000; border-color: var(--cyan-accent); }
   </style>
 </head>
 <body>
@@ -409,7 +466,6 @@
         <span>LỚP 12A3 &bull; THPT LONG HỰU ĐÔNG</span>
       </div>
       <div class="header-actions">
-        <!-- Nút xuất điểm danh tháng luôn hiển thị trực tiếp trên thanh công cụ đầu trang -->
         <button class="btn btn-warning" onclick="openModal('exportAttendanceModal')" title="Xuất bảng điểm danh tháng theo mẫu">
           <i class="fa-solid fa-calendar-check"></i> Xuất Điểm Danh Tháng (Excel)
         </button>
@@ -490,7 +546,6 @@
           <button class="btn btn-outline" onclick="openModal('attentionManageModal')">
             <i class="fa-solid fa-triangle-exclamation"></i> Đánh dấu HS cần chú ý
           </button>
-          <!-- Nút xuất điểm danh tháng nổi bật màu cam ngay trong bảng quản trị GVCN -->
           <button class="btn btn-warning" onclick="openModal('exportAttendanceModal')">
             <i class="fa-solid fa-calendar-check"></i> Xuất Điểm Danh Tháng (Excel)
           </button>
@@ -507,7 +562,7 @@
       </p>
     </section>
 
-    <!-- Quản trị Cấp tài khoản cán sự (Chỉ toapt989@gmail.com) -->
+    <!-- Quản trị Cấp tài khoản cán sự -->
     <section id="adminManageSection" class="section-box" style="display: none;">
       <div class="section-header">
         <div class="section-title">
@@ -616,7 +671,7 @@
       </div>
     </section>
 
-    <!-- Phân công lao động -->
+    <!-- Phân công lao động (BẢNG MA TRẬN THỨ 2 ĐẾN THỨ 7) -->
     <section class="section-box">
       <div class="section-header">
         <div class="section-title">
@@ -630,9 +685,6 @@
           <button class="btn btn-outline" onclick="openModal('manageTaskCardsModal')">
             <i class="fa-solid fa-tags"></i> Quản lý thẻ công việc
           </button>
-          <button class="btn btn-outline" onclick="openModal('assignLaborWeeklyModal')">
-            <i class="fa-solid fa-calendar-week"></i> Phân công theo tuần
-          </button>
           <button class="btn btn-outline" onclick="openModal('assignLaborAdhocModal')">
             <i class="fa-solid fa-bolt"></i> Phân công đột xuất
           </button>
@@ -643,26 +695,41 @@
       </div>
 
       <div class="tab-nav">
-        <button class="tab-btn active" onclick="switchLaborTab('weekly')">Lịch trực tuần hiện tại</button>
+        <button class="tab-btn active" onclick="switchLaborTab('weekly')">Bảng trực nhật theo tuần</button>
         <button class="tab-btn" onclick="switchLaborTab('adhoc')">Lao động đột xuất</button>
       </div>
 
       <div id="laborWeeklyView">
-        <div style="margin-bottom: 12px; font-size: 0.95rem; color: #38bdf8;">
-          <strong id="currentWeekDisplayTitle">Tuần hiện tại</strong>
-        </div>
-        <div class="day-selector">
-          <button class="day-btn active" onclick="selectDay('2')">Thứ Hai</button>
-          <button class="day-btn" onclick="selectDay('3')">Thứ Ba</button>
-          <button class="day-btn" onclick="selectDay('4')">Thứ Tư</button>
-          <button class="day-btn" onclick="selectDay('5')">Thứ Năm</button>
-          <button class="day-btn" onclick="selectDay('6')">Thứ Sáu</button>
-        </div>
-        <div id="weeklyTasksList">
-          <div class="empty-state">
-            <i class="fa-regular fa-calendar-xmark"></i>
-            <p>Chưa có phân công trực nhật tuần.</p>
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <label style="font-weight: 700; color: #93c5fd; font-size: 0.95rem;">Chọn tuần hiển thị:</label>
+            <select id="weeklySelectWeekDropdown" class="form-control" style="width: auto; padding: 6px 12px;" onchange="changeViewingLaborWeek(this.value)"></select>
+            <button id="btnCreateNewWeek" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem; display: none;" onclick="promptCreateNewLaborWeek()">
+              <i class="fa-solid fa-plus"></i> Tạo tuần mới
+            </button>
           </div>
+          <div id="laborEditHint" style="font-size: 0.82rem; color: var(--cyan-accent);">
+            <i class="fa-solid fa-info-circle"></i> Nhấp chuột vào bất kỳ ô nào để phân công hoặc chỉnh sửa học sinh.
+          </div>
+        </div>
+
+        <div class="labor-table-wrap">
+          <table class="labor-matrix-table" id="laborMatrixTable">
+            <thead>
+              <tr>
+                <th class="task-col-header">Công việc</th>
+                <th>Thứ 2</th>
+                <th>Thứ 3</th>
+                <th>Thứ 4</th>
+                <th>Thứ 5</th>
+                <th>Thứ 6</th>
+                <th>Thứ 7</th>
+              </tr>
+            </thead>
+            <tbody id="laborMatrixTbody">
+              <!-- Hàng công việc và các ô từ Thứ 2 đến Thứ 7 -->
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -692,6 +759,27 @@
       <h2>Lớp 12a3 Đoàn kết – Năng động – Sáng tạo</h2>
     </div>
   </main>
+
+  <!-- MODAL: PHÂN CÔNG HỌC SINH VÀO Ô TRỰC NHẬT -->
+  <div class="modal-overlay" id="cellLaborAssignModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title" id="cellLaborModalTitle"><i class="fa-solid fa-user-check"></i> Phân công trực nhật</div>
+        <button class="modal-close" onclick="closeModal('cellLaborAssignModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="cellLaborModalSub" style="font-size: 0.9rem; color: var(--cyan-accent); margin-bottom: 12px;"></p>
+        <div class="form-group">
+          <label class="form-label">Chọn một hoặc nhiều học sinh thực hiện nhiệm vụ:</label>
+          <div class="multi-select-box" id="cellLaborStudentsChecklist"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('cellLaborAssignModal')">Hủy</button>
+        <button class="btn btn-primary" onclick="saveCellLaborAssignment()"><i class="fa-solid fa-check"></i> Lưu phân công</button>
+      </div>
+    </div>
+  </div>
 
   <!-- MODAL: ĐĂNG NHẬP -->
   <div class="modal-overlay" id="loginModal">
@@ -964,7 +1052,7 @@
     </div>
   </div>
 
-  <!-- MODAL: CỘNG ĐIỂM CẢI THIỆN (CHỈ GVCN) -->
+  <!-- MODAL: CỘNG ĐIỂM CẢI THIỆN -->
   <div class="modal-overlay" id="improvementModal">
     <div class="modal-window">
       <div class="modal-header">
@@ -996,7 +1084,7 @@
     </div>
   </div>
 
-  <!-- MODAL: LỊCH SỬ RÈN LUYỆN & XÓA GHI NHẬN CỦA 1 HỌC SINH (GVCN) -->
+  <!-- MODAL: LỊCH SỬ RÈN LUYỆN & XÓA GHI NHẬN CỦA 1 HỌC SINH -->
   <div class="modal-overlay" id="historyExportModal">
     <div class="modal-window" style="max-width: 800px;">
       <div class="modal-header">
@@ -1025,7 +1113,7 @@
     </div>
   </div>
 
-  <!-- MODAL: XUẤT ĐIỂM DANH HÀNG THÁNG THEO MẪU (EXCEL) -->
+  <!-- MODAL: XUẤT ĐIỂM DANH HÀNG THÁNG -->
   <div class="modal-overlay" id="exportAttendanceModal">
     <div class="modal-window">
       <div class="modal-header">
@@ -1104,7 +1192,7 @@
     </div>
   </div>
 
-  <!-- MODAL: XUẤT FILE WORD CẢ LỚP (NGẮT TRANG TỪNG HỌC SINH) -->
+  <!-- MODAL: XUẤT FILE WORD CẢ LỚP -->
   <div class="modal-overlay" id="exportWordModal">
     <div class="modal-window" style="max-width: 750px;">
       <div class="modal-header">
@@ -1138,7 +1226,7 @@
     </div>
   </div>
 
-  <!-- MODAL: TÙY CHỈNH DANH MỤC & ĐIỂM SỐ QUY CHẾ -->
+  <!-- MODAL: TÙY CHỈNH QUY CHẾ -->
   <div class="modal-overlay" id="customRulesModal">
     <div class="modal-window" style="max-width: 750px;">
       <div class="modal-header">
@@ -1213,44 +1301,6 @@
     </div>
   </div>
 
-  <!-- MODAL: PHÂN CÔNG LAO ĐỘNG HÀNG TUẦN -->
-  <div class="modal-overlay" id="assignLaborWeeklyModal">
-    <div class="modal-window" style="max-width: 700px;">
-      <div class="modal-header">
-        <div class="modal-title"><i class="fa-solid fa-calendar-week"></i> Phân công lao động theo tuần</div>
-        <button class="modal-close" onclick="closeModal('assignLaborWeeklyModal')">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label class="form-label">Tên tuần (ví dụ: Tuần 1, Tuần 2...)</label>
-          <input type="text" id="weeklyWeekLabel" class="form-control" placeholder="Nhập tên tuần..." />
-        </div>
-        <div class="form-group">
-          <label class="form-label">Chọn ngày</label>
-          <select id="weeklyDaySelect" class="form-control">
-            <option value="2">Thứ Hai</option>
-            <option value="3">Thứ Ba</option>
-            <option value="4">Thứ Tư</option>
-            <option value="5">Thứ Năm</option>
-            <option value="6">Thứ Sáu</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Chọn thẻ công việc</label>
-          <select id="weeklyTaskSelect" class="form-control"></select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Chọn một hoặc nhiều học sinh</label>
-          <div class="multi-select-box" id="weeklyStudentsChecklist"></div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-outline" onclick="closeModal('assignLaborWeeklyModal')">Hủy</button>
-        <button class="btn btn-primary" onclick="saveWeeklyLaborAssignment()">Lưu phân công</button>
-      </div>
-    </div>
-  </div>
-
   <!-- MODAL: XUẤT LỊCH LAO ĐỘNG TUẦN (EXCEL) -->
   <div class="modal-overlay" id="exportLaborModal">
     <div class="modal-window">
@@ -1264,7 +1314,7 @@
           <select id="exportLaborWeekSelect" class="form-control"></select>
         </div>
         <p style="font-size: 0.85rem; color: var(--text-muted);">
-          Bảng xuất ra sẽ có cột đầu là Công việc, các cột tiếp theo là Thứ 2, Thứ 3, Thứ 4, Thứ 5, Thứ 6 theo đúng biểu mẫu.
+          Bảng xuất ra sẽ có cột đầu là Công việc, các cột tiếp theo là Thứ 2, Thứ 3, Thứ 4, Thứ 5, Thứ 6, Thứ 7 theo đúng biểu mẫu.
         </p>
       </div>
       <div class="modal-footer">
@@ -1312,7 +1362,7 @@
       getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword 
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-    // CẤU HÌNH FIREBASE GIỮ NGUYÊN TUYỆT ĐỐI
+    // CẤU HÌNH FIREBASE BẢO TOÀN NGUYÊN VẸN
     const firebaseConfig = {
       apiKey: "AIzaSyA0j6GNle7duLh2_RRkoBXd6QMK4TPobuI",
       authDomain: "a3-1f8da.firebaseapp.com",
@@ -1328,7 +1378,7 @@
     const db = getFirestore(app);
     const auth = getAuth(app);
 
-    // THAM CHIẾU FIRESTORE GIỮ NGUYÊN TUYỆT ĐỐI
+    // THAM CHIẾU FIRESTORE BẢO TOÀN NGUYÊN VẸN
     const docRef = doc(db, 'class12a3', 'data');
 
     const ADMIN_PRIMARY_EMAIL = "toapt989@gmail.com";
@@ -1396,13 +1446,13 @@
       honors: [],
       attentions: [],
       laborTaskCards: [],
-      laborWeeklyHistory: {},
-      currentLaborWeek: '',
+      laborWeeklyMatrix: {},
       laborAdhoc: []
     };
 
     let currentUser = null;
-    let selectedLaborDay = '2';
+    let viewingLaborWeek = '';
+    let currentEditingCell = null; // { weekKey, taskId, dayKey }
 
     function formatDateVN(dateInput) {
       if (!dateInput) return '';
@@ -1446,7 +1496,25 @@
         const d = snapshot.data();
         appState = { ...appState, ...d };
         if (!appState.rules || appState.rules.length === 0) appState.rules = DEFAULT_RULES;
-        if (!appState.laborWeeklyHistory) appState.laborWeeklyHistory = {};
+        if (!appState.laborWeeklyMatrix) appState.laborWeeklyMatrix = {};
+        
+        // Tương thích ngược nếu dữ liệu cũ có laborWeeklyHistory
+        if (appState.laborWeeklyHistory && Object.keys(appState.laborWeeklyMatrix).length === 0) {
+          appState.laborWeeklyMatrix = {};
+          Object.entries(appState.laborWeeklyHistory).forEach(([wKey, daysObj]) => {
+            appState.laborWeeklyMatrix[wKey] = {};
+            Object.entries(daysObj).forEach(([dKey, taskList]) => {
+              if (Array.isArray(taskList)) {
+                taskList.forEach(t => {
+                  let card = (appState.laborTaskCards || []).find(c => c.name === t.taskName);
+                  let tId = card ? card.id : t.taskName;
+                  if (!appState.laborWeeklyMatrix[wKey][tId]) appState.laborWeeklyMatrix[wKey][tId] = {};
+                  appState.laborWeeklyMatrix[wKey][tId][dKey] = t.students || [];
+                });
+              }
+            });
+          });
+        }
       } else {
         setDoc(docRef, appState);
       }
@@ -1486,7 +1554,7 @@
       renderAttentionList();
       renderBCS();
       renderAccountsTable();
-      renderLabor();
+      renderLaborMatrix();
       updateAuthUI();
     }
 
@@ -1502,6 +1570,8 @@
       const bcsClear = document.getElementById('bcsClearAction');
       const laborAct = document.getElementById('laborActions');
       const improveBtn = document.getElementById('improveScoreBtn');
+      const btnCreateNewWeek = document.getElementById('btnCreateNewWeek');
+      const laborEditHint = document.getElementById('laborEditHint');
 
       if (!currentUser) {
         loginBtn.style.display = 'inline-flex';
@@ -1515,6 +1585,8 @@
         bcsClear.style.display = 'none';
         laborAct.style.display = 'none';
         improveBtn.style.display = 'none';
+        btnCreateNewWeek.style.display = 'none';
+        laborEditHint.style.display = 'none';
         return;
       }
 
@@ -1525,6 +1597,7 @@
 
       const isGvcn = currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL;
       const isLpLaoDong = currentUser.role === 'LP_LAO_DONG';
+      const canManageLabor = isGvcn || isLpLaoDong;
 
       gvcnManage.style.display = isGvcn ? 'block' : 'none';
       adminManage.style.display = isGvcn ? 'block' : 'none';
@@ -1534,7 +1607,9 @@
       honorAction.style.display = isGvcn ? 'inline-block' : 'none';
       attentionSec.style.display = 'block';
       bcsClear.style.display = isGvcn ? 'inline-block' : 'none';
-      laborAct.style.display = (isGvcn || isLpLaoDong) ? 'flex' : 'none';
+      laborAct.style.display = canManageLabor ? 'flex' : 'none';
+      btnCreateNewWeek.style.display = canManageLabor ? 'inline-block' : 'none';
+      laborEditHint.style.display = canManageLabor ? 'block' : 'none';
 
       document.getElementById('defaultScoreLabel').innerText = `${appState.defaultScore || 100} điểm`;
     }
@@ -1571,7 +1646,7 @@
       }
       container.innerHTML = activeNotices.slice().reverse().map(n => `
         <div class="notice-item">
-          ${isGvcn ? `<button class="notice-delete-btn" title="Ẩn thông báo này" onclick="deleteNotice('${n.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
+          ${isGvcn ? `<button class="notice-delete-btn" title="Xóa thông báo này" onclick="deleteNoticePrompt('${n.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
           <div class="notice-header">
             <span><strong>Người đăng:</strong> ${escapeHtml(n.author)}</span>
             <span><i class="fa-regular fa-clock"></i> ${formatDateVN(n.date)}</span>
@@ -1606,12 +1681,14 @@
       renderNotices();
     };
 
-    window.deleteNotice = async function(id) {
-      if (confirm('Bạn có muốn ẩn thông báo này khỏi trang chủ? (Hệ thống vẫn lưu trong lịch sử xuất file)')) {
+    window.deleteNoticePrompt = async function(id) {
+      if (confirm('Bạn có chắc chắn muốn xóa thông báo này hay không?')) {
         const item = appState.notices.find(n => n.id === id);
-        if (item) item.isDeleted = true;
-        await syncData();
-        renderNotices();
+        if (item) {
+          item.isDeleted = true;
+          await syncData();
+          renderNotices();
+        }
       }
     };
 
@@ -1652,12 +1729,12 @@
 
     function calculateAllScores() {
       const scoresMap = {};
-      (appState.students || []).forEach(s => {
+      (appState.students || []).filter(s => !s.isDeleted).forEach(s => {
         scoresMap[s.stt] = (appState.defaultScore !== undefined ? appState.defaultScore : 100);
       });
 
       if (appState.records) {
-        appState.records.forEach(r => {
+        appState.records.filter(r => !r.isDeleted).forEach(r => {
           if (r.studentStts) {
             r.studentStts.forEach(stt => {
               if (scoresMap[stt] !== undefined) scoresMap[stt] += Number(r.delta || 0);
@@ -1670,7 +1747,8 @@
 
     function renderRanking() {
       const grid = document.getElementById('rankingGrid');
-      if (!appState.students || appState.students.length === 0) {
+      const activeStudents = (appState.students || []).filter(s => !s.isDeleted);
+      if (activeStudents.length === 0) {
         grid.innerHTML = `
           <div class="empty-state" style="grid-column: 1/-1;">
             <i class="fa-solid fa-ranking-star"></i>
@@ -1681,7 +1759,7 @@
       }
 
       const scoresMap = calculateAllScores();
-      const sorted = [...appState.students].map(s => ({
+      const sorted = [...activeStudents].map(s => ({
         ...s,
         score: scoresMap[s.stt]
       })).sort((a, b) => b.score - a.score).slice(0, 10);
@@ -1715,8 +1793,9 @@
     function renderHonors() {
       const grid = document.getElementById('honorsGrid');
       const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL);
+      const activeHonors = (appState.honors || []).filter(h => !h.isDeleted);
 
-      if (!appState.honors || appState.honors.length === 0) {
+      if (activeHonors.length === 0) {
         grid.innerHTML = `
           <div class="empty-state" style="grid-column: 1/-1;">
             <i class="fa-regular fa-star"></i>
@@ -1726,7 +1805,7 @@
         return;
       }
 
-      grid.innerHTML = appState.honors.slice().reverse().map(h => {
+      grid.innerHTML = activeHonors.slice().reverse().map(h => {
         const studentNames = (h.studentStts || []).map(stt => {
           const s = (appState.students || []).find(st => st.stt === stt);
           return s ? `${s.stt}. ${s.name}` : `Học sinh STT ${stt}`;
@@ -1734,7 +1813,7 @@
 
         return `
           <div class="honor-card">
-            ${isGvcn ? `<button class="honor-delete-btn" title="Xóa vinh danh này" onclick="deleteHonor('${h.id}')"><i class="fa-solid fa-xmark"></i></button>` : ''}
+            ${isGvcn ? `<button class="honor-delete-btn" title="Xóa vinh danh này" onclick="deleteHonorPrompt('${h.id}')"><i class="fa-solid fa-xmark"></i></button>` : ''}
             <div class="honor-name"><i class="fa-solid fa-medal" style="color: var(--gold); margin-right: 6px;"></i>${escapeHtml(studentNames)}</div>
             <div class="honor-achievement">${escapeHtml(h.achievement)}</div>
           </div>
@@ -1757,7 +1836,8 @@
       appState.honors.push({
         id: 'honor_' + Date.now(),
         studentStts: selected,
-        achievement: ach
+        achievement: ach,
+        isDeleted: false
       });
       await syncData();
       document.getElementById('honorAchievement').value = '';
@@ -1766,19 +1846,23 @@
       alert('Đã thêm vinh danh đột xuất!');
     };
 
-    window.deleteHonor = async function(id) {
-      if (confirm('Bạn có chắc chắn muốn xóa vinh danh này?')) {
-        appState.honors = appState.honors.filter(h => h.id !== id);
-        await syncData();
-        renderHonors();
+    window.deleteHonorPrompt = async function(id) {
+      if (confirm('Bạn có chắc chắn muốn xóa vinh danh này hay không?')) {
+        const item = appState.honors.find(h => h.id === id);
+        if (item) {
+          item.isDeleted = true;
+          await syncData();
+          renderHonors();
+        }
       }
     };
 
     function renderAttentionList() {
       const wrap = document.getElementById('attentionListWrap');
       const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL);
+      const activeAtts = (appState.attentions || []).filter(a => !a.isDeleted);
 
-      if (!appState.attentions || appState.attentions.length === 0) {
+      if (activeAtts.length === 0) {
         wrap.innerHTML = `
           <div class="empty-state">
             <i class="fa-regular fa-face-smile"></i>
@@ -1788,7 +1872,7 @@
         return;
       }
 
-      wrap.innerHTML = appState.attentions.map(att => {
+      wrap.innerHTML = activeAtts.map(att => {
         const student = (appState.students || []).find(s => String(s.stt) === String(att.stt));
         const sName = student ? student.name : `Học sinh STT ${att.stt}`;
         return `
@@ -1798,7 +1882,7 @@
               <div class="attention-reason"><strong>Lưu ý:</strong> ${escapeHtml(att.reason)}</div>
             </div>
             ${isGvcn ? `
-              <button class="btn btn-danger" style="padding: 4px 10px; font-size: 0.78rem;" onclick="removeAttention(${att.stt})">
+              <button class="btn btn-danger" style="padding: 4px 10px; font-size: 0.78rem;" onclick="removeAttentionPrompt(${att.stt})">
                 <i class="fa-solid fa-trash"></i> Bỏ chú ý
               </button>
             ` : ''}
@@ -1819,8 +1903,9 @@
       const idx = appState.attentions.findIndex(a => a.stt === stt);
       if (idx >= 0) {
         appState.attentions[idx].reason = reason;
+        appState.attentions[idx].isDeleted = false;
       } else {
-        appState.attentions.push({ stt, reason });
+        appState.attentions.push({ stt, reason, isDeleted: false });
       }
 
       await syncData();
@@ -1830,28 +1915,32 @@
       alert('Đã cập nhật học sinh cần chú ý!');
     };
 
-    window.removeAttention = async function(stt) {
-      if (confirm(`Bạn có muốn gỡ đánh dấu chú ý cho học sinh STT ${stt}?`)) {
-        appState.attentions = (appState.attentions || []).filter(a => a.stt !== stt);
-        await syncData();
-        renderAttentionManageList();
-        renderAttentionList();
+    window.removeAttentionPrompt = async function(stt) {
+      if (confirm(`Bạn có chắc chắn muốn xóa đánh dấu chú ý cho học sinh STT ${stt} hay không?`)) {
+        const att = (appState.attentions || []).find(a => a.stt === stt);
+        if (att) {
+          att.isDeleted = true;
+          await syncData();
+          renderAttentionManageList();
+          renderAttentionList();
+        }
       }
     };
 
     function renderAttentionManageList() {
       const wrap = document.getElementById('attentionManageListWrap');
-      if (!appState.attentions || appState.attentions.length === 0) {
+      const activeAtts = (appState.attentions || []).filter(a => !a.isDeleted);
+      if (activeAtts.length === 0) {
         wrap.innerHTML = `<div class="empty-state">Chưa có học sinh nào bị đánh dấu.</div>`;
         return;
       }
-      wrap.innerHTML = appState.attentions.map(att => {
+      wrap.innerHTML = activeAtts.map(att => {
         const student = (appState.students || []).find(s => String(s.stt) === String(att.stt));
         const sName = student ? student.name : `Học sinh STT ${att.stt}`;
         return `
           <div class="student-manage-item">
             <span><strong>${att.stt}. ${escapeHtml(sName)}:</strong> ${escapeHtml(att.reason)}</span>
-            <button class="btn btn-danger" style="padding: 4px 10px; font-size: 0.78rem;" onclick="removeAttention(${att.stt})">Gỡ</button>
+            <button class="btn btn-danger" style="padding: 4px 10px; font-size: 0.78rem;" onclick="removeAttentionPrompt(${att.stt})">Gỡ</button>
           </div>
         `;
       }).join('');
@@ -1873,11 +1962,11 @@
       }
 
       container.innerHTML = bcsEntries.map(([stt, roles]) => {
-        const student = (appState.students || []).find(s => String(s.stt) === String(stt));
+        const student = (appState.students || []).find(s => String(s.stt) === String(stt) && !s.isDeleted);
         const name = student ? student.name : `Học sinh STT ${stt}`;
         return `
           <div class="bcs-card">
-            ${isGvcn ? `<button class="bcs-delete-single-btn" title="Xóa toàn bộ chức danh của bạn này" onclick="deleteSingleBcs('${stt}')"><i class="fa-solid fa-xmark"></i></button>` : ''}
+            ${isGvcn ? `<button class="bcs-delete-single-btn" title="Xóa toàn bộ chức danh của bạn này" onclick="deleteSingleBcsPrompt('${stt}')"><i class="fa-solid fa-xmark"></i></button>` : ''}
             <div class="bcs-student-name">${stt}. ${escapeHtml(name)}</div>
             <div class="bcs-roles-wrap">
               ${roles.map(r => `<span class="badge-role">${escapeHtml(r)}</span>`).join('')}
@@ -1887,8 +1976,8 @@
       }).join('');
     }
 
-    window.deleteSingleBcs = async function(stt) {
-      if (confirm(`Bạn có chắc muốn xóa chức vụ ban cán sự của học sinh STT ${stt}?`)) {
+    window.deleteSingleBcsPrompt = async function(stt) {
+      if (confirm(`Bạn có chắc chắn muốn xóa chức vụ ban cán sự của học sinh STT ${stt} hay không?`)) {
         if (appState.bcs && appState.bcs[stt]) {
           delete appState.bcs[stt];
           await syncData();
@@ -1898,7 +1987,7 @@
     };
 
     window.clearAllBcs = async function() {
-      if (confirm('CẢNH BÁO: Bạn có chắc chắn muốn xóa toàn bộ danh sách Ban cán sự lớp?')) {
+      if (confirm('CẢNH BÁO: Bạn có chắc chắn muốn xóa toàn bộ danh sách Ban cán sự lớp hay không?')) {
         appState.bcs = {};
         await syncData();
         renderBCS();
@@ -1907,7 +1996,7 @@
 
     function renderAccountsTable() {
       const wrap = document.getElementById('accountsListTable');
-      const rolesEntries = Object.entries(appState.userRoles || {});
+      const rolesEntries = Object.entries(appState.userRoles || {}).filter(([e, info]) => !info.isDeleted);
       
       wrap.innerHTML = `
         <div style="overflow-x: auto; margin-top: 10px;">
@@ -1933,7 +2022,7 @@
                   <td style="padding: 8px;">${escapeHtml(info.fullname)}</td>
                   <td style="padding: 8px;"><span class="badge-role">${getRoleLabel(info.role)}</span></td>
                   <td style="padding: 8px; text-align: right;">
-                    <button class="btn btn-danger" style="padding: 4px 10px; font-size: 0.78rem;" onclick="deleteUserAccount('${escapeHtml(email)}')">
+                    <button class="btn btn-danger" style="padding: 4px 10px; font-size: 0.78rem;" onclick="deleteUserAccountPrompt('${escapeHtml(email)}')">
                       <i class="fa-solid fa-trash"></i> Xóa
                     </button>
                   </td>
@@ -1945,26 +2034,26 @@
       `;
     }
 
-    window.deleteUserAccount = async function(email) {
-      if (confirm(`Bạn có chắc chắn muốn xóa quyền và tài khoản của ${email}?`)) {
+    window.deleteUserAccountPrompt = async function(email) {
+      if (confirm(`Bạn có chắc chắn muốn xóa tài khoản của ${email} hay không?`)) {
         if (appState.userRoles && appState.userRoles[email]) {
-          delete appState.userRoles[email];
+          appState.userRoles[email].isDeleted = true;
           await syncData();
           renderAccountsTable();
-          alert(`Đã xóa tài khoản ${email} khỏi hệ thống!`);
+          alert(`Đã xóa tài khoản ${email}!`);
         }
       }
     };
 
     function renderRulesModal() {
       const list = document.getElementById('rulesEditableListWrap');
-      const rules = appState.rules || DEFAULT_RULES;
+      const rules = (appState.rules || DEFAULT_RULES).filter(r => !r.isDeleted);
 
       list.innerHTML = rules.map((r, idx) => `
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.82rem; gap: 10px;">
           <span style="flex: 1;">${escapeHtml(r.name)}</span>
           <input type="number" value="${r.delta}" style="width: 70px; padding: 4px 6px; border-radius: 6px; background: rgba(0,0,0,0.3); color: #fff; border: 1px solid var(--border-color);" onchange="updateRulePoints(${idx}, this.value)" />
-          <button class="btn btn-danger" style="padding: 2px 8px; font-size: 0.75rem;" onclick="deleteCustomRule(${idx})"><i class="fa-solid fa-trash"></i></button>
+          <button class="btn btn-danger" style="padding: 2px 8px; font-size: 0.75rem;" onclick="deleteCustomRulePrompt('${r.id}')"><i class="fa-solid fa-trash"></i></button>
         </div>
       `).join('');
     }
@@ -1977,11 +2066,14 @@
       await syncData();
     };
 
-    window.deleteCustomRule = async function(index) {
-      if (confirm('Bạn có chắc muốn xóa danh mục quy chế này?')) {
-        appState.rules.splice(index, 1);
-        await syncData();
-        renderRulesModal();
+    window.deleteCustomRulePrompt = async function(ruleId) {
+      if (confirm('Bạn có chắc chắn muốn xóa quy chế này hay không?')) {
+        const item = appState.rules.find(r => r.id === ruleId);
+        if (item) {
+          item.isDeleted = true;
+          await syncData();
+          renderRulesModal();
+        }
       }
     };
 
@@ -2000,7 +2092,8 @@
         id: 'cust_' + Date.now(),
         name: name,
         delta: score,
-        roles: role === 'ALL' ? ['ALL'] : ['GVCN', role]
+        roles: role === 'ALL' ? ['ALL'] : ['GVCN', role],
+        isDeleted: false
       });
 
       await syncData();
@@ -2012,7 +2105,7 @@
 
     function prepareHistoryModal() {
       const sel = document.getElementById('historyStudentSelect');
-      sel.innerHTML = (appState.students || []).map(s => `
+      sel.innerHTML = (appState.students || []).filter(s => !s.isDeleted).map(s => `
         <option value="${s.stt}">${s.stt} - ${escapeHtml(s.name)}</option>
       `).join('');
       renderStudentTimeline();
@@ -2024,13 +2117,13 @@
       const vioWrap = document.getElementById('timelineViolationsList');
       const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL);
 
-      const userRecords = (appState.records || []).filter(r => r.studentStts && r.studentStts.includes(stt));
+      const userRecords = (appState.records || []).filter(r => !r.isDeleted && r.studentStts && r.studentStts.includes(stt));
       const rewards = userRecords.filter(r => r.delta > 0);
       const violations = userRecords.filter(r => r.delta < 0);
 
       rewWrap.innerHTML = rewards.length === 0 ? '<p style="color: var(--text-muted); font-size: 0.85rem;">Chưa có khen thưởng / điểm cải thiện nào.</p>' : rewards.map(r => `
         <div class="timeline-item">
-          ${isGvcn ? `<button class="notice-delete-btn" title="Xóa ghi nhận này" onclick="deleteStudentRecord('${r.id}', ${stt})"><i class="fa-solid fa-trash-can"></i></button>` : ''}
+          ${isGvcn ? `<button class="notice-delete-btn" title="Xóa ghi nhận này" onclick="deleteStudentRecordPrompt('${r.id}', ${stt})"><i class="fa-solid fa-trash-can"></i></button>` : ''}
           <div class="timeline-date"><i class="fa-regular fa-calendar"></i> ${formatDateVN(r.date)} &bull; Bởi: ${escapeHtml(r.recordedBy)}</div>
           <div style="font-weight: 600; color: var(--success);">${escapeHtml(r.ruleName)} (+${r.delta}đ)</div>
         </div>
@@ -2038,21 +2131,22 @@
 
       vioWrap.innerHTML = violations.length === 0 ? '<p style="color: var(--text-muted); font-size: 0.85rem;">Không có vi phạm nào.</p>' : violations.map(r => `
         <div class="timeline-item">
-          ${isGvcn ? `<button class="notice-delete-btn" title="Xóa ghi nhận này" onclick="deleteStudentRecord('${r.id}', ${stt})"><i class="fa-solid fa-trash-can"></i></button>` : ''}
+          ${isGvcn ? `<button class="notice-delete-btn" title="Xóa ghi nhận này" onclick="deleteStudentRecordPrompt('${r.id}', ${stt})"><i class="fa-solid fa-trash-can"></i></button>` : ''}
           <div class="timeline-date"><i class="fa-regular fa-calendar"></i> ${formatDateVN(r.date)} &bull; Bởi: ${escapeHtml(r.recordedBy)}</div>
           <div style="font-weight: 600; color: var(--danger);">${escapeHtml(r.ruleName)} (${r.delta}đ)</div>
         </div>
       `).join('');
     };
 
-    window.deleteStudentRecord = async function(recId, stt) {
-      if (confirm('Bạn có chắc chắn muốn xóa bản ghi này? Điểm số sẽ được hoàn trả.')) {
-        appState.records = appState.records.map(r => {
+    window.deleteStudentRecordPrompt = async function(recId, stt) {
+      if (confirm('Bạn có chắc chắn muốn xóa bản ghi này hay không? Điểm số sẽ được hoàn trả.')) {
+        appState.records = (appState.records || []).map(r => {
           if (r.id === recId) {
-            r.studentStts = r.studentStts.filter(s => s !== stt);
+            r.studentStts = (r.studentStts || []).filter(s => s !== stt);
+            if (r.studentStts.length === 0) r.isDeleted = true;
           }
           return r;
-        }).filter(r => r.studentStts && r.studentStts.length > 0);
+        });
 
         await syncData();
         renderStudentTimeline();
@@ -2068,7 +2162,7 @@
       document.getElementById('improveScoreReason').value = '';
 
       const checkWrap = document.getElementById('improveStudentsChecklist');
-      checkWrap.innerHTML = (appState.students || []).map(s => `
+      checkWrap.innerHTML = (appState.students || []).filter(s => !s.isDeleted).map(s => `
         <label class="checkbox-item">
           <input type="checkbox" name="improve_student_item" value="${s.stt}" />
           <span>${s.stt}. ${escapeHtml(s.name)}</span>
@@ -2107,7 +2201,8 @@
         delta: delta,
         studentStts: selectedStts,
         recordedBy: currentUser.fullname,
-        isImprovement: true
+        isImprovement: true,
+        isDeleted: false
       });
 
       await syncData();
@@ -2123,7 +2218,7 @@
       const selMonth = parseInt(parts[0], 10);
       const selYear = parseInt(parts[1], 10);
 
-      const studentList = [...(appState.students || [])].sort((a, b) => a.stt - b.stt);
+      const studentList = [...(appState.students || [])].filter(s => !s.isDeleted).sort((a, b) => a.stt - b.stt);
       if (studentList.length === 0) {
         alert('Chưa có học sinh nào trong danh sách lớp!');
         return;
@@ -2138,7 +2233,7 @@
         const row = [st.stt, st.name];
         for (let d = 1; d <= 31; d++) {
           const dayRecords = (appState.records || []).filter(r => {
-            if (!r.studentStts || !r.studentStts.includes(st.stt)) return false;
+            if (r.isDeleted || !r.studentStts || !r.studentStts.includes(st.stt)) return false;
             const pDate = parseRecordDate(r);
             if (!pDate) return false;
             return pDate.year === selYear && pDate.month === selMonth && pDate.day === d;
@@ -2184,8 +2279,8 @@
     function prepareExportRecordsModal() {
       const wrap = document.getElementById('exportRulesChecklist');
       const uniqueRules = new Set();
-      (appState.rules || DEFAULT_RULES).forEach(r => uniqueRules.add(r.name));
-      (appState.records || []).forEach(r => uniqueRules.add(r.ruleName));
+      (appState.rules || DEFAULT_RULES).filter(r => !r.isDeleted).forEach(r => uniqueRules.add(r.name));
+      (appState.records || []).filter(r => !r.isDeleted).forEach(r => uniqueRules.add(r.ruleName));
 
       wrap.innerHTML = Array.from(uniqueRules).map(rName => `
         <label class="checkbox-item">
@@ -2214,7 +2309,7 @@
       const includeScore = document.getElementById('includeCurrentScoreCheck').checked;
       const scoresMap = calculateAllScores();
 
-      let studentList = [...(appState.students || [])];
+      let studentList = [...(appState.students || [])].filter(s => !s.isDeleted);
       if (sortOpt === 'STT_ASC') {
         studentList.sort((a, b) => a.stt - b.stt);
       } else if (sortOpt === 'SCORE_DESC') {
@@ -2230,7 +2325,7 @@
       const dataRows = studentList.map(st => {
         const row = [st.stt, st.name];
         selectedRuleNames.forEach(rName => {
-          const matched = (appState.records || []).filter(r => r.studentStts && r.studentStts.includes(st.stt) && r.ruleName === rName);
+          const matched = (appState.records || []).filter(r => !r.isDeleted && r.studentStts && r.studentStts.includes(st.stt) && r.ruleName === rName);
           if (matched.length > 0) {
             const cellText = matched.map(m => `${formatDateVN(m.date)} (${m.delta > 0 ? '+' : ''}${m.delta} điểm)`).join('\n');
             row.push(cellText);
@@ -2254,8 +2349,8 @@
     function prepareExportWordModal() {
       const wrap = document.getElementById('exportWordRulesChecklist');
       const uniqueRules = new Set();
-      (appState.rules || DEFAULT_RULES).forEach(r => uniqueRules.add(r.name));
-      (appState.records || []).forEach(r => uniqueRules.add(r.ruleName));
+      (appState.rules || DEFAULT_RULES).filter(r => !r.isDeleted).forEach(r => uniqueRules.add(r.name));
+      (appState.records || []).filter(r => !r.isDeleted).forEach(r => uniqueRules.add(r.ruleName));
 
       wrap.innerHTML = Array.from(uniqueRules).map(rName => `
         <label class="checkbox-item">
@@ -2282,7 +2377,7 @@
 
       const includeScore = document.getElementById('wordIncludeScoreCheck').checked;
       const scoresMap = calculateAllScores();
-      const studentList = [...(appState.students || [])].sort((a, b) => a.stt - b.stt);
+      const studentList = [...(appState.students || [])].filter(s => !s.isDeleted).sort((a, b) => a.stt - b.stt);
 
       if (studentList.length === 0) {
         alert('Chưa có học sinh nào trong danh sách lớp!');
@@ -2307,7 +2402,7 @@
       `;
 
       studentList.forEach(st => {
-        const userRecords = (appState.records || []).filter(r => r.studentStts && r.studentStts.includes(st.stt) && selectedRuleNames.includes(r.ruleName));
+        const userRecords = (appState.records || []).filter(r => !r.isDeleted && r.studentStts && r.studentStts.includes(st.stt) && selectedRuleNames.includes(r.ruleName));
         const violations = userRecords.filter(r => r.delta < 0);
         const rewards = userRecords.filter(r => r.delta > 0);
 
@@ -2317,7 +2412,7 @@
         if (violations.length === 0) {
           vioLines = `<p class="item-line">(Không có ghi nhận vi phạm)</p>`;
         } else {
-          violations.forEach((v, vIdx) => {
+          violations.forEach((v) => {
             vioLines += `<p class="item-line">- ${escapeHtml(v.ruleName)}: Ngày ${formatDateVN(v.date)} (${v.delta} điểm).</p>`;
           });
         }
@@ -2326,7 +2421,7 @@
         if (rewards.length === 0) {
           rewLines = `<p class="item-line">(Không có ghi nhận khen thưởng)</p>`;
         } else {
-          rewards.forEach((rw, rwIdx) => {
+          rewards.forEach((rw) => {
             rewLines += `<p class="item-line">- ${escapeHtml(rw.ruleName)}: Ngày ${formatDateVN(rw.date)} (+${rw.delta} điểm).</p>`;
           });
         }
@@ -2366,37 +2461,123 @@
       closeModal('exportWordModal');
     };
 
-    function renderLabor() {
-      const weeklyList = document.getElementById('weeklyTasksList');
-      const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL || currentUser.role === 'LP_LAO_DONG');
+    // ==========================================
+    // PHÂN CÔNG TRỰC NHẬT MA TRẬN (THỨ 2 - THỨ 7)
+    // ==========================================
+    const DAYS_OF_WEEK = [
+      { key: '2', label: 'Thứ 2' },
+      { key: '3', label: 'Thứ 3' },
+      { key: '4', label: 'Thứ 4' },
+      { key: '5', label: 'Thứ 5' },
+      { key: '6', label: 'Thứ 6' },
+      { key: '7', label: 'Thứ 7' }
+    ];
 
-      const weekKey = appState.currentLaborWeek || Object.keys(appState.laborWeeklyHistory || {}).pop() || '';
-      document.getElementById('currentWeekDisplayTitle').innerText = weekKey ? `Phân công: ${weekKey}` : 'Chưa có phân công tuần nào';
+    function extractWeekNumber(str) {
+      if (!str) return 0;
+      const m = str.match(/\d+/);
+      return m ? parseInt(m[0], 10) : 0;
+    }
 
-      const currentWeekObj = (appState.laborWeeklyHistory && appState.laborWeeklyHistory[weekKey]) || {};
-      const currentTasks = currentWeekObj[selectedLaborDay] || [];
+    function getAssignedWeeksList() {
+      const matrix = appState.laborWeeklyMatrix || {};
+      const weeks = Object.keys(matrix);
+      if (weeks.length === 0) return ['Tuần 1'];
+      return weeks;
+    }
 
-      if (currentTasks.length === 0) {
-        weeklyList.innerHTML = `
-          <div class="empty-state">
-            <i class="fa-regular fa-calendar-xmark"></i>
-            <p>Chưa có thẻ phân công lao động cho ngày này.</p>
-          </div>
-        `;
-      } else {
-        weeklyList.innerHTML = currentTasks.map((t, idx) => `
-          <div class="task-card">
-            ${isGvcn ? `<button class="notice-delete-btn" title="Xóa phân công này" onclick="deleteWeeklyTaskAssignment('${weekKey}', '${selectedLaborDay}', ${idx})"><i class="fa-solid fa-trash-can"></i></button>` : ''}
-            <div class="task-title"><i class="fa-solid fa-thumbtack"></i> ${escapeHtml(t.taskName)}</div>
-            <div class="task-students">
-              <strong>Học sinh:</strong> ${t.students.map(s => escapeHtml(s)).join(', ') || 'Chưa phân công'}
-            </div>
-          </div>
-        `).join('');
+    function getHighestAssignedWeek() {
+      const matrix = appState.laborWeeklyMatrix || {};
+      let bestWeek = '';
+      let maxNum = -1;
+
+      Object.entries(matrix).forEach(([wKey, tasksObj]) => {
+        let hasAtLeastOne = false;
+        Object.values(tasksObj).forEach(dayObj => {
+          Object.values(dayObj).forEach(studArr => {
+            if (Array.isArray(studArr) && studArr.length > 0) hasAtLeastOne = true;
+          });
+        });
+
+        if (hasAtLeastOne) {
+          const n = extractWeekNumber(wKey);
+          if (n > maxNum) {
+            maxNum = n;
+            bestWeek = wKey;
+          }
+        }
+      });
+
+      if (!bestWeek) {
+        const keys = Object.keys(matrix);
+        bestWeek = keys.length > 0 ? keys[0] : 'Tuần 1';
+      }
+      return bestWeek;
+    }
+
+    function renderLaborMatrix() {
+      const tbody = document.getElementById('laborMatrixTbody');
+      const dropdown = document.getElementById('weeklySelectWeekDropdown');
+      const cards = (appState.laborTaskCards || []).filter(c => !c.isDeleted);
+
+      const allWeeks = getAssignedWeeksList();
+      if (!viewingLaborWeek || !allWeeks.includes(viewingLaborWeek)) {
+        viewingLaborWeek = getHighestAssignedWeek();
       }
 
+      dropdown.innerHTML = allWeeks.map(w => `
+        <option value="${escapeHtml(w)}" ${w === viewingLaborWeek ? 'selected' : ''}>${escapeHtml(w)}</option>
+      `).join('');
+
+      if (cards.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" class="empty-state">
+              <i class="fa-solid fa-broom"></i>
+              <p>Chưa có thẻ công việc nào. Giáo viên chủ nhiệm hoặc Lớp phó lao động vui lòng bấm <strong>Tạo thẻ công việc</strong> trước.</p>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL);
+      const isLpLaoDong = currentUser && (currentUser.role === 'LP_LAO_DONG');
+      const canEdit = isGvcn || isLpLaoDong;
+
+      const currentWeekData = (appState.laborWeeklyMatrix && appState.laborWeeklyMatrix[viewingLaborWeek]) || {};
+
+      tbody.innerHTML = cards.map(c => {
+        const taskData = currentWeekData[c.id] || currentWeekData[c.name] || {};
+        const rowCells = DAYS_OF_WEEK.map(day => {
+          const students = taskData[day.key] || [];
+          let cellHtml = '';
+          if (students.length === 0) {
+            cellHtml = `<span class="labor-cell-empty">${canEdit ? '<i class="fa-solid fa-plus"></i>' : '-'}</span>`;
+          } else {
+            cellHtml = students.map(s => `<span class="labor-student-tag">${escapeHtml(s)}</span>`).join('');
+          }
+
+          const clickAttr = canEdit ? `onclick="openCellAssignModal('${escapeHtml(viewingLaborWeek)}', '${c.id}', '${day.key}')"` : '';
+          return `
+            <td class="labor-cell ${canEdit ? 'editable' : ''}" ${clickAttr}>
+              ${cellHtml}
+            </td>
+          `;
+        }).join('');
+
+        return `
+          <tr>
+            <td class="task-name-cell"><i class="fa-solid fa-broom" style="color: var(--cyan-accent); margin-right: 6px;"></i>${escapeHtml(c.name)}</td>
+            ${rowCells}
+          </tr>
+        `;
+      }).join('');
+
+      // Render danh sách lao động đột xuất
       const adhocList = document.getElementById('adhocTasksList');
-      if (!appState.laborAdhoc || appState.laborAdhoc.length === 0) {
+      const activeAdhoc = (appState.laborAdhoc || []).filter(a => !a.isDeleted);
+      if (activeAdhoc.length === 0) {
         adhocList.innerHTML = `
           <div class="empty-state">
             <i class="fa-regular fa-clipboard"></i>
@@ -2404,9 +2585,9 @@
           </div>
         `;
       } else {
-        adhocList.innerHTML = appState.laborAdhoc.slice().reverse().map(item => `
+        adhocList.innerHTML = activeAdhoc.slice().reverse().map(item => `
           <div class="task-card" style="border-left: 4px solid var(--cyan-accent);">
-            ${isGvcn ? `<button class="notice-delete-btn" title="Xóa lịch này" onclick="deleteAdhocTask('${item.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
+            ${canEdit ? `<button class="notice-delete-btn" title="Xóa lịch này" onclick="deleteAdhocTaskPrompt('${item.id}')"><i class="fa-solid fa-trash-can"></i></button>` : ''}
             <div class="task-title">${escapeHtml(item.title)}</div>
             <div style="font-size: 0.88rem; color: #cbd5e1; margin-bottom: 4px;">
               <strong>Nhiệm vụ:</strong> ${escapeHtml(item.detail)}
@@ -2419,63 +2600,135 @@
       }
     }
 
-    window.saveWeeklyLaborAssignment = async function() {
-      const weekLabel = document.getElementById('weeklyWeekLabel').value.trim() || 'Tuần này';
-      const day = document.getElementById('weeklyDaySelect').value;
-      const task = document.getElementById('weeklyTaskSelect').value;
+    window.changeViewingLaborWeek = function(w) {
+      viewingLaborWeek = w;
+      renderLaborMatrix();
+    };
 
-      if (!task) {
-        alert('Vui lòng chọn thẻ công việc!');
+    window.promptCreateNewLaborWeek = async function() {
+      const name = prompt('Nhập tên tuần cần phân công mới (ví dụ: Tuần 2, Tuần 3...):');
+      if (!name || !name.trim()) return;
+      const wName = name.trim();
+      if (!appState.laborWeeklyMatrix) appState.laborWeeklyMatrix = {};
+      if (!appState.laborWeeklyMatrix[wName]) {
+        appState.laborWeeklyMatrix[wName] = {};
+        await syncData();
+      }
+      viewingLaborWeek = wName;
+      renderLaborMatrix();
+    };
+
+    window.openCellAssignModal = function(weekKey, taskId, dayKey) {
+      const isGvcn = currentUser && (currentUser.role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL);
+      const isLpLaoDong = currentUser && (currentUser.role === 'LP_LAO_DONG');
+      if (!isGvcn && !isLpLaoDong) {
+        alert('Chỉ Giáo viên chủ nhiệm và Lớp phó lao động mới có quyền phân công!');
         return;
       }
 
-      const chosenStudents = [];
-      document.querySelectorAll("input[name='weekly_student_item']:checked").forEach(cb => {
-        chosenStudents.push(cb.value);
-      });
+      currentEditingCell = { weekKey, taskId, dayKey };
 
-      if (!appState.laborWeeklyHistory) appState.laborWeeklyHistory = {};
-      if (!appState.laborWeeklyHistory[weekLabel]) appState.laborWeeklyHistory[weekLabel] = {};
-      if (!appState.laborWeeklyHistory[weekLabel][day]) appState.laborWeeklyHistory[weekLabel][day] = [];
+      const card = (appState.laborTaskCards || []).find(c => c.id === taskId) || { name: taskId };
+      const dayObj = DAYS_OF_WEEK.find(d => d.key === dayKey);
 
-      appState.laborWeeklyHistory[weekLabel][day].push({
-        taskName: task,
-        students: chosenStudents
-      });
+      document.getElementById('cellLaborModalTitle').innerHTML = `<i class="fa-solid fa-user-check"></i> Phân công: ${escapeHtml(card.name)}`;
+      document.getElementById('cellLaborModalSub').innerText = `${weekKey} &bull; ${dayObj ? dayObj.label : 'Thứ ' + dayKey}`;
 
-      appState.currentLaborWeek = weekLabel;
-      await syncData();
-      closeModal('assignLaborWeeklyModal');
-      renderLabor();
-      alert('Đã lưu phân công trực nhật!');
+      const matrix = appState.laborWeeklyMatrix || {};
+      const currentAssigned = (matrix[weekKey] && matrix[weekKey][taskId] && matrix[weekKey][taskId][dayKey]) || [];
+
+      const checklistWrap = document.getElementById('cellLaborStudentsChecklist');
+      const activeStudents = (appState.students || []).filter(s => !s.isDeleted);
+      checklistWrap.innerHTML = activeStudents.map(s => {
+        const isChecked = currentAssigned.includes(s.name) ? 'checked' : '';
+        return `
+          <label class="checkbox-item">
+            <input type="checkbox" name="cell_labor_student_cb" value="${escapeHtml(s.name)}" ${isChecked} />
+            <span>${s.stt}. ${escapeHtml(s.name)}</span>
+          </label>
+        `;
+      }).join('');
+
+      openModal('cellLaborAssignModal');
     };
 
-    window.deleteWeeklyTaskAssignment = async function(weekKey, day, index) {
-      if (confirm('Bạn có muốn xóa thẻ phân công trực nhật này?')) {
-        if (appState.laborWeeklyHistory && appState.laborWeeklyHistory[weekKey] && appState.laborWeeklyHistory[weekKey][day]) {
-          appState.laborWeeklyHistory[weekKey][day].splice(index, 1);
+    window.saveCellLaborAssignment = async function() {
+      if (!currentEditingCell) return;
+      const { weekKey, taskId, dayKey } = currentEditingCell;
+
+      const chosen = [];
+      document.querySelectorAll("input[name='cell_labor_student_cb']:checked").forEach(cb => {
+        chosen.push(cb.value);
+      });
+
+      if (!appState.laborWeeklyMatrix) appState.laborWeeklyMatrix = {};
+      if (!appState.laborWeeklyMatrix[weekKey]) appState.laborWeeklyMatrix[weekKey] = {};
+      if (!appState.laborWeeklyMatrix[weekKey][taskId]) appState.laborWeeklyMatrix[weekKey][taskId] = {};
+
+      appState.laborWeeklyMatrix[weekKey][taskId][dayKey] = chosen;
+
+      await syncData();
+      closeModal('cellLaborAssignModal');
+      renderLaborMatrix();
+    };
+
+    window.saveLaborTaskCard = async function() {
+      const name = document.getElementById('laborTaskNameInput').value.trim();
+      if (!name) return;
+      if (!appState.laborTaskCards) appState.laborTaskCards = [];
+      appState.laborTaskCards.push({ id: 'task_' + Date.now(), name: name, isDeleted: false });
+      await syncData();
+      document.getElementById('laborTaskNameInput').value = '';
+      closeModal('createLaborTaskModal');
+      renderManageTaskCardsList();
+      renderLaborMatrix();
+      alert('Đã tạo thẻ công việc thành công!');
+    };
+
+    function renderManageTaskCardsList() {
+      const wrap = document.getElementById('manageTaskCardsList');
+      const cards = (appState.laborTaskCards || []).filter(c => !c.isDeleted);
+      if (cards.length === 0) {
+        wrap.innerHTML = `<div class="empty-state">Chưa có thẻ công việc nào được tạo.</div>`;
+        return;
+      }
+      wrap.innerHTML = cards.map(c => `
+        <div class="student-manage-item">
+          <span><i class="fa-solid fa-broom"></i> ${escapeHtml(c.name)}</span>
+          <button class="btn btn-danger" style="padding: 4px 10px; font-size: 0.78rem;" onclick="deleteLaborTaskCardPrompt('${c.id}')">
+            <i class="fa-solid fa-trash"></i> Xóa thẻ
+          </button>
+        </div>
+      `).join('');
+    }
+
+    window.deleteLaborTaskCardPrompt = async function(id) {
+      if (confirm('Bạn có chắc chắn muốn xóa thẻ công việc này hay không?')) {
+        const item = (appState.laborTaskCards || []).find(c => c.id === id);
+        if (item) {
+          item.isDeleted = true;
           await syncData();
-          renderLabor();
+          renderManageTaskCardsList();
+          renderLaborMatrix();
         }
       }
     };
 
-    window.deleteAdhocTask = async function(id) {
-      if (confirm('Bạn có muốn xóa phân công lao động đột xuất này?')) {
-        appState.laborAdhoc = appState.laborAdhoc.filter(a => a.id !== id);
-        await syncData();
-        renderLabor();
+    window.deleteAdhocTaskPrompt = async function(id) {
+      if (confirm('Bạn có chắc chắn muốn xóa phân công lao động đột xuất này hay không?')) {
+        const item = (appState.laborAdhoc || []).find(a => a.id === id);
+        if (item) {
+          item.isDeleted = true;
+          await syncData();
+          renderLaborMatrix();
+        }
       }
     };
 
     function prepareLaborExportModal() {
       const sel = document.getElementById('exportLaborWeekSelect');
-      const weeks = Object.keys(appState.laborWeeklyHistory || {});
-      if (weeks.length === 0) {
-        sel.innerHTML = '<option value="">Chưa có dữ liệu phân công tuần nào</option>';
-      } else {
-        sel.innerHTML = weeks.slice().reverse().map(w => `<option value="${escapeHtml(w)}">${escapeHtml(w)}</option>`).join('');
-      }
+      const weeks = getAssignedWeeksList();
+      sel.innerHTML = weeks.map(w => `<option value="${escapeHtml(w)}">${escapeHtml(w)}</option>`).join('');
     }
 
     window.executeExportLaborExcel = function() {
@@ -2485,25 +2738,17 @@
         return;
       }
 
-      const weekObj = (appState.laborWeeklyHistory && appState.laborWeeklyHistory[weekKey]) || {};
-      const allTaskNames = (appState.laborTaskCards || []).map(c => c.name);
+      const matrix = appState.laborWeeklyMatrix || {};
+      const weekData = matrix[weekKey] || {};
+      const cards = (appState.laborTaskCards || []).filter(c => !c.isDeleted);
 
-      const taskSet = new Set(allTaskNames);
-      ['2', '3', '4', '5', '6'].forEach(d => {
-        (weekObj[d] || []).forEach(t => taskSet.add(t.taskName));
-      });
-
-      const headerRow = ['Công việc', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6'];
-      const dataRows = Array.from(taskSet).map(taskName => {
-        const row = [taskName];
-        ['2', '3', '4', '5', '6'].forEach(d => {
-          const matched = (weekObj[d] || []).filter(item => item.taskName === taskName);
-          if (matched.length > 0) {
-            const names = matched.map(m => m.students.join(', ')).filter(Boolean).join('\n');
-            row.push(names);
-          } else {
-            row.push('');
-          }
+      const headerRow = ['Công việc', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'];
+      const dataRows = cards.map(c => {
+        const taskData = weekData[c.id] || weekData[c.name] || {};
+        const row = [c.name];
+        DAYS_OF_WEEK.forEach(day => {
+          const names = (taskData[day.key] || []).join(', ');
+          row.push(names || '');
         });
         return row;
       });
@@ -2516,75 +2761,48 @@
       closeModal('exportLaborModal');
     };
 
-    function renderManageTaskCardsList() {
-      const wrap = document.getElementById('manageTaskCardsList');
-      const cards = appState.laborTaskCards || [];
-      if (cards.length === 0) {
-        wrap.innerHTML = `<div class="empty-state">Chưa có thẻ công việc nào được tạo.</div>`;
-        return;
-      }
-      wrap.innerHTML = cards.map(c => `
-        <div class="student-manage-item">
-          <span><i class="fa-solid fa-broom"></i> ${escapeHtml(c.name)}</span>
-          <button class="btn btn-danger" style="padding: 4px 10px; font-size: 0.78rem;" onclick="deleteLaborTaskCard('${c.id}')">
-            <i class="fa-solid fa-trash"></i> Xóa thẻ
-          </button>
-        </div>
-      `).join('');
-    }
-
-    window.deleteLaborTaskCard = async function(id) {
-      if (confirm('Bạn có chắc muốn xóa thẻ công việc này?')) {
-        appState.laborTaskCards = (appState.laborTaskCards || []).filter(c => c.id !== id);
-        await syncData();
-        renderManageTaskCardsList();
-      }
-    };
-
-    window.saveLaborTaskCard = async function() {
-      const name = document.getElementById('laborTaskNameInput').value.trim();
-      if (!name) return;
-      if (!appState.laborTaskCards) appState.laborTaskCards = [];
-      appState.laborTaskCards.push({ id: 'task_' + Date.now(), name: name });
-      await syncData();
-      document.getElementById('laborTaskNameInput').value = '';
-      closeModal('createLaborTaskModal');
-      alert('Đã tạo thẻ công việc thành công!');
-    };
-
+    // ==========================================
+    // QUẢN LÝ THẺ HỌC SINH & XÓA THẺ HỌC SINH
+    // ==========================================
     function renderStudentManageList() {
       const wrap = document.getElementById('studentManageListWrap');
-      if (!appState.students || appState.students.length === 0) {
+      const activeStudents = (appState.students || []).filter(s => !s.isDeleted);
+      if (activeStudents.length === 0) {
         wrap.innerHTML = `<div class="empty-state">Chưa có học sinh trong danh sách.</div>`;
         return;
       }
-      wrap.innerHTML = appState.students.map(s => `
+      wrap.innerHTML = activeStudents.map(s => `
         <div class="student-manage-item">
           <span><strong>${s.stt}.</strong> ${escapeHtml(s.name)}</span>
-          <button class="btn btn-danger" style="padding: 4px 10px; font-size: 0.78rem;" onclick="deleteStudent(${s.stt})">
+          <button class="btn btn-danger" style="padding: 4px 10px; font-size: 0.78rem;" onclick="deleteStudentPrompt(${s.stt})">
             <i class="fa-solid fa-trash"></i> Xóa
           </button>
         </div>
       `).join('');
     }
 
-    window.deleteStudent = async function(stt) {
-      if (confirm(`Bạn có chắc chắn muốn xóa học sinh STT ${stt}?`)) {
-        appState.students = appState.students.filter(s => s.stt !== stt);
-        if (appState.bcs && appState.bcs[stt]) delete appState.bcs[stt];
-        if (appState.attentions) appState.attentions = appState.attentions.filter(a => a.stt !== stt);
-        await syncData();
-        renderStudentManageList();
-        renderAll();
+    window.deleteStudentPrompt = async function(stt) {
+      if (confirm(`Bạn có chắc chắn muốn xóa học sinh STT ${stt} hay không?`)) {
+        const item = (appState.students || []).find(s => s.stt === stt);
+        if (item) {
+          item.isDeleted = true;
+          if (appState.bcs && appState.bcs[stt]) delete appState.bcs[stt];
+          if (appState.attentions) {
+            const att = appState.attentions.find(a => a.stt === stt);
+            if (att) att.isDeleted = true;
+          }
+          await syncData();
+          renderStudentManageList();
+          renderAll();
+        }
       }
     };
 
     window.confirmDeleteAllStudents = async function() {
-      if (confirm('CẢNH BÁO: Hành động này sẽ xóa toàn bộ học sinh, ban cán sự và lịch sử rèn luyện. Bạn có muốn tiếp tục?')) {
-        appState.students = [];
+      if (confirm('CẢNH BÁO: Bạn có chắc chắn muốn xóa toàn bộ học sinh lớp hay không? Dữ liệu sẽ được ẩn trên hệ thống nhưng lưu trong lịch sử.')) {
+        (appState.students || []).forEach(s => s.isDeleted = true);
         appState.bcs = {};
-        appState.records = [];
-        appState.attentions = [];
+        (appState.attentions || []).forEach(a => a.isDeleted = true);
         await syncData();
         renderStudentManageList();
         renderAll();
@@ -2613,8 +2831,9 @@
             const existingIdx = appState.students.findIndex(s => s.stt === stt);
             if (existingIdx >= 0) {
               appState.students[existingIdx].name = name;
+              appState.students[existingIdx].isDeleted = false;
             } else {
-              appState.students.push({ stt: stt, name: name });
+              appState.students.push({ stt: stt, name: name, isDeleted: false });
             }
           }
         }
@@ -2628,9 +2847,12 @@
       alert('Đã cập nhật danh sách học sinh thành công!');
     };
 
+    // ==========================================
+    // BAN CÁN SỰ & GHI NHẬN RÈN LUYỆN
+    // ==========================================
     function prepareBcsModal() {
       const sel = document.getElementById('bcsStudentSelect');
-      sel.innerHTML = (appState.students || []).map(s => `
+      sel.innerHTML = (appState.students || []).filter(s => !s.isDeleted).map(s => `
         <option value="${s.stt}">${s.stt} - ${escapeHtml(s.name)}</option>
       `).join('');
 
@@ -2673,7 +2895,7 @@
       const ruleSelect = document.getElementById('ruleActionSelect');
       const role = currentUser.role;
 
-      const userRules = (appState.rules || DEFAULT_RULES).filter(r => {
+      const userRules = (appState.rules || DEFAULT_RULES).filter(r => !r.isDeleted).filter(r => {
         if (role === 'GVCN' || currentUser.email === ADMIN_PRIMARY_EMAIL) return true;
         return r.roles && (r.roles.includes(role) || r.roles.includes('ALL'));
       });
@@ -2686,7 +2908,7 @@
       document.getElementById('recordDateInput').value = now.toISOString().split('T')[0];
 
       const checkWrap = document.getElementById('recordStudentsChecklist');
-      checkWrap.innerHTML = (appState.students || []).map(s => `
+      checkWrap.innerHTML = (appState.students || []).filter(s => !s.isDeleted).map(s => `
         <label class="checkbox-item">
           <input type="checkbox" name="record_student_item" value="${s.stt}" />
           <span>${s.stt}. ${escapeHtml(s.name)}</span>
@@ -2731,7 +2953,8 @@
         ruleName: ruleName,
         delta: delta,
         studentStts: selectedStts,
-        recordedBy: currentUser.fullname
+        recordedBy: currentUser.fullname,
+        isDeleted: false
       });
 
       await syncData();
@@ -2757,7 +2980,7 @@
 
       try {
         if (!appState.userRoles) appState.userRoles = {};
-        appState.userRoles[email] = { fullname: fn, role: r };
+        appState.userRoles[email] = { fullname: fn, role: r, isDeleted: false };
         await syncData();
 
         const secondaryApp = initializeApp(firebaseConfig, "SecondaryApp_" + Date.now());
@@ -2829,34 +3052,9 @@
       }
     };
 
-    window.selectDay = function(day) {
-      selectedLaborDay = day;
-      document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
-      event.target.classList.add('active');
-      renderLabor();
-    };
-
-    function prepareLaborWeeklyModal() {
-      const sel = document.getElementById('weeklyTaskSelect');
-      const cards = appState.laborTaskCards || [];
-      if (cards.length === 0) {
-        sel.innerHTML = '<option value="">Chưa có thẻ công việc nào (Hãy tạo thẻ trước)</option>';
-      } else {
-        sel.innerHTML = cards.map(c => `<option value="${c.name}">${escapeHtml(c.name)}</option>`).join('');
-      }
-
-      const wrap = document.getElementById('weeklyStudentsChecklist');
-      wrap.innerHTML = (appState.students || []).map(s => `
-        <label class="checkbox-item">
-          <input type="checkbox" name="weekly_student_item" value="${s.name}" />
-          <span>${s.stt}. ${escapeHtml(s.name)}</span>
-        </label>
-      `).join('');
-    }
-
     function prepareLaborAdhocModal() {
       const wrap = document.getElementById('adhocStudentsChecklist');
-      wrap.innerHTML = (appState.students || []).map(s => `
+      wrap.innerHTML = (appState.students || []).filter(s => !s.isDeleted).map(s => `
         <label class="checkbox-item">
           <input type="checkbox" name="adhoc_student_item" value="${s.name}" />
           <span>${s.stt}. ${escapeHtml(s.name)}</span>
@@ -2883,14 +3081,15 @@
         id: 'adhoc_' + Date.now(),
         title: title,
         detail: detail,
-        students: chosen
+        students: chosen,
+        isDeleted: false
       });
 
       await syncData();
       closeModal('assignLaborAdhocModal');
       document.getElementById('adhocSessionName').value = '';
       document.getElementById('adhocTaskDetail').value = '';
-      renderLabor();
+      renderLaborMatrix();
       alert('Đã lưu phân công lao động đột xuất!');
     };
 
@@ -2909,7 +3108,6 @@
         if (id === 'manageStudentsModal') renderStudentManageList();
         if (id === 'customRulesModal') renderRulesModal();
         if (id === 'historyExportModal') prepareHistoryModal();
-        if (id === 'assignLaborWeeklyModal') prepareLaborWeeklyModal();
         if (id === 'assignLaborAdhocModal') prepareLaborAdhocModal();
         if (id === 'manageTaskCardsModal') renderManageTaskCardsList();
         if (id === 'exportLaborModal') prepareLaborExportModal();
@@ -2917,7 +3115,7 @@
         if (id === 'exportWordModal') prepareExportWordModal();
         if (id === 'addHonorModal') {
           const wrap = document.getElementById('honorStudentsChecklist');
-          wrap.innerHTML = (appState.students || []).map(s => `
+          wrap.innerHTML = (appState.students || []).filter(s => !s.isDeleted).map(s => `
             <label class="checkbox-item">
               <input type="checkbox" name="honor_student_item" value="${s.stt}" />
               <span>${s.stt}. ${escapeHtml(s.name)}</span>
@@ -2926,7 +3124,7 @@
         }
         if (id === 'attentionManageModal') {
           const sel = document.getElementById('attentionStudentSelect');
-          sel.innerHTML = (appState.students || []).map(s => `<option value="${s.stt}">${s.stt} - ${escapeHtml(s.name)}</option>`).join('');
+          sel.innerHTML = (appState.students || []).filter(s => !s.isDeleted).map(s => `<option value="${s.stt}">${s.stt} - ${escapeHtml(s.name)}</option>`).join('');
           renderAttentionManageList();
         }
       }
